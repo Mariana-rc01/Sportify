@@ -1,6 +1,8 @@
-package com.group11.sportify.activities;
+package com.group11.sportify.activities.SeriesReps;
 
-public abstract class SeriesReps extends Activity{
+import com.group11.sportify.activities.Activity;
+
+public abstract class SeriesReps extends Activity {
     private int repetitions;
 
     public SeriesReps(String name, boolean isHard, int time, int repetitions) {

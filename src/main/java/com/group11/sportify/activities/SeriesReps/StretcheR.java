@@ -1,7 +1,7 @@
-package com.group11.sportify.activities;
+package com.group11.sportify.activities.SeriesReps;
 
-public class BurpeeR extends SeriesReps {
-    public BurpeeR(String name, boolean isHard, int time, int repetitions) {
+public class StretcheR extends SeriesReps {
+    public StretcheR(String name, boolean isHard, int time, int repetitions) {
         super(name, isHard, time, repetitions);
     }
 

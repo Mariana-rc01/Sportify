@@ -1,6 +1,6 @@
-package com.group11.sportify.activities;
+package com.group11.sportify.activities.SeriesReps;
 
-public class SitUpR extends SeriesReps{
+public class SitUpR extends SeriesReps {
 
     public SitUpR(String nome, int time, int quantidade) {
         super(nome, true, time, quantidade);

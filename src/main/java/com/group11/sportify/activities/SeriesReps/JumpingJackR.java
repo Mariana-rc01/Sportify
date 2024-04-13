@@ -1,4 +1,4 @@
-package com.group11.sportify.activities;
+package com.group11.sportify.activities.SeriesReps;
 
 public class JumpingJackR extends SeriesReps {
     public JumpingJackR(String name, boolean isHard, int time, int repetitions) {

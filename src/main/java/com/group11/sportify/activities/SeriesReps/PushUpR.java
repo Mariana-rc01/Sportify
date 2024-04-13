@@ -1,6 +1,6 @@
-package com.group11.sportify.activities;
+package com.group11.sportify.activities.SeriesReps;
 
-public class PushUpR extends SeriesReps{
+public class PushUpR extends SeriesReps {
     public PushUpR(String name, boolean isHard, int time, int repetitions) {
         super(name, isHard, time, repetitions);
     }
