@@ -54,7 +54,6 @@ public class BurpeeR extends SeriesReps {
 
     /**
      * Returns a string representation of the BurpeeR object.
-     * Overrides the toString method in the superclass.
      * @return A string representation of the BurpeeR object.
      */
     public String toString() {

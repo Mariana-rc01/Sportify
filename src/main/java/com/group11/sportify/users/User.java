@@ -1,5 +1,7 @@
 package com.group11.sportify.users;
 
+import java.util.Objects;
+
 /**
  * This abstract class represents a user of the Sportify application.
  * Users can be of different types such as professionals, amateurs, or casual users.
@@ -131,6 +133,46 @@ public abstract class User {
      */
     public void setAverageHeartRate(int averageHeartRate) {
         this.averageHeartRate = averageHeartRate;
+    }
+
+    /**
+     * Checks if this user is equal to another object.
+     * Users are considered equal if they have the same code, name, address, email, and average heart rate.
+     * @param o The object to compare with this user.
+     * @return True if the objects are equal, false otherwise.
+     */
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+        return getCode() == user.getCode() && getAverageHeartRate() == user.getAverageHeartRate() &&
+                Objects.equals(getName(), user.getName()) && Objects.equals(getAddress(), user.getAddress())
+                && Objects.equals(getEmail(), user.getEmail());
+    }
+
+    /**
+     * Converts this user to a string representation.
+     * @return The string representation of this user, including code, name, address, email, and average heart rate.
+     */
+    public String toString() {
+
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("User: \n");
+        sb.append("Code= ");
+        sb.append(code).append("\n");
+        sb.append("Name= ");
+        sb.append(name).append("\n");
+        sb.append("Address= ");
+        sb.append(address).append("\n");
+        sb.append("Email= ");
+        sb.append(email).append("\n");
+        sb.append("Average Heart Rate= ");
+        sb.append(averageHeartRate).append("\n");
+
+        return sb.toString();
     }
 
     /**

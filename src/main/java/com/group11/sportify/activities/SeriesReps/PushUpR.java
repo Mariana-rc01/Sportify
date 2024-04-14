@@ -9,6 +9,9 @@ import com.group11.sportify.users.User;
  */
 public class PushUpR extends SeriesReps {
 
+    /**
+     * Default constructor for the PushUpR class.
+     */
     public PushUpR() {
         super();
     }
@@ -24,12 +27,42 @@ public class PushUpR extends SeriesReps {
         super(name, isHard, time, repetitions);
     }
 
+    /**
+     * Constructor for the PushUpR class.
+     * @param a The activity to copy.
+     * @param repetitions The number of repetitions of the exercise.
+     */
     public PushUpR(Activity a, int repetitions) {
         super(a, repetitions);
     }
 
+    /**
+     * Constructor for the PushUpR class.
+     * @param s The series of repetitions to copy.
+     */
     public PushUpR(SeriesReps s) {
         super(s);
+    }
+
+    /**
+     * Clones the PushUpR object.
+     * @return A new instance of PushUpR object with the same attributes as the original.
+     */
+    public PushUpR clone(){
+        return new PushUpR(this);
+    }
+
+    /**
+     * Returns a string representation of the PushUpR object.
+     * @return A string representation of the PushUpR object, including information from the superclass and indication of Push Up type.
+     */
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(super.toString());
+        sb.append("Push Up\n");
+
+        return sb.toString();
     }
 
 

@@ -11,7 +11,6 @@ public class JumpingJackR extends SeriesReps {
 
     /**
      * Default constructor for the JumpingJackR class.
-     * Initializes all attributes to default values.
      */
     public JumpingJackR() {
         super();
@@ -55,7 +54,6 @@ public class JumpingJackR extends SeriesReps {
 
     /**
      * Returns a string representation of the JumpingJackR object.
-     * Overrides the toString method in the superclass.
      * @return A string representation of the JumpingJackR object, including information from the superclass and indication of Jumping Jack type.
      */
     public String toString() {
