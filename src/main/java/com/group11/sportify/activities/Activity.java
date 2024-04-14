@@ -1,5 +1,7 @@
 package com.group11.sportify.activities;
 
+import com.group11.sportify.users.User;
+
 import java.util.Objects;
 
 /**
@@ -120,6 +122,5 @@ public abstract class Activity {
         return sb.toString();
     }
 
-    // String user vai passar para User user ou algo assim
-    public abstract double calculateCaloriesConsume(String user);
+    public abstract double calculateCaloriesConsume(User user);
 }
