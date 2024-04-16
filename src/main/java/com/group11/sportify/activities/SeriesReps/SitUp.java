@@ -7,55 +7,55 @@ import com.group11.sportify.users.User;
  * This class represents the Sit-up exercise as a series of repetitions.
  * It extends the SeriesReps class.
  */
-public class SitUpR extends SeriesReps {
+public class SitUp extends SeriesReps {
 
     /**
-     * Default constructor for the SitUpR class.
+     * Default constructor for the SitUp class.
      */
-    public SitUpR() {
+    public SitUp() {
         super();
     }
 
     /**
-     * Constructor for the SitUpR class.
+     * Constructor for the SitUp class.
      * @param name The name of the exercise.
      * @param isHard Indicates if the exercise is hard or not.
      * @param time The time spent performing the exercise in minutes.
      * @param repetitions The number of repetitions of the exercise.
      */
-    public SitUpR(String name, boolean isHard, int time, int repetitions) {
+    public SitUp(String name, boolean isHard, int time, int repetitions) {
         super(name, isHard, time, repetitions);
     }
 
     /**
-     * Constructor for the SitUpR class.
+     * Constructor for the SitUp class.
      * @param a The activity to copy.
      * @param repetitions The number of repetitions of the exercise.
      */
-    public SitUpR(Activity a, int repetitions) {
+    public SitUp(Activity a, int repetitions) {
         super(a, repetitions);
     }
 
     /**
-     * Constructor for the SitUpR class.
+     * Constructor for the SitUp class.
      * @param s The series of repetitions to copy.
      */
-    public SitUpR(SeriesReps s) {
+    public SitUp(SeriesReps s) {
         super(s);
     }
 
     /**
-     * Clones the SitUpR object.
-     * @return A new instance of SitUpR object with the same attributes as the original.
+     * Clones the SitUp object.
+     * @return A new instance of SitUp object with the same attributes as the original.
      */
-    public SitUpR clone(){
-        return new SitUpR(this);
+    public SitUp clone(){
+        return new SitUp(this);
     }
 
     /**
-     * Returns a string representation of the SitUpR object.
+     * Returns a string representation of the SitUp object.
      * Overrides the toString method in the superclass.
-     * @return A string representation of the SitUpR object, including information from the superclass and indication of Sit Up type.
+     * @return A string representation of the SitUp object, including information from the superclass and indication of Sit Up type.
      */
     public String toString() {
         StringBuilder sb = new StringBuilder();
