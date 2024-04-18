@@ -19,12 +19,11 @@ public class JumpingJack extends SeriesReps {
     /**
      * Constructor for the JumpingJack class.
      * @param name The name of the exercise.
-     * @param isHard Indicates if the exercise is hard or not.
      * @param time The time spent performing the exercise in minutes.
      * @param repetitions The number of repetitions of the exercise.
      */
-    public JumpingJack(String name, boolean isHard, int time, int repetitions) {
-        super(name, isHard, time, repetitions);
+    public JumpingJack(String name, int time, int repetitions) {
+        super(name, time, repetitions);
     }
 
     /**

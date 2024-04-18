@@ -1,13 +1,14 @@
 package com.group11.sportify.activities.SeriesReps;
 
 import com.group11.sportify.activities.Activity;
+import com.group11.sportify.activities.Hard;
 import com.group11.sportify.users.User;
 
 /**
  * This class represents the Sit-up exercise as a series of repetitions.
  * It extends the SeriesReps class.
  */
-public class SitUp extends SeriesReps {
+public class SitUp extends SeriesReps implements Hard {
 
     /**
      * Default constructor for the SitUp class.
@@ -19,12 +20,11 @@ public class SitUp extends SeriesReps {
     /**
      * Constructor for the SitUp class.
      * @param name The name of the exercise.
-     * @param isHard Indicates if the exercise is hard or not.
      * @param time The time spent performing the exercise in minutes.
      * @param repetitions The number of repetitions of the exercise.
      */
-    public SitUp(String name, boolean isHard, int time, int repetitions) {
-        super(name, isHard, time, repetitions);
+    public SitUp(String name, int time, int repetitions) {
+        super(name, time, repetitions);
     }
 
     /**
@@ -66,6 +66,9 @@ public class SitUp extends SeriesReps {
         return sb.toString();
     }
 
+    public boolean isHard() {
+        return true;
+    }
 
     public double calculateCaloriesConsume(User user) {
         return 0;

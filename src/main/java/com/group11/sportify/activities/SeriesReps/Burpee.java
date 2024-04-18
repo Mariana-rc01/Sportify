@@ -1,13 +1,14 @@
 package com.group11.sportify.activities.SeriesReps;
 
 import com.group11.sportify.activities.Activity;
+import com.group11.sportify.activities.Hard;
 import com.group11.sportify.users.User;
 
 /**
  * This class represents the Burpee exercise as a series of repetitions.
  * It extends the SeriesReps class.
  */
-public class Burpee extends SeriesReps {
+public class Burpee extends SeriesReps implements Hard{
 
     /**
      * Default constructor for the Burpee class.
@@ -19,12 +20,11 @@ public class Burpee extends SeriesReps {
     /**
      * Constructor for the Burpee class.
      * @param name The name of the exercise.
-     * @param isHard Indicates if the exercise is hard or not.
      * @param time The time spent performing the exercise in minutes.
      * @param repetitions The number of repetitions of the exercise.
      */
-    public Burpee(String name, boolean isHard, int time, int repetitions) {
-        super(name, isHard, time, repetitions);
+    public Burpee(String name, int time, int repetitions) {
+        super(name, time, repetitions);
     }
 
     /**
@@ -65,7 +65,12 @@ public class Burpee extends SeriesReps {
         return sb.toString();
     }
 
+    public boolean isHard() {
+        return true;
+    }
+
     public double calculateCaloriesConsume(User user) {
         return 0;
     }
+
 }

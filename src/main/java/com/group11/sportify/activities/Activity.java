@@ -9,7 +9,6 @@ import java.util.Objects;
  */
 public abstract class Activity {
     private String name;
-    private boolean isHard;
     private int timeSpentMinutes;
 
     /**
@@ -17,18 +16,15 @@ public abstract class Activity {
      */
     public Activity(){
         this.name = "";
-        this.isHard = false;
         this.timeSpentMinutes = 0;
     }
 
     /**
      * Constructor with parameters.
      * @param name The name of the activity.
-     * @param isHard Indicates if the activity is hard or not.
      */
-    public Activity(String name, boolean isHard, int time){
+    public Activity(String name, int time){
         this.name = name;
-        this.isHard = isHard;
         this.timeSpentMinutes = time;
     }
 
@@ -38,7 +34,6 @@ public abstract class Activity {
      */
     public Activity(Activity a){
         this.name = a.getName();
-        this.isHard = a.isHard();
         this.timeSpentMinutes = a.getTime();
     }
 
@@ -56,22 +51,6 @@ public abstract class Activity {
      */
     public void setName(String name) {
         this.name = name;
-    }
-
-    /**
-     * Check if the activity is hard.
-     * @return True if the activity is hard, false otherwise.
-     */
-    public boolean isHard() {
-        return this.isHard;
-    }
-
-    /**
-     * Set if the activity is hard or not.
-     * @param hard True if the activity is hard, false otherwise.
-     */
-    public void setHard(boolean hard) {
-        this.isHard = hard;
     }
 
     /**
@@ -101,7 +80,7 @@ public abstract class Activity {
         if (o == null || getClass() != o.getClass()) return false;
 
         Activity activity = (Activity) o;
-        return this.isHard == activity.isHard() && Objects.equals(this.name, activity.getName()) && this.timeSpentMinutes == activity.getTime();
+        return Objects.equals(this.name, activity.getName()) && this.timeSpentMinutes == activity.getTime();
     }
 
     /**
@@ -115,7 +94,6 @@ public abstract class Activity {
         sb.append("Name= ");
         sb.append(name).append("\n");
         sb.append("isHard= ");
-        sb.append(isHard).append("\n");
         sb.append("Time spent= ");
         sb.append(timeSpentMinutes).append("\n");
 
