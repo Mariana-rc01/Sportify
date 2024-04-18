@@ -65,6 +65,10 @@ public class PushUp extends SeriesReps implements Hard {
         return sb.toString();
     }
 
+    /**
+     * Checks if the Push Up exercise is hard.
+     * @return Always returns true, as Push Up is considered a hard activity.
+     */
     public boolean isHard() {
         return true;
     }

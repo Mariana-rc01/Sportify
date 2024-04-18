@@ -65,6 +65,10 @@ public class Burpee extends SeriesReps implements Hard{
         return sb.toString();
     }
 
+    /**
+     * Checks if the Burpee exercise is hard.
+     * @return Always returns true, as Burpee is considered a hard activity.
+     */
     public boolean isHard() {
         return true;
     }

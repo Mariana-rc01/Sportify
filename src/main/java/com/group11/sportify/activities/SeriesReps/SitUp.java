@@ -66,6 +66,10 @@ public class SitUp extends SeriesReps implements Hard {
         return sb.toString();
     }
 
+    /**
+     * Checks if the Sit Up exercise is hard.
+     * @return Always returns true, as Sit Up is considered a hard activity.
+     */
     public boolean isHard() {
         return true;
     }
