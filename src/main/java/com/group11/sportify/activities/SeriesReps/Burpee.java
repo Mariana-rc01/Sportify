@@ -73,8 +73,21 @@ public class Burpee extends SeriesReps implements Hard{
         return true;
     }
 
+    /**
+     * Calculates the total calories burned during burpees based on the user's characteristics.
+     *
+     * @param user The user performing the burpees.
+     * @return The total calories burned during burpees.
+     */
     public double calculateCaloriesConsume(User user) {
-        return 0;
+        int reps = this.getRepetitions();
+        double caloriesPerBurpee = 1.75;
+        double userFactor = user.calculateCaloriesFactor();
+        int heartRate;
+        if (reps < 10) heartRate = user.getAverageHeartRate() + (int) (1/userFactor)*20;
+        else heartRate = user.getAverageHeartRate() + (int) (1/userFactor)*35;
+        this.setAverageHeartRateDuringActivity(heartRate);
+        return caloriesPerBurpee * reps * userFactor;
     }
 
 }

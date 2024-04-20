@@ -20,9 +20,11 @@ public class Professional extends User{
      * @param address The address of the user.
      * @param email The email of the user.
      * @param averageHeartRate The average heart rate of the user.
+     * @param weight The weight of the user.
+     * @param height The height of the user.
      */
-    public Professional(int code, String name, String address, String email, int averageHeartRate) {
-        super(code, name, address, email, averageHeartRate);
+    public Professional(int code, String name, String address, String email, int averageHeartRate, double weight, double height) {
+        super(code, name, address, email, averageHeartRate,weight,height);
     }
 
     /**
@@ -54,8 +56,18 @@ public class Professional extends User{
         return sb.toString();
     }
 
-    // Pensar nisto
+    /**
+     * Calculates the calories factor based on the user's BMI.
+     * If the BMI is higher than 24.9, it returns a factor of 1.7, otherwise, it returns 1.4.
+     * @return The calories factor based on BMI.
+     */
     public double calculateCaloriesFactor() {
-        return 0;
+        double bmi = this.calculateBMI();
+        double factor = 0;
+        if (bmi > 24.9) {
+            factor = 1.7;
+        }
+        else factor = 1.4;
+        return factor;
     }
 }

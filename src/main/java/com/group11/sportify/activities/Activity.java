@@ -10,6 +10,7 @@ import java.util.Objects;
 public abstract class Activity {
     private String name;
     private int timeSpentMinutes;
+    private int averageHeartRateDuringActivity;
 
     /**
      * Default constructor.
@@ -17,15 +18,19 @@ public abstract class Activity {
     public Activity(){
         this.name = "";
         this.timeSpentMinutes = 0;
+        this.averageHeartRateDuringActivity = 0;
     }
 
     /**
      * Constructor with parameters.
      * @param name The name of the activity.
+     * @param time The time of the activity.
+     * @param h The average heart rate during the activity.
      */
-    public Activity(String name, int time){
+    public Activity(String name, int time, int h){
         this.name = name;
         this.timeSpentMinutes = time;
+        this.averageHeartRateDuringActivity = h;
     }
 
     /**
@@ -35,6 +40,7 @@ public abstract class Activity {
     public Activity(Activity a){
         this.name = a.getName();
         this.timeSpentMinutes = a.getTime();
+        this.averageHeartRateDuringActivity = a.getAverageHeartRateDuringActivity();
     }
 
     /**
@@ -70,6 +76,22 @@ public abstract class Activity {
     }
 
     /**
+     * Get the average heart rate during the activity.
+     * @return The average heart rate during the activity.
+     */
+    public int getAverageHeartRateDuringActivity() {
+        return averageHeartRateDuringActivity;
+    }
+
+    /**
+     * Set the average heart rate during the activity.
+     * @param averageHeartRateDuringActivity The average heart rate during the activity.
+     */
+    public void setAverageHeartRateDuringActivity(int averageHeartRateDuringActivity) {
+        this.averageHeartRateDuringActivity = averageHeartRateDuringActivity;
+    }
+
+    /**
      * Compare the activity with another object.
      * @param o The object to compare with.
      * @return True if the objects are equal, false otherwise.
@@ -80,7 +102,8 @@ public abstract class Activity {
         if (o == null || getClass() != o.getClass()) return false;
 
         Activity activity = (Activity) o;
-        return Objects.equals(this.name, activity.getName()) && this.timeSpentMinutes == activity.getTime();
+        return Objects.equals(this.name, activity.getName()) && this.timeSpentMinutes == activity.getTime()
+                && this.averageHeartRateDuringActivity == activity.getAverageHeartRateDuringActivity();
     }
 
     /**
@@ -96,6 +119,8 @@ public abstract class Activity {
         sb.append("isHard= ");
         sb.append("Time spent= ");
         sb.append(timeSpentMinutes).append("\n");
+        sb.append("Average Heart Rate= ");
+        sb.append(averageHeartRateDuringActivity).append("\n");
 
         return sb.toString();
     }

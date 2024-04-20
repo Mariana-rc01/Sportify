@@ -73,7 +73,20 @@ public class PushUp extends SeriesReps implements Hard {
         return true;
     }
 
+    /**
+     * Calculates the total calories burned during push-ups based on the user's characteristics.
+     *
+     * @param user The user performing the push-ups.
+     * @return The total calories burned during push-ups.
+     */
     public double calculateCaloriesConsume(User user) {
-        return 0;
+        double caloriesPerPushUp = 1;
+        int reps = this.getRepetitions();
+        double userFactor = user.calculateCaloriesFactor();
+        int heartRate;
+        if (reps < 12) heartRate = user.getAverageHeartRate() + (int) (1/userFactor)*15;
+        else heartRate = user.getAverageHeartRate() + (int) (1/userFactor)*35;
+        this.setAverageHeartRateDuringActivity(heartRate);
+        return caloriesPerPushUp * this.getRepetitions() * userFactor;
     }
 }

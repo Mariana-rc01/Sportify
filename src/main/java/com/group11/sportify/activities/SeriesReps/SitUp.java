@@ -74,8 +74,21 @@ public class SitUp extends SeriesReps implements Hard {
         return true;
     }
 
+    /**
+     * Calculates the total calories burned during sit-ups based on the user's characteristics.
+     *
+     * @param user The user performing the sit-ups.
+     * @return The total calories burned during sit-ups.
+     */
     public double calculateCaloriesConsume(User user) {
-        return 0;
+        double caloriesPerSitUp = 0.25;
+        int reps = this.getRepetitions();
+        double userFactor = user.calculateCaloriesFactor();
+        int heartRate;
+        if (reps < 15) heartRate = user.getAverageHeartRate() + (int) (1/userFactor)*10;
+        else heartRate = user.getAverageHeartRate() + (int) (1/userFactor)*20;
+        this.setAverageHeartRateDuringActivity(heartRate);
+        return caloriesPerSitUp * reps * userFactor;
     }
 
 }

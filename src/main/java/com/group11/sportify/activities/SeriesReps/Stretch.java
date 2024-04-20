@@ -59,12 +59,24 @@ public class Stretch extends SeriesReps {
         StringBuilder sb = new StringBuilder();
 
         sb.append(super.toString());
-        sb.append("Strecher\n");
+        sb.append("Strech\n");
 
         return sb.toString();
     }
 
+    /**
+     * Calculates the total calories burned during stretches based on the user's characteristics.
+     *
+     * @param user The user performing the stretches.
+     * @return The total calories burned during stretches.
+     */
     public double calculateCaloriesConsume(User user) {
-        return 0;
+        double caloriesPerStretch = 0.1;
+        int reps = this.getRepetitions();
+        double userFactor = user.calculateCaloriesFactor();
+        int heartRate;
+        heartRate = user.getAverageHeartRate() + (int) (1/userFactor)*5;
+        this.setAverageHeartRateDuringActivity(heartRate);
+        return caloriesPerStretch * this.getRepetitions() * userFactor;
     }
 }

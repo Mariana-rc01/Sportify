@@ -64,7 +64,20 @@ public class JumpingJack extends SeriesReps {
         return sb.toString();
     }
 
+    /**
+     * Calculates the total calories burned during jumping jacks based on the user's characteristics.
+     *
+     * @param user The user performing the jumping jacks.
+     * @return The total calories burned during jumping jacks.
+     */
     public double calculateCaloriesConsume(User user) {
-        return 0;
+        double caloriesPerJumping = 0.19;
+        int reps = this.getRepetitions();
+        double userFactor = user.calculateCaloriesFactor();
+        int heartRate;
+        if (reps < 25) heartRate = user.getAverageHeartRate() + (int) (1/userFactor)*15;
+        else heartRate = user.getAverageHeartRate() + (int) (1/userFactor)*25;
+        this.setAverageHeartRateDuringActivity(heartRate);
+        return caloriesPerJumping * this.getRepetitions() * userFactor;
     }
 }

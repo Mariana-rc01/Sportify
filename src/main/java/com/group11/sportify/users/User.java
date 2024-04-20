@@ -13,6 +13,8 @@ public abstract class User {
     private String address;
     private String email;
     private int averageHeartRate;
+    private double weight; // in kg
+    private double height; // in cm
 
     // Falta registar as atividades que efetuou
 
@@ -25,6 +27,8 @@ public abstract class User {
         this.address = "";
         this.email = "";
         this.averageHeartRate = 0;
+        this.weight = 0;
+        this.height = 0;
     }
 
     /**
@@ -35,12 +39,14 @@ public abstract class User {
      * @param email The email of the user.
      * @param averageHeartRate The average heart rate of the user.
      */
-    public User(int code, String name, String address, String email, int averageHeartRate) {
+    public User(int code, String name, String address, String email, int averageHeartRate, double weight, double height) {
         this.code = code;
         this.name = name;
         this.address = address;
         this.email = email;
         this.averageHeartRate = averageHeartRate;
+        this.weight = weight;
+        this.height = height;
     }
 
     /**
@@ -53,6 +59,8 @@ public abstract class User {
         this.address = u.getAddress();
         this.email = u.getEmail();
         this.averageHeartRate = u.getAverageHeartRate();
+        this.weight = weight;
+        this.height = height;
     }
 
     /**
@@ -136,6 +144,39 @@ public abstract class User {
     }
 
     /**
+     * Get weigth of the user.
+     * @return Weight of the user.
+     */
+    public double getWeigth() {
+        return this.weight;
+    }
+
+    /**
+     * Set weight of the user.
+     * @param weight The weight to set.
+     */
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    /**
+     * Get heigth of the user.
+     * @return Height of the user.
+     */
+    public double getHeigth() {
+        return this.height;
+    }
+
+    /**
+     * Set height of the user.
+     * @param height The height to set.
+     */
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+
+    /**
      * Checks if this user is equal to another object.
      * Users are considered equal if they have the same code, name, address, email, and average heart rate.
      * @param o The object to compare with this user.
@@ -148,6 +189,7 @@ public abstract class User {
 
         User user = (User) o;
         return getCode() == user.getCode() && getAverageHeartRate() == user.getAverageHeartRate() &&
+                getWeigth() == user.getWeigth() && getHeigth() == user.getHeigth() &&
                 Objects.equals(getName(), user.getName()) && Objects.equals(getAddress(), user.getAddress())
                 && Objects.equals(getEmail(), user.getEmail());
     }
@@ -171,13 +213,25 @@ public abstract class User {
         sb.append(email).append("\n");
         sb.append("Average Heart Rate= ");
         sb.append(averageHeartRate).append("\n");
+        sb.append("Weight= ");
+        sb.append(weight).append("\n");
+        sb.append("Heigth= ");
+        sb.append(height).append("\n");
 
         return sb.toString();
     }
 
     /**
+     * Calculates the Body Mass Index (BMI) of the user.
+     * @return The calculated BMI.
+     */
+    public double calculateBMI(){
+        return this.getWeigth() / (this.getHeigth() * this.getHeigth());
+    }
+
+    /**
      * Abstract method to calculate the calories factor for the user.
-     * Subclasses must implement this method to provide specific calculation based on user type.
+     * Subclasses must implement this method to provide specific calculation based on user type and on his bmi.
      * @return The calculated calories factor.
      */
     public abstract double calculateCaloriesFactor();
