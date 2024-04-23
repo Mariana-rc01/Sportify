@@ -25,12 +25,12 @@ public abstract class Activity {
      * Constructor with parameters.
      * @param name The name of the activity.
      * @param time The time of the activity.
-     * @param h The average heart rate during the activity.
+     * @param averageHeartRate The average heart rate during the activity.
      */
-    public Activity(String name, int time, int h){
+    public Activity(String name, int time, int averageHeartRate){
         this.name = name;
         this.timeSpentMinutes = time;
-        this.averageHeartRateDuringActivity = h;
+        this.averageHeartRateDuringActivity = averageHeartRate;
     }
 
     /**

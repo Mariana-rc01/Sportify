@@ -21,10 +21,11 @@ public class PushUp extends SeriesReps implements Hard {
      * Constructor for the PushUp class.
      * @param name The name of the exercise.
      * @param time The time spent performing the exercise in minutes.
+     * @param averageHeartRate  The average heart rate during the activity.
      * @param repetitions The number of repetitions of the exercise.
      */
-    public PushUp(String name, int time, int repetitions) {
-        super(name, time, repetitions);
+    public PushUp(String name, int time, int averageHeartRate, int repetitions) {
+        super(name, time, averageHeartRate, repetitions);
     }
 
     /**

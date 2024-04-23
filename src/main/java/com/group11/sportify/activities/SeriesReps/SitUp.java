@@ -21,10 +21,11 @@ public class SitUp extends SeriesReps implements Hard {
      * Constructor for the SitUp class.
      * @param name The name of the exercise.
      * @param time The time spent performing the exercise in minutes.
+     * @param averageHeartRate
      * @param repetitions The number of repetitions of the exercise.
      */
-    public SitUp(String name, int time, int repetitions) {
-        super(name, time, repetitions);
+    public SitUp(String name, int time, int averageHeartRate, int repetitions) {
+        super(name, time, averageHeartRate, repetitions);
     }
 
     /**

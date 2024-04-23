@@ -20,10 +20,11 @@ public class JumpingJack extends SeriesReps {
      * Constructor for the JumpingJack class.
      * @param name The name of the exercise.
      * @param time The time spent performing the exercise in minutes.
+     *
      * @param repetitions The number of repetitions of the exercise.
      */
-    public JumpingJack(String name, int time, int repetitions) {
-        super(name, time, repetitions);
+    public JumpingJack(String name, int time, int averageHeartRate, int repetitions) {
+        super(name, time, averageHeartRate, repetitions);
     }
 
     /**

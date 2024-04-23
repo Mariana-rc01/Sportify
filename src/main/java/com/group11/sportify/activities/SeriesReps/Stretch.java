@@ -22,8 +22,8 @@ public class Stretch extends SeriesReps {
      * @param time The time spent performing the exercise in minutes.
      * @param repetitions The number of repetitions of the exercise.
      */
-    public Stretch(String name, int time, int repetitions) {
-        super(name, time, repetitions);
+    public Stretch(String name, int time, int averageHeartRate, int repetitions) {
+        super(name, time, averageHeartRate, repetitions);
     }
 
     /**

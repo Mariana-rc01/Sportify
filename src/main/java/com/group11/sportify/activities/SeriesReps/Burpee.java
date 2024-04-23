@@ -21,10 +21,11 @@ public class Burpee extends SeriesReps implements Hard{
      * Constructor for the Burpee class.
      * @param name The name of the exercise.
      * @param time The time spent performing the exercise in minutes.
+     * @param averageHeartRate  The average heart rate during the activity.
      * @param repetitions The number of repetitions of the exercise.
      */
-    public Burpee(String name, int time, int repetitions) {
-        super(name, time, repetitions);
+    public Burpee(String name, int time, int averageHeartRate, int repetitions) {
+        super(name, time, averageHeartRate, repetitions);
     }
 
     /**
