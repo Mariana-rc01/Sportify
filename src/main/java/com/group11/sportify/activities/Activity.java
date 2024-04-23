@@ -9,27 +9,28 @@ import java.util.Objects;
  */
 public abstract class Activity {
     private String name;
-    private boolean isHard;
     private int timeSpentMinutes;
+    private int averageHeartRateDuringActivity;
 
     /**
      * Default constructor.
      */
     public Activity(){
         this.name = "";
-        this.isHard = false;
         this.timeSpentMinutes = 0;
+        this.averageHeartRateDuringActivity = 0;
     }
 
     /**
      * Constructor with parameters.
      * @param name The name of the activity.
-     * @param isHard Indicates if the activity is hard or not.
+     * @param time The time of the activity.
+     * @param averageHeartRate The average heart rate during the activity.
      */
-    public Activity(String name, boolean isHard, int time){
+    public Activity(String name, int time, int averageHeartRate){
         this.name = name;
-        this.isHard = isHard;
         this.timeSpentMinutes = time;
+        this.averageHeartRateDuringActivity = averageHeartRate;
     }
 
     /**
@@ -38,8 +39,8 @@ public abstract class Activity {
      */
     public Activity(Activity a){
         this.name = a.getName();
-        this.isHard = a.isHard();
         this.timeSpentMinutes = a.getTime();
+        this.averageHeartRateDuringActivity = a.getAverageHeartRateDuringActivity();
     }
 
     /**
@@ -59,22 +60,6 @@ public abstract class Activity {
     }
 
     /**
-     * Check if the activity is hard.
-     * @return True if the activity is hard, false otherwise.
-     */
-    public boolean isHard() {
-        return this.isHard;
-    }
-
-    /**
-     * Set if the activity is hard or not.
-     * @param hard True if the activity is hard, false otherwise.
-     */
-    public void setHard(boolean hard) {
-        this.isHard = hard;
-    }
-
-    /**
      * Get the time spent on the activity.
      * @return The time spent on the activity.
      */
@@ -91,6 +76,22 @@ public abstract class Activity {
     }
 
     /**
+     * Get the average heart rate during the activity.
+     * @return The average heart rate during the activity.
+     */
+    public int getAverageHeartRateDuringActivity() {
+        return averageHeartRateDuringActivity;
+    }
+
+    /**
+     * Set the average heart rate during the activity.
+     * @param averageHeartRateDuringActivity The average heart rate during the activity.
+     */
+    public void setAverageHeartRateDuringActivity(int averageHeartRateDuringActivity) {
+        this.averageHeartRateDuringActivity = averageHeartRateDuringActivity;
+    }
+
+    /**
      * Compare the activity with another object.
      * @param o The object to compare with.
      * @return True if the objects are equal, false otherwise.
@@ -101,7 +102,8 @@ public abstract class Activity {
         if (o == null || getClass() != o.getClass()) return false;
 
         Activity activity = (Activity) o;
-        return this.isHard == activity.isHard() && Objects.equals(this.name, activity.getName()) && this.timeSpentMinutes == activity.getTime();
+        return Objects.equals(this.name, activity.getName()) && this.timeSpentMinutes == activity.getTime()
+                && this.averageHeartRateDuringActivity == activity.getAverageHeartRateDuringActivity();
     }
 
     /**
@@ -115,9 +117,10 @@ public abstract class Activity {
         sb.append("Name= ");
         sb.append(name).append("\n");
         sb.append("isHard= ");
-        sb.append(isHard).append("\n");
         sb.append("Time spent= ");
         sb.append(timeSpentMinutes).append("\n");
+        sb.append("Average Heart Rate= ");
+        sb.append(averageHeartRateDuringActivity).append("\n");
 
         return sb.toString();
     }

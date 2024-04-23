@@ -1,13 +1,14 @@
 package com.group11.sportify.activities.SeriesReps;
 
 import com.group11.sportify.activities.Activity;
+import com.group11.sportify.activities.Hard;
 import com.group11.sportify.users.User;
 
 /**
  * This class represents the Push-up exercise as a series of repetitions.
  * It extends the SeriesReps class.
  */
-public class PushUp extends SeriesReps {
+public class PushUp extends SeriesReps implements Hard {
 
     /**
      * Default constructor for the PushUp class.
@@ -19,12 +20,12 @@ public class PushUp extends SeriesReps {
     /**
      * Constructor for the PushUp class.
      * @param name The name of the exercise.
-     * @param isHard Indicates if the exercise is hard or not.
      * @param time The time spent performing the exercise in minutes.
+     * @param averageHeartRate  The average heart rate during the activity.
      * @param repetitions The number of repetitions of the exercise.
      */
-    public PushUp(String name, boolean isHard, int time, int repetitions) {
-        super(name, isHard, time, repetitions);
+    public PushUp(String name, int time, int averageHeartRate, int repetitions) {
+        super(name, time, averageHeartRate, repetitions);
     }
 
     /**
@@ -65,8 +66,28 @@ public class PushUp extends SeriesReps {
         return sb.toString();
     }
 
+    /**
+     * Checks if the Push Up exercise is hard.
+     * @return Always returns true, as Push Up is considered a hard activity.
+     */
+    public boolean isHard() {
+        return true;
+    }
 
+    /**
+     * Calculates the total calories burned during push-ups based on the user's characteristics.
+     *
+     * @param user The user performing the push-ups.
+     * @return The total calories burned during push-ups.
+     */
     public double calculateCaloriesConsume(User user) {
-        return 0;
+        double caloriesPerPushUp = 1;
+        int reps = this.getRepetitions();
+        double userFactor = user.calculateCaloriesFactor();
+        int heartRate;
+        if (reps < 12) heartRate = user.getAverageHeartRate() + (int) (1/userFactor)*15;
+        else heartRate = user.getAverageHeartRate() + (int) (1/userFactor)*35;
+        this.setAverageHeartRateDuringActivity(heartRate);
+        return caloriesPerPushUp * this.getRepetitions() * userFactor;
     }
 }

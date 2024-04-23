@@ -19,12 +19,12 @@ public class JumpingJack extends SeriesReps {
     /**
      * Constructor for the JumpingJack class.
      * @param name The name of the exercise.
-     * @param isHard Indicates if the exercise is hard or not.
      * @param time The time spent performing the exercise in minutes.
+     *
      * @param repetitions The number of repetitions of the exercise.
      */
-    public JumpingJack(String name, boolean isHard, int time, int repetitions) {
-        super(name, isHard, time, repetitions);
+    public JumpingJack(String name, int time, int averageHeartRate, int repetitions) {
+        super(name, time, averageHeartRate, repetitions);
     }
 
     /**
@@ -65,7 +65,20 @@ public class JumpingJack extends SeriesReps {
         return sb.toString();
     }
 
+    /**
+     * Calculates the total calories burned during jumping jacks based on the user's characteristics.
+     *
+     * @param user The user performing the jumping jacks.
+     * @return The total calories burned during jumping jacks.
+     */
     public double calculateCaloriesConsume(User user) {
-        return 0;
+        double caloriesPerJumping = 0.19;
+        int reps = this.getRepetitions();
+        double userFactor = user.calculateCaloriesFactor();
+        int heartRate;
+        if (reps < 25) heartRate = user.getAverageHeartRate() + (int) (1/userFactor)*15;
+        else heartRate = user.getAverageHeartRate() + (int) (1/userFactor)*25;
+        this.setAverageHeartRateDuringActivity(heartRate);
+        return caloriesPerJumping * this.getRepetitions() * userFactor;
     }
 }

@@ -1,13 +1,14 @@
 package com.group11.sportify.activities.SeriesReps;
 
 import com.group11.sportify.activities.Activity;
+import com.group11.sportify.activities.Hard;
 import com.group11.sportify.users.User;
 
 /**
  * This class represents the Sit-up exercise as a series of repetitions.
  * It extends the SeriesReps class.
  */
-public class SitUp extends SeriesReps {
+public class SitUp extends SeriesReps implements Hard {
 
     /**
      * Default constructor for the SitUp class.
@@ -19,12 +20,12 @@ public class SitUp extends SeriesReps {
     /**
      * Constructor for the SitUp class.
      * @param name The name of the exercise.
-     * @param isHard Indicates if the exercise is hard or not.
      * @param time The time spent performing the exercise in minutes.
+     * @param averageHeartRate
      * @param repetitions The number of repetitions of the exercise.
      */
-    public SitUp(String name, boolean isHard, int time, int repetitions) {
-        super(name, isHard, time, repetitions);
+    public SitUp(String name, int time, int averageHeartRate, int repetitions) {
+        super(name, time, averageHeartRate, repetitions);
     }
 
     /**
@@ -66,9 +67,29 @@ public class SitUp extends SeriesReps {
         return sb.toString();
     }
 
+    /**
+     * Checks if the Sit Up exercise is hard.
+     * @return Always returns true, as Sit Up is considered a hard activity.
+     */
+    public boolean isHard() {
+        return true;
+    }
 
+    /**
+     * Calculates the total calories burned during sit-ups based on the user's characteristics.
+     *
+     * @param user The user performing the sit-ups.
+     * @return The total calories burned during sit-ups.
+     */
     public double calculateCaloriesConsume(User user) {
-        return 0;
+        double caloriesPerSitUp = 0.25;
+        int reps = this.getRepetitions();
+        double userFactor = user.calculateCaloriesFactor();
+        int heartRate;
+        if (reps < 15) heartRate = user.getAverageHeartRate() + (int) (1/userFactor)*10;
+        else heartRate = user.getAverageHeartRate() + (int) (1/userFactor)*20;
+        this.setAverageHeartRateDuringActivity(heartRate);
+        return caloriesPerSitUp * reps * userFactor;
     }
 
 }

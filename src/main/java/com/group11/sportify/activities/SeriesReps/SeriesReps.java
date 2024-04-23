@@ -23,12 +23,12 @@ public abstract class SeriesReps extends Activity {
     /**
      * Constructor for the SeriesReps class.
      * @param name The name of the exercise.
-     * @param isHard Indicates if the exercise is hard or not.
      * @param time The time spent performing the exercise in minutes.
+     * @param averageHeartRate  The average heart rate during the activity.
      * @param repetitions The number of repetitions of the exercise.
      */
-    public SeriesReps(String name, boolean isHard, int time, int repetitions) {
-        super(name, isHard,time);
+    public SeriesReps(String name, int time, int averageHeartRate, int repetitions) {
+        super(name, time, averageHeartRate);
         this.repetitions = repetitions;
     }
 
