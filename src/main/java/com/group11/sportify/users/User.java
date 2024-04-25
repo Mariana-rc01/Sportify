@@ -63,6 +63,7 @@ public abstract class User {
         this.height = height;
     }
 
+    public abstract User clone();
     /**
      * Get the unique code of the user.
      * @return The code of the user.
