@@ -3,6 +3,8 @@ package com.group11.sportify.activities.SeriesReps;
 import com.group11.sportify.activities.Activity;
 import com.group11.sportify.users.User;
 
+import java.time.LocalDate;
+
 /**
  * This class represents the Stretch exercise as a series of repetitions.
  * It extends the SeriesReps class.
@@ -17,13 +19,16 @@ public class Stretch extends SeriesReps {
     }
 
     /**
-     * Constructor for the Stretch class.
-     * @param name The name of the exercise.
+     * Constructor for the SeriesReps class.
+     * @param code The code of the exercise.
+     * @param description The description of the exercise.
      * @param time The time spent performing the exercise in minutes.
+     * @param averageHeartRate The average heart rate during the activity.
+     * @param date The date of the activity.
      * @param repetitions The number of repetitions of the exercise.
      */
-    public Stretch(String name, int time, int averageHeartRate, int repetitions) {
-        super(name, time, averageHeartRate, repetitions);
+    public Stretch(int code, String description, int time, int averageHeartRate, LocalDate date, int repetitions) {
+        super(code, description, time, averageHeartRate, date, repetitions);
     }
 
     /**
