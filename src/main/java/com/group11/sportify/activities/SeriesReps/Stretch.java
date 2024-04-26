@@ -64,7 +64,7 @@ public class Stretch extends SeriesReps {
         StringBuilder sb = new StringBuilder();
 
         sb.append(super.toString());
-        sb.append("Strech\n");
+        sb.append("Stretch\n");
 
         return sb.toString();
     }
