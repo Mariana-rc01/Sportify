@@ -3,6 +3,7 @@ package com.group11.sportify.activities.SeriesReps;
 import com.group11.sportify.activities.Activity;
 import com.group11.sportify.users.User;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -22,13 +23,15 @@ public abstract class SeriesReps extends Activity {
 
     /**
      * Constructor for the SeriesReps class.
-     * @param name The name of the exercise.
+     * @param code The code of the exercise.
+     * @param description The description of the exercise.
      * @param time The time spent performing the exercise in minutes.
-     * @param averageHeartRate  The average heart rate during the activity.
+     * @param averageHeartRate The average heart rate during the activity.
+     * @param date The date of the activity.
      * @param repetitions The number of repetitions of the exercise.
      */
-    public SeriesReps(String name, int time, int averageHeartRate, int repetitions) {
-        super(name, time, averageHeartRate);
+    public SeriesReps(int code, String description, int time, int averageHeartRate, LocalDate date, int repetitions) {
+        super(code, description, time, averageHeartRate,date);
         this.repetitions = repetitions;
     }
 
@@ -89,10 +92,9 @@ public abstract class SeriesReps extends Activity {
      */
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof SeriesReps that)) return false;
         if (!super.equals(o)) return false;
-        SeriesReps s = (SeriesReps) o;
-        return getRepetitions() == s.getRepetitions();
+        return getRepetitions() == that.getRepetitions();
     }
 
     public abstract double calculateCaloriesConsume(User user);

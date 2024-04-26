@@ -59,8 +59,8 @@ public abstract class User {
         this.address = u.getAddress();
         this.email = u.getEmail();
         this.averageHeartRate = u.getAverageHeartRate();
-        this.weight = weight;
-        this.height = height;
+        this.weight = u.getWeight();
+        this.height = u.getHeight();
     }
 
     public abstract User clone();
@@ -145,10 +145,10 @@ public abstract class User {
     }
 
     /**
-     * Get weigth of the user.
+     * Get weight of the user.
      * @return Weight of the user.
      */
-    public double getWeigth() {
+    public double getWeight() {
         return this.weight;
     }
 
@@ -161,10 +161,10 @@ public abstract class User {
     }
 
     /**
-     * Get heigth of the user.
+     * Get height of the user.
      * @return Height of the user.
      */
-    public double getHeigth() {
+    public double getHeight() {
         return this.height;
     }
 
@@ -190,7 +190,7 @@ public abstract class User {
 
         User user = (User) o;
         return getCode() == user.getCode() && getAverageHeartRate() == user.getAverageHeartRate() &&
-                getWeigth() == user.getWeigth() && getHeigth() == user.getHeigth() &&
+                getWeight() == user.getWeight() && getHeight() == user.getHeight() &&
                 Objects.equals(getName(), user.getName()) && Objects.equals(getAddress(), user.getAddress())
                 && Objects.equals(getEmail(), user.getEmail());
     }
@@ -216,7 +216,7 @@ public abstract class User {
         sb.append(averageHeartRate).append("\n");
         sb.append("Weight= ");
         sb.append(weight).append("\n");
-        sb.append("Heigth= ");
+        sb.append("Height= ");
         sb.append(height).append("\n");
 
         return sb.toString();
@@ -227,7 +227,7 @@ public abstract class User {
      * @return The calculated BMI.
      */
     public double calculateBMI(){
-        return this.getWeigth() / (this.getHeigth() * this.getHeigth());
+        return this.getWeight() / (this.getHeight() * this.getHeight());
     }
 
     /**
