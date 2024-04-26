@@ -160,7 +160,6 @@ public abstract class Activity {
         sb.append(code).append("\n");
         sb.append("Description = ");
         sb.append(description).append("\n");
-        sb.append("isHard = ");
         sb.append("Time spent = ");
         sb.append(timeSpentMinutes).append("\n");
         sb.append("Average Heart Rate = ");
