@@ -15,6 +15,7 @@ public abstract class Activity {
     private int timeSpentMinutes;
     private int averageHeartRateDuringActivity;
     private LocalDate date;
+    private User user;
 
     /**
      * Default constructor.
@@ -28,19 +29,33 @@ public abstract class Activity {
     }
 
     /**
+     * Default constructor with User.
+     */
+    public Activity(User user){
+        this.code = 0;
+        this.description = "";
+        this.timeSpentMinutes = 0;
+        this.averageHeartRateDuringActivity = 0;
+        this.date = LocalDate.EPOCH;
+        this.user = user.clone();
+    }
+
+    /**
      * Constructor with parameters.
      * @param code Unique code of the activity.
      * @param description Description of the activity.
      * @param time The time of the activity.
      * @param averageHeartRate The average heart rate during the activity.
      * @param date Date of the activity.
+     * @param user the user associated with this activity.
      */
-    public Activity(int code, String description, int time, int averageHeartRate, LocalDate date){
+    public Activity(int code, String description, int time, int averageHeartRate, LocalDate date, User user){
         this.code = code;
         this.description = description;
         this.timeSpentMinutes = time;
         this.averageHeartRateDuringActivity = averageHeartRate;
         this.date = date;
+        this.user = user.clone();
     }
 
     /**
@@ -52,6 +67,7 @@ public abstract class Activity {
         this.description = a.getDescription();
         this.timeSpentMinutes = a.getTimeSpentMinutes();
         this.averageHeartRateDuringActivity = a.getAverageHeartRateDuringActivity();
+        this.user = a.getUser();
     }
 
     /**
@@ -135,6 +151,24 @@ public abstract class Activity {
     }
 
     /**
+     * Returns a clone of the user associated with this activity.
+     *
+     * @return A clone of the user associated with this activity.
+     */
+    public User getUser() {
+        return user.clone();
+    }
+
+    /**
+     * Sets the user associated with this activity.
+     *
+     * @param user The user to be associated with this activity.
+     */
+    public void setUser(User user) {
+        this.user = user.clone();
+    }
+
+    /**
      * Compare the activity with another object.
      * @param o The object to compare with.
      * @return True if the objects are equal, false otherwise.
@@ -142,11 +176,13 @@ public abstract class Activity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Activity activity)) return false;
-        return this.getCode() == activity.getCode() && this.getTimeSpentMinutes() == activity.getTimeSpentMinutes() &&
-                this.getAverageHeartRateDuringActivity() == activity.getAverageHeartRateDuringActivity() &&
-                Objects.equals(this.getDescription(), activity.getDescription()) && Objects.equals(this.getDate(), activity.getDate());
+        return getCode() == activity.getCode() && getTimeSpentMinutes() == activity.getTimeSpentMinutes() &&
+                getAverageHeartRateDuringActivity() == activity.getAverageHeartRateDuringActivity() &&
+                Objects.equals(getDescription(), activity.getDescription()) && Objects.equals(getDate(), activity.getDate()) &&
+                Objects.equals(getUser(), activity.getUser());
     }
 
+    public abstract Activity clone();
 
     /**
      * Convert the activity to a string.
@@ -166,7 +202,10 @@ public abstract class Activity {
         sb.append(averageHeartRateDuringActivity).append("\n");
         sb.append("Date = ");
         sb.append(date).append("\n");
-
+        if (user != null) {
+            sb.append("User: \n");
+            sb.append(user.toString());
+        }
         return sb.toString();
     }
 

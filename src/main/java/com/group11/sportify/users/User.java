@@ -1,6 +1,11 @@
 package com.group11.sportify.users;
 
+import com.group11.sportify.activities.Activity;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * This abstract class represents a user of the Sportify application.
@@ -15,8 +20,9 @@ public abstract class User {
     private int averageHeartRate;
     private double weight; // in kg
     private double height; // in cm
+    private Map<Integer, Activity> activities;
 
-    // Falta registar as atividades que efetuou
+    // Falta registar os planos de treino
 
     /**
      * Default constructor.
@@ -29,10 +35,11 @@ public abstract class User {
         this.averageHeartRate = 0;
         this.weight = 0;
         this.height = 0;
+        this.activities = new HashMap<>();
     }
 
     /**
-     * Constructor with parameters initializing attributes with provided values.
+     * Constructor with parameters initializing attributes with provided values without activities.
      * @param code The unique code of the user.
      * @param name The name of the user.
      * @param address The address of the user.
@@ -47,6 +54,27 @@ public abstract class User {
         this.averageHeartRate = averageHeartRate;
         this.weight = weight;
         this.height = height;
+        this.activities = new HashMap<>();
+    }
+
+    /**
+     * Constructor with parameters initializing attributes with provided values.
+     * @param code The unique code of the user.
+     * @param name The name of the user.
+     * @param address The address of the user.
+     * @param email The email of the user.
+     * @param averageHeartRate The average heart rate of the user.
+     * @param activities The activities of the user
+     */
+    public User(int code, String name, String address, String email, int averageHeartRate, double weight, double height, Map<Integer,Activity> activities) {
+        this.code = code;
+        this.name = name;
+        this.address = address;
+        this.email = email;
+        this.averageHeartRate = averageHeartRate;
+        this.weight = weight;
+        this.height = height;
+        this.activities = activities.values().stream().collect(Collectors.toMap(Activity::getCode, Activity::clone));
     }
 
     /**
@@ -61,9 +89,11 @@ public abstract class User {
         this.averageHeartRate = u.getAverageHeartRate();
         this.weight = u.getWeight();
         this.height = u.getHeight();
+        this.activities = u.getActivities();
     }
 
     public abstract User clone();
+
     /**
      * Get the unique code of the user.
      * @return The code of the user.
@@ -176,6 +206,21 @@ public abstract class User {
         this.height = height;
     }
 
+    /**
+     * Get activities of the user.
+     * @return activities of the user.
+     */
+    public Map<Integer, Activity> getActivities() {
+        return this.activities.values().stream().collect(Collectors.toMap(Activity::getCode, Activity::clone));
+    }
+
+    /**
+     * Set activities of the user.
+     * @param activities The height to set.
+     */
+    public void setActivities(Map<Integer, Activity> activities) {
+        this.activities = activities.values().stream().map(Activity::clone).collect(Collectors.toMap(Activity::getCode, Activity::clone));
+    }
 
     /**
      * Checks if this user is equal to another object.
@@ -185,14 +230,11 @@ public abstract class User {
      */
     public boolean equals(Object o) {
         if (this == o) return true;
-
-        if (o == null || getClass() != o.getClass()) return false;
-
-        User user = (User) o;
-        return getCode() == user.getCode() && getAverageHeartRate() == user.getAverageHeartRate() &&
-                getWeight() == user.getWeight() && getHeight() == user.getHeight() &&
-                Objects.equals(getName(), user.getName()) && Objects.equals(getAddress(), user.getAddress())
-                && Objects.equals(getEmail(), user.getEmail());
+        if (!(o instanceof User user)) return false;
+        return this.getCode() == user.getCode() && this.getAverageHeartRate() == user.getAverageHeartRate() &&
+                Double.compare(this.getWeight(), user.getWeight()) == 0 && Double.compare(this.getHeight(), user.getHeight()) == 0
+                && Objects.equals(this.getName(), user.getName()) && Objects.equals(this.getAddress(), user.getAddress()) &&
+                Objects.equals(this.getEmail(), user.getEmail()) && Objects.equals(this.getActivities(), user.getActivities());
     }
 
     /**
@@ -218,6 +260,13 @@ public abstract class User {
         sb.append(weight).append("\n");
         sb.append("Height= ");
         sb.append(height).append("\n");
+
+        if (activities != null) {
+            sb.append("Activities:\n");
+            for (Activity activity : activities.values()) {
+                sb.append(activity.toString()).append("\n");
+            }
+        }
 
         return sb.toString();
     }

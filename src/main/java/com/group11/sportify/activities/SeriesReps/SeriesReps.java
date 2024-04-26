@@ -29,9 +29,10 @@ public abstract class SeriesReps extends Activity {
      * @param averageHeartRate The average heart rate during the activity.
      * @param date The date of the activity.
      * @param repetitions The number of repetitions of the exercise.
+     * @param user the user associated with this activity.
      */
-    public SeriesReps(int code, String description, int time, int averageHeartRate, LocalDate date, int repetitions) {
-        super(code, description, time, averageHeartRate,date);
+    public SeriesReps(int code, String description, int time, int averageHeartRate, LocalDate date, int repetitions, User user) {
+        super(code, description, time, averageHeartRate,date, user);
         this.repetitions = repetitions;
     }
 
