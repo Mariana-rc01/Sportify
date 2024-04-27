@@ -26,9 +26,10 @@ public class Stretch extends SeriesReps {
      * @param averageHeartRate The average heart rate during the activity.
      * @param date The date of the activity.
      * @param repetitions The number of repetitions of the exercise.
+     * @param user the user associated with this activity.
      */
-    public Stretch(int code, String description, int time, int averageHeartRate, LocalDate date, int repetitions) {
-        super(code, description, time, averageHeartRate, date, repetitions);
+    public Stretch(int code, String description, int time, int averageHeartRate, LocalDate date, int repetitions, User user) {
+        super(code, description, time, averageHeartRate, date, repetitions, user);
     }
 
     /**

@@ -26,9 +26,10 @@ public class JumpingJack extends SeriesReps {
      * @param averageHeartRate The average heart rate during the activity.
      * @param date The date of the activity.
      * @param repetitions The number of repetitions of the exercise.
+     * @param user the user associated with this activity.
      */
-    public JumpingJack(int code, String description, int time, int averageHeartRate, LocalDate date, int repetitions) {
-        super(code, description, time, averageHeartRate, date, repetitions);
+    public JumpingJack(int code, String description, int time, int averageHeartRate, LocalDate date, int repetitions, User user) {
+        super(code, description, time, averageHeartRate, date, repetitions, user);
     }
 
     /**
