@@ -111,4 +111,37 @@ public class UserController {
         }
         throw new UserDoesntExistException();
     }
+
+    /**
+     * Updates a user with the specified code with the provided new values.
+     *
+     * @param code The unique code of the user to update.
+     * @param newName The new name of the user (empty string to keep unchanged).
+     * @param newAddress The new address of the user (empty string to keep unchanged).
+     * @param newEmail The new email address of the user (empty string to keep unchanged).
+     * @param newAverageHeartRate The new average heart rate of the user (0 to keep unchanged).
+     * @param newWeight The new weight of the user (0 to keep unchanged).
+     * @param newHeight The new height of the user (0 to keep unchanged).
+     * @return The updated user.
+     * @throws UserDoesntExistException If no user with the given code exists.
+     */
+    public User updateUser(int code, String newName, String newAddress, String newEmail, int newAverageHeartRate, double newWeight, double newHeight) throws UserDoesntExistException {
+        if (users.containsKey(code)) {
+            User user = users.get(code);
+
+            if (!newName.isEmpty()) user.setName(newName);
+            if (!newAddress.isEmpty()) user.setAddress(newAddress);
+            if (!newEmail.isEmpty()) user.setEmail(newEmail);
+            if (newAverageHeartRate != 0) user.setAverageHeartRate(newAverageHeartRate);
+            if (newWeight != 0) user.setWeight(newWeight);
+            if (newHeight != 0) user.setHeight(newHeight);
+
+            users.put(code, user);
+
+            return user;
+        } else {
+            throw new UserDoesntExistException();
+        }
+    }
+
 }

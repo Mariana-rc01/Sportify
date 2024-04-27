@@ -1,10 +1,8 @@
 package com.group11.sportify.activities;
 
 import com.group11.sportify.activities.SeriesReps.*;
-import com.group11.sportify.activities.exceptions.ActivityDoesntExitException;
+import com.group11.sportify.activities.exceptions.ActivityDoesntExistException;
 import com.group11.sportify.users.User;
-import com.group11.sportify.users.UserController;
-import com.group11.sportify.users.exceptions.UserDoesntExistException;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -25,7 +23,7 @@ public class ActivityController {
      * Constructor for ActivityController class.
      * Initializes the activities map.
      */
-    public ActivityController(UserController userController){
+    public ActivityController(){
         this.activities = new HashMap<>();
     }
 
@@ -43,13 +41,13 @@ public class ActivityController {
      *
      * @param code The unique code of the activity to retrieve.
      * @return The activity corresponding to the given code.
-     * @throws ActivityDoesntExitException If no activity with the given code exists.
+     * @throws ActivityDoesntExistException If no activity with the given code exists.
      */
-    public Activity getActivity(int code) throws ActivityDoesntExitException {
+    public Activity getActivity(int code) throws ActivityDoesntExistException {
         if(this.activities.containsKey(code)){
             return this.activities.get(code).clone();
         }
-        throw new ActivityDoesntExitException();
+        throw new ActivityDoesntExistException();
     }
 
     /**
@@ -143,4 +141,36 @@ public class ActivityController {
     }
 
     // Colocar aqui as restantes atividades
+
+    /**
+     * Updates an activity with the specified code with the provided new values.
+     *
+     * @param code The unique code of the activity to update.
+     * @param description The new description of the activity (empty string to keep unchanged).
+     * @param time The new time spent on the activity in minutes (0 to keep unchanged).
+     * @param averageHeartRate The new average heart rate during the activity (0 to keep unchanged).
+     * @param date The new date of the activity (null to keep unchanged).
+     * @param repetitions The new number of repetitions for the activity (0 to keep unchanged).
+     * @return The updated activity.
+     * @throws ActivityDoesntExistException If no activity with the given code exists.
+     */
+    public Activity updateActivitySeriesReps(int code, String description, int time, int averageHeartRate, LocalDate date, int repetitions) throws ActivityDoesntExistException {
+        if (activities.containsKey(code)) {
+            Activity activity = activities.get(code);
+
+            if (!description.isEmpty()) activity.setDescription(description);
+            if (time != 0) activity.setTimeSpentMinutes(time);
+            if (averageHeartRate != 0) activity.setAverageHeartRateDuringActivity(averageHeartRate);
+            if (date != null) activity.setDate(date);
+
+            SeriesReps seriesReps = (SeriesReps) activity;
+            if (repetitions != 0) seriesReps.setRepetitions(repetitions);
+
+            activities.put(code, activity);
+
+            return activity;
+        } else {
+            throw new ActivityDoesntExistException();
+        }
+    }
 }
