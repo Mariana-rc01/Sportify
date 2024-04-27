@@ -22,17 +22,11 @@ public class ActivityController {
     private Map<Integer, Activity> activities;
 
     /**
-    * This needs to be here because we have to check if there is a user created on userController to add an activity.
-    */
-    private UserController userController;
-
-    /**
      * Constructor for ActivityController class.
      * Initializes the activities map.
      */
     public ActivityController(UserController userController){
         this.activities = new HashMap<>();
-        this.userController = userController;
     }
 
     /**
@@ -66,11 +60,10 @@ public class ActivityController {
      * @param averageHeartRate The average heart rate during the activity.
      * @param date The date of the activity.
      * @param repetitions The number of repetitions for the activity.
-     * @param user_code The user code of the user associated with this activity.
+     * @param user The user associated with this activity.
      * @return The newly inserted Burpee activity.
      */
-    public Activity insertActivityBurpee(String description, int timeSpentMinutes, int averageHeartRate, LocalDate date, int repetitions, int user_code) throws UserDoesntExistException {
-        User user = userController.getUser(user_code);
+    public Activity insertActivityBurpee(String description, int timeSpentMinutes, int averageHeartRate, LocalDate date, int repetitions, User user){
         int code = this.activities.size();
         Activity activity = new Burpee(code,description,timeSpentMinutes,averageHeartRate,date,repetitions, user);
         this.activities.put(code,activity);
@@ -85,11 +78,10 @@ public class ActivityController {
      * @param averageHeartRate The average heart rate during the activity.
      * @param date The date of the activity.
      * @param repetitions The number of repetitions for the activity.
-     * @param user_code The user code of the user associated with this activity.
+     * @param user The user associated with this activity.
      * @return The newly inserted Jumping Jack activity.
      */
-    public Activity insertActivityJumpingJack(String description, int timeSpentMinutes, int averageHeartRate, LocalDate date, int repetitions, int user_code) throws UserDoesntExistException {
-        User user = userController.getUser(user_code);
+    public Activity insertActivityJumpingJack(String description, int timeSpentMinutes, int averageHeartRate, LocalDate date, int repetitions, User user){
         int code = this.activities.size();
         Activity activity = new JumpingJack(code,description,timeSpentMinutes,averageHeartRate,date,repetitions, user);
         this.activities.put(code,activity);
@@ -104,11 +96,10 @@ public class ActivityController {
      * @param averageHeartRate The average heart rate during the activity.
      * @param date The date of the activity.
      * @param repetitions The number of repetitions for the activity.
-     * @param user_code The user code of the user associated with this activity.
+     * @param user The user associated with this activity.
      * @return The newly inserted Push Up activity.
      */
-    public Activity insertActivityPushUp(String description, int timeSpentMinutes, int averageHeartRate, LocalDate date, int repetitions, int user_code) throws UserDoesntExistException {
-        User user = userController.getUser(user_code);
+    public Activity insertActivityPushUp(String description, int timeSpentMinutes, int averageHeartRate, LocalDate date, int repetitions, User user){
         int code = this.activities.size();
         Activity activity = new PushUp(code,description,timeSpentMinutes,averageHeartRate,date,repetitions, user);
         this.activities.put(code,activity);
@@ -123,11 +114,10 @@ public class ActivityController {
      * @param averageHeartRate The average heart rate during the activity.
      * @param date The date of the activity.
      * @param repetitions The number of repetitions for the activity.
-     * @param user_code The user code of the user associated with this activity.
+     * @param user The user associated with this activity.
      * @return The newly inserted Sit Up activity.
      */
-    public Activity insertActivitySitUp(String description, int timeSpentMinutes, int averageHeartRate, LocalDate date, int repetitions, int user_code) throws UserDoesntExistException {
-        User user = userController.getUser(user_code);
+    public Activity insertActivitySitUp(String description, int timeSpentMinutes, int averageHeartRate, LocalDate date, int repetitions, User user){
         int code = this.activities.size();
         Activity activity = new SitUp(code,description,timeSpentMinutes,averageHeartRate,date,repetitions, user);
         this.activities.put(code,activity);
@@ -142,11 +132,10 @@ public class ActivityController {
      * @param averageHeartRate The average heart rate during the activity.
      * @param date The date of the activity.
      * @param repetitions The number of repetitions for the activity.
-     * @param user_code The user code of the user associated with this activity.
+     * @param user The user associated with this activity.
      * @return The newly inserted Stretch activity.
      */
-    public Activity insertActivityStretch(String description, int timeSpentMinutes, int averageHeartRate, LocalDate date, int repetitions, int user_code) throws UserDoesntExistException {
-        User user = userController.getUser(user_code);
+    public Activity insertActivityStretch(String description, int timeSpentMinutes, int averageHeartRate, LocalDate date, int repetitions, User user){
         int code = this.activities.size();
         Activity activity = new Stretch(code,description,timeSpentMinutes,averageHeartRate,date,repetitions,user);
         this.activities.put(code,activity);
