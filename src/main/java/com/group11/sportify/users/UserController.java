@@ -1,6 +1,7 @@
 package com.group11.sportify.users;
 
 import com.group11.sportify.activities.Activity;
+import com.group11.sportify.activities.exceptions.ActivityDoesntExistException;
 import com.group11.sportify.users.exceptions.UserDoesntExistException;
 
 import java.util.HashMap;
@@ -125,7 +126,7 @@ public class UserController {
      * @return The updated user.
      * @throws UserDoesntExistException If no user with the given code exists.
      */
-    public User updateUser(int code, String newName, String newAddress, String newEmail, int newAverageHeartRate, double newWeight, double newHeight) throws UserDoesntExistException {
+    public User updateUser(int code, String newName, String newAddress, String newEmail, int newAverageHeartRate, double newWeight, double newHeight) throws UserDoesntExistException{
         if (users.containsKey(code)) {
             User user = users.get(code);
 
@@ -144,4 +145,31 @@ public class UserController {
         }
     }
 
+    /**
+     * Updates a specific activity of a user with the provided activity information.
+     *
+     * @param code The unique code of the user to update.
+     * @param updatedActivity The updated activity to be associated with the user.
+     * @return The updated user.
+     * @throws UserDoesntExistException If no user with the provided code exists.
+     * @throws ActivityDoesntExistException If the provided activity doesn't exist in the user.
+     */
+    public User updateUserActivity(int code, Activity updatedActivity) throws UserDoesntExistException, ActivityDoesntExistException {
+        if (users.containsKey(code)) {
+            User user = users.get(code);
+
+            if (updatedActivity != null){
+                if (user.getActivities().containsKey(updatedActivity.getCode())) {
+                    user.getActivities().put(updatedActivity.getCode(), updatedActivity);
+                }
+                else throw new ActivityDoesntExistException();
+            }
+
+            users.put(code, user);
+
+            return user;
+        } else {
+            throw new UserDoesntExistException();
+        }
+    }
 }
