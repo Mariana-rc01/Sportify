@@ -1,4 +1,4 @@
-package com.group11.sportify.activities.SeriesReps;
+package com.group11.sportify.activities.repeating;
 
 import com.group11.sportify.activities.Activity;
 import com.group11.sportify.activities.Hard;
@@ -7,15 +7,15 @@ import com.group11.sportify.users.User;
 import java.time.LocalDate;
 
 /**
- * This class represents the Push-up exercise as a series of repetitions.
+ * This class represents the Sit-up exercise as a series of repetitions.
  * It extends the SeriesReps class.
  */
-public class PushUp extends SeriesReps implements Hard {
+public class SitUp extends ActivityRepetitions implements Hard {
 
     /**
-     * Default constructor for the PushUp class.
+     * Default constructor for the SitUp class.
      */
-    public PushUp() {
+    public SitUp() {
         super();
     }
 
@@ -29,70 +29,72 @@ public class PushUp extends SeriesReps implements Hard {
      * @param repetitions The number of repetitions of the exercise.
      * @param user the user associated with this activity.
      */
-    public PushUp(int code, String description, int time, int averageHeartRate, LocalDate date, int repetitions, User user) {
+    public SitUp(int code, String description, int time, int averageHeartRate, LocalDate date, int repetitions, User user) {
         super(code, description, time, averageHeartRate, date, repetitions, user);
     }
 
     /**
-     * Constructor for the PushUp class.
+     * Constructor for the SitUp class.
      * @param a The activity to copy.
      * @param repetitions The number of repetitions of the exercise.
      */
-    public PushUp(Activity a, int repetitions) {
+    public SitUp(Activity a, int repetitions) {
         super(a, repetitions);
     }
 
     /**
-     * Constructor for the PushUp class.
+     * Constructor for the SitUp class.
      * @param s The series of repetitions to copy.
      */
-    public PushUp(SeriesReps s) {
+    public SitUp(ActivityRepetitions s) {
         super(s);
     }
 
     /**
-     * Clones the PushUp object.
-     * @return A new instance of PushUp object with the same attributes as the original.
+     * Clones the SitUp object.
+     * @return A new instance of SitUp object with the same attributes as the original.
      */
-    public PushUp clone(){
-        return new PushUp(this);
+    public SitUp clone(){
+        return new SitUp(this);
     }
 
     /**
-     * Returns a string representation of the PushUp object.
-     * @return A string representation of the PushUp object, including information from the superclass and indication of Push Up type.
+     * Returns a string representation of the SitUp object.
+     * Overrides the toString method in the superclass.
+     * @return A string representation of the SitUp object, including information from the superclass and indication of Sit Up type.
      */
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
         sb.append(super.toString());
-        sb.append("Push Up\n");
+        sb.append("Sit Up\n");
 
         return sb.toString();
     }
 
     /**
-     * Checks if the Push Up exercise is hard.
-     * @return Always returns true, as Push Up is considered a hard activity.
+     * Checks if the Sit Up exercise is hard.
+     * @return Always returns true, as Sit Up is considered a hard activity.
      */
     public boolean isHard() {
         return true;
     }
 
     /**
-     * Calculates the total calories burned during push-ups based on the user's characteristics.
+     * Calculates the total calories burned during sit-ups based on the user's characteristics.
      *
-     * @param user The user performing the push-ups.
-     * @return The total calories burned during push-ups.
+     * @param user The user performing the sit-ups.
+     * @return The total calories burned during sit-ups.
      */
     public double calculateCaloriesConsume(User user) {
-        double caloriesPerPushUp = 1;
+        double caloriesPerSitUp = 0.25;
         int reps = this.getRepetitions();
         double userFactor = user.calculateCaloriesFactor();
         int heartRate;
-        if (reps < 12) heartRate = user.getAverageHeartRate() + (int) (1/userFactor)*15;
-        else heartRate = user.getAverageHeartRate() + (int) (1/userFactor)*35;
+        if (reps < 15) heartRate = user.getAverageHeartRate() + (int) (1/userFactor)*10;
+        else heartRate = user.getAverageHeartRate() + (int) (1/userFactor)*20;
         this.setAverageHeartRateDuringActivity(heartRate);
-        return caloriesPerPushUp * this.getRepetitions() * userFactor;
+        return caloriesPerSitUp * reps * userFactor;
     }
+
 }

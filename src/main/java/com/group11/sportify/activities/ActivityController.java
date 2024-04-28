@@ -1,7 +1,7 @@
 package com.group11.sportify.activities;
 
-import com.group11.sportify.activities.SeriesReps.*;
 import com.group11.sportify.activities.exceptions.ActivityDoesntExistException;
+import com.group11.sportify.activities.repeating.*;
 import com.group11.sportify.users.User;
 
 import java.time.LocalDate;
@@ -164,7 +164,7 @@ public class ActivityController {
             if (averageHeartRate != 0) activity.setAverageHeartRateDuringActivity(averageHeartRate);
             if (date != null) activity.setDate(date);
 
-            SeriesReps seriesReps = (SeriesReps) activity;
+            ActivityRepetitions seriesReps = (ActivityRepetitions) activity;
             if (repetitions != 0) seriesReps.setRepetitions(repetitions);
 
             activities.put(code, activity);
