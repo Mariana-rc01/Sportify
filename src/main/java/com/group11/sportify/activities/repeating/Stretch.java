@@ -1,4 +1,4 @@
-package com.group11.sportify.activities.SeriesReps;
+package com.group11.sportify.activities.repeating;
 
 import com.group11.sportify.activities.Activity;
 import com.group11.sportify.users.User;
@@ -9,7 +9,7 @@ import java.time.LocalDate;
  * This class represents the Stretch exercise as a series of repetitions.
  * It extends the SeriesReps class.
  */
-public class Stretch extends SeriesReps {
+public class Stretch extends ActivityRepetitions {
 
     /**
      * Default constructor for the Stretch class.
@@ -45,7 +45,7 @@ public class Stretch extends SeriesReps {
      * Constructor for the Stretch class.
      * @param s The series of repetitions to copy.
      */
-    public Stretch(SeriesReps s) {
+    public Stretch(ActivityRepetitions s) {
         super(s);
     }
 

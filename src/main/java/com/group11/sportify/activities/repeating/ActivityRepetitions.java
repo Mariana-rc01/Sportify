@@ -1,28 +1,27 @@
-package com.group11.sportify.activities.SeriesReps;
+package com.group11.sportify.activities.repeating;
 
 import com.group11.sportify.activities.Activity;
 import com.group11.sportify.users.User;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
 /**
  * This abstract class represents an exercise as a series of repetitions.
  * It extends the Activity class.
  */
-public abstract class SeriesReps extends Activity {
+public abstract class ActivityRepetitions extends Activity {
     private int repetitions;
 
     /**
-     * Default constructor for the SeriesReps class.
+     * Default constructor for the ActivityRepetitions class.
      */
-    public SeriesReps() {
+    public ActivityRepetitions() {
         super();
         this.repetitions = 0;
     }
 
     /**
-     * Constructor for the SeriesReps class.
+     * Constructor for the ActivityRepetitions class.
      * @param code The code of the exercise.
      * @param description The description of the exercise.
      * @param time The time spent performing the exercise in minutes.
@@ -31,26 +30,26 @@ public abstract class SeriesReps extends Activity {
      * @param repetitions The number of repetitions of the exercise.
      * @param user the user associated with this activity.
      */
-    public SeriesReps(int code, String description, int time, int averageHeartRate, LocalDate date, int repetitions, User user) {
+    public ActivityRepetitions(int code, String description, int time, int averageHeartRate, LocalDate date, int repetitions, User user) {
         super(code, description, time, averageHeartRate,date, user);
         this.repetitions = repetitions;
     }
 
     /**
-     * Constructor for the SeriesReps class.
+     * Constructor for the ActivityRepetitions class.
      * @param a The activity to copy.
      * @param repetitions The number of repetitions of the exercise.
      */
-    public SeriesReps(Activity a, int repetitions) {
+    public ActivityRepetitions(Activity a, int repetitions) {
         super(a);
         this.repetitions = repetitions;
     }
 
     /**
-     * Constructor for the SeriesReps class.
+     * Constructor for the ActivityRepetitions class.
      * @param s The series of repetitions to copy.
      */
-    public SeriesReps(SeriesReps s){
+    public ActivityRepetitions(ActivityRepetitions s){
         super(s);
         this.repetitions = s.getRepetitions();
     }
@@ -72,8 +71,8 @@ public abstract class SeriesReps extends Activity {
     }
 
     /**
-     * Returns a string representation of the SeriesReps object.
-     * @return A string representation of the SeriesReps object, including information from the superclass and the number of repetitions.
+     * Returns a string representation of the ActivityRepetitions object.
+     * @return A string representation of the ActivityRepetitions object, including information from the superclass and the number of repetitions.
      */
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -87,13 +86,13 @@ public abstract class SeriesReps extends Activity {
     }
 
     /**
-     * Compares the SeriesReps object with another object.
+     * Compares the ActivityRepetitions object with another object.
      * @param o The object to compare with.
      * @return True if the objects are equal, false otherwise.
      */
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof SeriesReps that)) return false;
+        if (!(o instanceof ActivityRepetitions that)) return false;
         if (!super.equals(o)) return false;
         return getRepetitions() == that.getRepetitions();
     }

@@ -1,4 +1,4 @@
-package com.group11.sportify.activities.SeriesReps;
+package com.group11.sportify.activities.repeating;
 
 import com.group11.sportify.activities.Activity;
 import com.group11.sportify.users.User;
@@ -9,7 +9,7 @@ import java.time.LocalDate;
  * This class represents the Jumping Jack exercise as a series of repetitions.
  * It extends the SeriesReps class.
  */
-public class JumpingJack extends SeriesReps {
+public class JumpingJack extends ActivityRepetitions {
 
     /**
      * Default constructor for the JumpingJack class.
@@ -45,7 +45,7 @@ public class JumpingJack extends SeriesReps {
      * Constructor for the JumpingJack class.
      * @param s The series of repetitions to copy.
      */
-    public JumpingJack(SeriesReps s) {
+    public JumpingJack(ActivityRepetitions s) {
         super(s);
     }
 
