@@ -1,6 +1,7 @@
 package com.group11.sportify.users;
 
 import com.group11.sportify.activities.Activity;
+import com.group11.sportify.plans.TrainingPlan;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +22,7 @@ public abstract class User {
     private double weight; // in kg
     private double height; // in cm
     private Map<Integer, Activity> activities;
+    private Map<Integer, TrainingPlan> trainingPlans;
 
     // Falta registar os planos de treino
 
@@ -36,6 +38,7 @@ public abstract class User {
         this.weight = 0;
         this.height = 0;
         this.activities = new HashMap<>();
+        this.trainingPlans = new HashMap<>();
     }
 
     /**
@@ -55,6 +58,7 @@ public abstract class User {
         this.weight = weight;
         this.height = height;
         this.activities = new HashMap<>();
+        this.trainingPlans = new HashMap<>();
     }
 
     /**
@@ -78,6 +82,28 @@ public abstract class User {
     }
 
     /**
+     * Constructor with parameters initializing attributes with provided values.
+     * @param code The unique code of the user.
+     * @param name The name of the user.
+     * @param address The address of the user.
+     * @param email The email of the user.
+     * @param averageHeartRate The average heart rate of the user.
+     * @param activities The activities of the user
+     * @param plans The training plans of the user
+     */
+    public User(int code, String name, String address, String email, int averageHeartRate, double weight, double height, Map<Integer,Activity> activities, Map<Integer,TrainingPlan> trainingPlans) {
+        this.code = code;
+        this.name = name;
+        this.address = address;
+        this.email = email;
+        this.averageHeartRate = averageHeartRate;
+        this.weight = weight;
+        this.height = height;
+        this.activities = activities.values().stream().collect(Collectors.toMap(Activity::getCode, Activity::clone));
+        this.trainingPlans = trainingPlans.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue().clone()));
+    }
+
+    /**
      * Copy constructor creating a new User object with the same attributes as the provided user.
      * @param u The user to copy.
      */
@@ -90,6 +116,7 @@ public abstract class User {
         this.weight = u.getWeight();
         this.height = u.getHeight();
         this.activities = u.getActivities();
+        this.trainingPlans = u.getTrainingPlans();
     }
 
     public abstract User clone();
@@ -215,11 +242,43 @@ public abstract class User {
     }
 
     /**
+     * Get training plans of the user.
+     * @return training plans of the user.
+     */
+    public Map<Integer, TrainingPlan> getTrainingPlans() {
+        return trainingPlans.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue().clone()));
+    }
+
+    /**
      * Set activities of the user.
-     * @param activities The height to set.
+     * @param activities The activities to set.
      */
     public void setActivities(Map<Integer, Activity> activities) {
         this.activities = activities.values().stream().map(Activity::clone).collect(Collectors.toMap(Activity::getCode, Activity::clone));
+    }
+
+    /**
+     * Set training plans of the user.
+     * @param trainingPlans The training plans to set.
+     */
+    public void setTrainingPlans(Map<Integer, TrainingPlan> trainingPlans) {
+        this.trainingPlans = trainingPlans.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue().clone()));
+    }
+
+    /**
+     * Add an activity to the user.
+     * @param activity The activity to add.
+     */
+    public void addActivity(Activity activity) {
+        this.activities.put(activity.getCode(), activity.clone());
+    }
+
+    /**
+     * Add a training plan to the user.
+     * @param trainingPlan The training plan to add.
+     */
+    public void addTrainingPlan(TrainingPlan trainingPlan) {
+        this.trainingPlans.put(this.trainingPlans.size(), trainingPlan.clone());
     }
 
     /**
@@ -234,7 +293,7 @@ public abstract class User {
         return this.getCode() == user.getCode() && this.getAverageHeartRate() == user.getAverageHeartRate() &&
                 Double.compare(this.getWeight(), user.getWeight()) == 0 && Double.compare(this.getHeight(), user.getHeight()) == 0
                 && Objects.equals(this.getName(), user.getName()) && Objects.equals(this.getAddress(), user.getAddress()) &&
-                Objects.equals(this.getEmail(), user.getEmail()) && Objects.equals(this.getActivities(), user.getActivities());
+                Objects.equals(this.getEmail(), user.getEmail()) && Objects.equals(this.getActivities(), user.getActivities()) && Objects.equals(this.getTrainingPlans(), user.getTrainingPlans());
     }
 
     /**
@@ -265,6 +324,13 @@ public abstract class User {
             sb.append("Activities:\n");
             for (Activity activity : activities.values()) {
                 sb.append(activity.toString()).append("\n");
+            }
+        }
+
+        if (trainingPlans != null) {
+            sb.append("Training Plans:\n");
+            for (TrainingPlan trainingPlan : trainingPlans.values()) {
+                sb.append(trainingPlan.toString()).append("\n");
             }
         }
 
