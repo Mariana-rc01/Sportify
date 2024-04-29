@@ -3,7 +3,9 @@ package com.group11.sportify.users;
 import com.group11.sportify.activities.Activity;
 import com.group11.sportify.plans.TrainingPlan;
 
+import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -279,6 +281,16 @@ public abstract class User {
      */
     public void addTrainingPlan(TrainingPlan trainingPlan) {
         this.trainingPlans.put(this.trainingPlans.size(), trainingPlan.clone());
+    }
+
+    /**
+     * Get the activities of the user between two dates.
+     * @param startDate The start date of the period.
+     * @param endDate The end date of the period.
+     * @return The activities of the user between the two dates.
+     */
+    public List<Activity> getActivitiesBetweenDates(LocalDate startDate, LocalDate endDate) {
+        return this.activities.values().stream().filter(activity -> activity.getDate().isAfter(startDate) && activity.getDate().isBefore(endDate)).map(Activity::clone).collect(Collectors.toList()); 
     }
 
     /**
