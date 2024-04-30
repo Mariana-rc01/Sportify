@@ -45,7 +45,7 @@ public class CasualUserTest {
         user1 = new Casual(1, "Raquel","Rua 123", "raquel23@gmail.com",80,56,160);
         assertTrue(user1 != null);
         User user2 = new Casual(user1);
-        assertFalse(user1 == user2);
+        assertFalse(user1.equals(user2));
     }
 
     @Test
