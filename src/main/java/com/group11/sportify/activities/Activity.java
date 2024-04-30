@@ -2,7 +2,7 @@ package com.group11.sportify.activities;
 
 import com.group11.sportify.users.User;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -14,7 +14,7 @@ public abstract class Activity {
     private String description;
     private int timeSpentMinutes;
     private int averageHeartRateDuringActivity;
-    private LocalDate date;
+    private LocalDateTime date;
     private int userCode;
 
     /**
@@ -25,7 +25,7 @@ public abstract class Activity {
         this.description = "";
         this.timeSpentMinutes = 0;
         this.averageHeartRateDuringActivity = 0;
-        this.date = LocalDate.EPOCH;
+        this.date = LocalDateTime.now();
     }
 
     /**
@@ -37,7 +37,7 @@ public abstract class Activity {
      * @param date Date of the activity.
      * @param user the user associated with this activity.
      */
-    public Activity(int code, String description, int time, int averageHeartRate, LocalDate date, int userCode){
+    public Activity(int code, String description, int time, int averageHeartRate, LocalDateTime date, int userCode){
         this.code = code;
         this.description = description;
         this.timeSpentMinutes = time;
@@ -110,7 +110,7 @@ public abstract class Activity {
      * Get the date of the activity.
      * @return Date of the activity.
      */
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
@@ -118,7 +118,7 @@ public abstract class Activity {
      * Set the date of the activity.
      * @param date Date of the activity.
      */
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

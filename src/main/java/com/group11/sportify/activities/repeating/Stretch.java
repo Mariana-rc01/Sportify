@@ -3,7 +3,7 @@ package com.group11.sportify.activities.repeating;
 import com.group11.sportify.activities.Activity;
 import com.group11.sportify.users.User;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * This class represents the Stretch exercise as a series of repetitions.
@@ -28,7 +28,7 @@ public class Stretch extends ActivityRepetitions {
      * @param repetitions The number of repetitions of the exercise.
      * @param userCode the code of the user associated with this activity.
      */
-    public Stretch(int code, String description, int time, int averageHeartRate, LocalDate date, int repetitions, int userCode) {
+    public Stretch(int code, String description, int time, int averageHeartRate, LocalDateTime date, int repetitions, int userCode) {
         super(code, description, time, averageHeartRate, date, repetitions, userCode);
     }
 
@@ -83,6 +83,6 @@ public class Stretch extends ActivityRepetitions {
         int heartRate;
         heartRate = user.getAverageHeartRate() + (int) (1/userFactor)*5;
         this.setAverageHeartRateDuringActivity(heartRate);
-        return caloriesPerStretch * this.getRepetitions() * userFactor;
+        return caloriesPerStretch * reps * userFactor;
     }
 }

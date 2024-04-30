@@ -1,7 +1,5 @@
 package com.group11.sportify.users;
 
-import com.group11.sportify.activities.Activity;
-import com.group11.sportify.activities.exceptions.ActivityDoesntExistException;
 import com.group11.sportify.users.exceptions.UserDoesntExistException;
 
 import java.util.HashMap;

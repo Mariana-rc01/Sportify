@@ -4,7 +4,7 @@ import com.group11.sportify.activities.Activity;
 import com.group11.sportify.activities.repeating.ActivityRepetitions;
 import com.group11.sportify.users.User;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class LegExtension extends ActivityRepetitionsWeight{
 
@@ -26,7 +26,7 @@ public class LegExtension extends ActivityRepetitionsWeight{
      * @param weight The weight used during the activity.
      * @param ususerCode the user code associated with this activity.
      */
-    public LegExtension(int code, String description, int time, int averageHeartRate, LocalDate date, int repetitions, double weight, int userCode){
+    public LegExtension(int code, String description, int time, int averageHeartRate, LocalDateTime date, int repetitions, double weight, int userCode){
         super(code, description, time, averageHeartRate, date, repetitions, weight, userCode);
     }
 

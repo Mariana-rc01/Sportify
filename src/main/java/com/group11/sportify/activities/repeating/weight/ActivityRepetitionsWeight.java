@@ -4,7 +4,7 @@ import com.group11.sportify.activities.Activity;
 import com.group11.sportify.activities.repeating.ActivityRepetitions;
 import com.group11.sportify.users.User;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public abstract class ActivityRepetitionsWeight extends ActivityRepetitions {
     private double weight;
@@ -28,7 +28,7 @@ public abstract class ActivityRepetitionsWeight extends ActivityRepetitions {
      * @param weight The weight used during the activity.
      * @param userCode the code of the user associated with this activity.
      */
-    public ActivityRepetitionsWeight(int code, String description, int time, int averageHeartRate, LocalDate date, int repetitions, double weight, int userCode) {
+    public ActivityRepetitionsWeight(int code, String description, int time, int averageHeartRate, LocalDateTime date, int repetitions, double weight, int userCode) {
         super(code, description, time, averageHeartRate, date, repetitions, userCode);
         this.weight = weight;
     }

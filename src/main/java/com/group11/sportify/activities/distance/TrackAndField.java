@@ -3,7 +3,7 @@ package com.group11.sportify.activities.distance;
 import com.group11.sportify.activities.Activity;
 import com.group11.sportify.users.User;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class TrackAndField extends ActivityDistance {
 
@@ -24,7 +24,7 @@ public class TrackAndField extends ActivityDistance {
      * @param distance The distance covered during the activity.
      * @param userCode the code of the user associated with this activity.
      */
-    public TrackAndField(int code, String description, int time, int averageHeartRate, LocalDate date, double distance, int userCode){
+    public TrackAndField(int code, String description, int time, int averageHeartRate, LocalDateTime date, double distance, int userCode){
         super(code, description, time, averageHeartRate, date, distance, userCode);
     }
 

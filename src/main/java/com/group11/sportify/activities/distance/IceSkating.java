@@ -4,7 +4,7 @@ import com.group11.sportify.activities.Activity;
 import com.group11.sportify.activities.Hard;
 import com.group11.sportify.users.User;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class IceSkating extends ActivityDistance implements Hard {
 
@@ -25,7 +25,7 @@ public class IceSkating extends ActivityDistance implements Hard {
      * @param distance The distance covered during the activity.
      * @param userCode the user associated with this activity.
      */
-    public IceSkating(int code, String description, int time, int averageHeartRate, LocalDate date, double distance, int userCode){
+    public IceSkating(int code, String description, int time, int averageHeartRate, LocalDateTime date, double distance, int userCode){
         super(code, description, time, averageHeartRate, date, distance, userCode);
     }
 

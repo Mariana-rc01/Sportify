@@ -1,8 +1,5 @@
 package com.group11.sportify.users;
 
-import com.group11.sportify.activities.Activity;
-
-import java.util.Map;
 import java.util.Set;
 
 /**

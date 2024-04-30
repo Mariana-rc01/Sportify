@@ -1,6 +1,6 @@
 package com.group11.sportify.activities.distance.altitude;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.group11.sportify.activities.Activity;
 import com.group11.sportify.activities.distance.ActivityDistance;
@@ -26,7 +26,7 @@ public class RoadRunning extends ActivityDistanceAltitude{
     * @param altitude The altitude covered during the activity.
     * @param userCode the code of the user associated with this activity.
     */
-    public RoadRunning(int code, String description, int time, int averageHeartRate, LocalDate date, double distance, double altitude, int userCode){
+    public RoadRunning(int code, String description, int time, int averageHeartRate, LocalDateTime date, double distance, double altitude, int userCode){
         super(code, description, time, averageHeartRate, date, distance, altitude, userCode);
     }
 

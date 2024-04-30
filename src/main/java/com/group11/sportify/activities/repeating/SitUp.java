@@ -4,7 +4,7 @@ import com.group11.sportify.activities.Activity;
 import com.group11.sportify.activities.Hard;
 import com.group11.sportify.users.User;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * This class represents the Sit-up exercise as a series of repetitions.
@@ -29,7 +29,7 @@ public class SitUp extends ActivityRepetitions implements Hard {
      * @param repetitions The number of repetitions of the exercise.
      * @param userCode the code of the user associated with this activity.
      */
-    public SitUp(int code, String description, int time, int averageHeartRate, LocalDate date, int repetitions, int userCode) {
+    public SitUp(int code, String description, int time, int averageHeartRate, LocalDateTime date, int repetitions, int userCode) {
         super(code, description, time, averageHeartRate, date, repetitions, userCode);
     }
 

@@ -2,9 +2,8 @@ package com.group11.sportify.activities;
 
 import com.group11.sportify.activities.exceptions.ActivityDoesntExistException;
 import com.group11.sportify.activities.repeating.*;
-import com.group11.sportify.users.User;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,7 +60,7 @@ public class ActivityController {
      * @param userCode         The code of the user associated with this activity.
      * @return The newly inserted Burpee activity.
      */
-    public Activity insertActivityBurpee(String description, int timeSpentMinutes, int averageHeartRate, LocalDate date, int repetitions, int userCode) {
+    public Activity insertActivityBurpee(String description, int timeSpentMinutes, int averageHeartRate, LocalDateTime date, int repetitions, int userCode) {
         int code = this.activities.size();
         Activity activity = new Burpee(code, description, timeSpentMinutes, averageHeartRate, date, repetitions, userCode);
         this.activities.put(code, activity);
@@ -79,7 +78,7 @@ public class ActivityController {
      * @param userCode         The code of the user associated with this activity.
      * @return The newly inserted Jumping Jack activity.
      */
-    public Activity insertActivityJumpingJack(String description, int timeSpentMinutes, int averageHeartRate, LocalDate date, int repetitions, int userCode) {
+    public Activity insertActivityJumpingJack(String description, int timeSpentMinutes, int averageHeartRate, LocalDateTime date, int repetitions, int userCode) {
         int code = this.activities.size();
         Activity activity = new JumpingJack(code, description, timeSpentMinutes, averageHeartRate, date, repetitions, userCode);
         this.activities.put(code, activity);
@@ -97,7 +96,7 @@ public class ActivityController {
      * @param userCode         The code of the user associated with this activity.
      * @return The newly inserted Push Up activity.
      */
-    public Activity insertActivityPushUp(String description, int timeSpentMinutes, int averageHeartRate, LocalDate date, int repetitions, int userCode) {
+    public Activity insertActivityPushUp(String description, int timeSpentMinutes, int averageHeartRate, LocalDateTime date, int repetitions, int userCode) {
         int code = this.activities.size();
         Activity activity = new PushUp(code, description, timeSpentMinutes, averageHeartRate, date, repetitions, userCode);
         this.activities.put(code, activity);
@@ -115,7 +114,7 @@ public class ActivityController {
      * @param userCode         The code of the user associated with this activity.
      * @return The newly inserted Sit Up activity.
      */
-    public Activity insertActivitySitUp(String description, int timeSpentMinutes, int averageHeartRate, LocalDate date, int repetitions, int userCode) {
+    public Activity insertActivitySitUp(String description, int timeSpentMinutes, int averageHeartRate, LocalDateTime date, int repetitions, int userCode) {
         int code = this.activities.size();
         Activity activity = new SitUp(code, description, timeSpentMinutes, averageHeartRate, date, repetitions, userCode);
         this.activities.put(code, activity);
@@ -133,7 +132,7 @@ public class ActivityController {
      * @param userCode         The code of the user associated with this activity.
      * @return The newly inserted Stretch activity.
      */
-    public Activity insertActivityStretch(String description, int timeSpentMinutes, int averageHeartRate, LocalDate date, int repetitions, int userCode) {
+    public Activity insertActivityStretch(String description, int timeSpentMinutes, int averageHeartRate, LocalDateTime date, int repetitions, int userCode) {
         int code = this.activities.size();
         Activity activity = new Stretch(code, description, timeSpentMinutes, averageHeartRate, date, repetitions, userCode);
         this.activities.put(code, activity);
@@ -147,7 +146,7 @@ public class ActivityController {
      * @param endDate
      * @return The list of activities between the specified dates.
      */
-    public List<Activity> getActivitiesBetweenDates(LocalDate startDate, LocalDate endDate) {
+    public List<Activity> getActivitiesBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
         return this.activities.values().stream()
                 .filter(activity -> activity.getDate().isAfter(startDate) && activity.getDate().isBefore(endDate))
                 .map(Activity::clone)
@@ -168,7 +167,7 @@ public class ActivityController {
      * @return The updated activity.
      * @throws ActivityDoesntExistException If no activity with the given code exists.
      */
-    public Activity updateActivitySeriesReps(int code, String description, int time, int averageHeartRate, LocalDate date, int repetitions) throws ActivityDoesntExistException {
+    public Activity updateActivitySeriesReps(int code, String description, int time, int averageHeartRate, LocalDateTime date, int repetitions) throws ActivityDoesntExistException {
         if (activities.containsKey(code)) {
             Activity activity = activities.get(code);
 
