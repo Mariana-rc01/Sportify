@@ -1,27 +1,17 @@
 package com.group11.sportify.plans;
 
-import com.group11.sportify.activities.Activity;
-
 public class PlanActivity {
     private int iterations;
-    private Activity activity;
-
-    /**
-     * Default constructor for the PlanActivity class.
-     */
-    public PlanActivity(){
-        this.iterations = 0;
-        this.activity = null;
-    }
+    private int activityCode;
 
     /**
      * Constructor for the PlanActivity class.
      * @param iterations The number of iterations of the activity.
-     * @param activity The activity to perform.
+     * @param activityCode The code of the activity to perform.
      */
-    public PlanActivity(int iterations, Activity activity){
+    public PlanActivity(int iterations, int activityCode){
         this.iterations = iterations;
-        this.activity = activity.clone();
+        this.activityCode = activityCode;
     }
 
     /**
@@ -30,7 +20,7 @@ public class PlanActivity {
      */
     public PlanActivity(PlanActivity pa){
         this.iterations = pa.iterations;
-        this.activity = pa.activity.clone();
+        this.activityCode = pa.activityCode;
     }
 
     /**
@@ -42,11 +32,11 @@ public class PlanActivity {
     }
 
     /**
-     * Getter for the activity attribute.
-     * @return The activity to perform.
+     * Getter for the activity code attribute.
+     * @return The code of the activity to perform.
      */
-    public Activity getActivity(){
-        return this.activity.clone();
+    public int getActivityCode(){
+        return this.activityCode;
     }
 
     /**
@@ -55,14 +45,6 @@ public class PlanActivity {
      */
     public void setIterations(int iterations){
         this.iterations = iterations;
-    }
-
-    /**
-     * Setter for the activity attribute.
-     * @param activity The activity to perform.
-     */
-    public void setActivity(Activity activity){
-        this.activity = activity.clone();
     }
 
     /**
@@ -79,7 +61,7 @@ public class PlanActivity {
      */
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append(this.activity.toString()).append("x").append(this.iterations).append(" times\n");
+        sb.append("Activity ").append(this.activityCode).append(" x").append(this.iterations).append(" times\n");
         return sb.toString();
     }
 
@@ -93,6 +75,6 @@ public class PlanActivity {
         if (o == null) return false;
         if (o.getClass() != this.getClass()) return false;
         PlanActivity pa = (PlanActivity) o;
-        return this.iterations == pa.iterations && this.activity.equals(pa.activity);
+        return this.iterations == pa.iterations && this.activityCode == pa.activityCode;
     }
 }

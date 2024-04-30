@@ -4,7 +4,7 @@ import com.group11.sportify.activities.Activity;
 import com.group11.sportify.activities.distance.ActivityDistance;
 import com.group11.sportify.users.User;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * This abstract class represents an exercise envolving distance and altitude.
@@ -30,10 +30,10 @@ public abstract class ActivityDistanceAltitude extends ActivityDistance {
      * @param date The date of the activity.
      * @param distance The distance covered during the activity.
      * @param altitude The altitude covered during the activity.
-     * @param user the user associated with this activity.
+     * @param user the code of the user associated with this activity.
      */
-    public ActivityDistanceAltitude(int code, String description, int time, int averageHeartRate, LocalDate date, double distance, double altitude, User user) {
-        super(code, description, time, averageHeartRate, date, distance, user);
+    public ActivityDistanceAltitude(int code, String description, int time, int averageHeartRate, LocalDateTime date, double distance, double altitude, int userCode) {
+        super(code, description, time, averageHeartRate, date, distance, userCode);
         this.altitude = altitude;
     }
 

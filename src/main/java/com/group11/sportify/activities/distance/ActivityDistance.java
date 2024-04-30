@@ -1,6 +1,6 @@
 package com.group11.sportify.activities.distance;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.group11.sportify.activities.Activity;
 import com.group11.sportify.users.User;
@@ -24,10 +24,10 @@ public abstract class ActivityDistance extends Activity {
      * @param averageHeartRate The average heart rate during the activity.
      * @param date The date of the activity.
      * @param distance The distance covered during the activity.
-     * @param user the user associated with this activity.
+     * @param userCode the code of the user associated with this activity.
      */
-    public ActivityDistance(int code, String description, int time, int averageHeartRate, LocalDate date, double distance, User user) {
-        super(code, description, time, averageHeartRate, date, user);
+    public ActivityDistance(int code, String description, int time, int averageHeartRate, LocalDateTime date, double distance, int userCode) {
+        super(code, description, time, averageHeartRate, date, userCode);
         this.distance = distance;
     }
 
