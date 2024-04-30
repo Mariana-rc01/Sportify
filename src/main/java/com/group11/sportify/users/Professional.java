@@ -3,6 +3,7 @@ package com.group11.sportify.users;
 import com.group11.sportify.activities.Activity;
 
 import java.util.Map;
+import java.util.Set;
 
 /**
  * This class represents a professional user.
@@ -41,9 +42,10 @@ public class Professional extends User{
      * @param weight The weight of the user.
      * @param height The height of the user.
      * @param activities The activities of the user
+     * @param plans The training plans of the user
      */
-    public Professional(int code, String name, String address, String email, int averageHeartRate, double weight, double height, Map<Integer, Activity> activities) {
-        super(code, name, address, email, averageHeartRate,weight,height,activities);
+    public Professional(int code, String name, String address, String email, int averageHeartRate, double weight, double height, Set<Integer> activities, Set<Integer> plans) {
+        super(code, name, address, email, averageHeartRate, weight, height, activities, plans);
     }
 
     /**

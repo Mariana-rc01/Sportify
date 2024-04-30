@@ -8,7 +8,6 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Controller class for managing activities.
@@ -59,12 +58,12 @@ public class ActivityController {
      * @param averageHeartRate The average heart rate during the activity.
      * @param date             The date of the activity.
      * @param repetitions      The number of repetitions for the activity.
-     * @param user             The user associated with this activity.
+     * @param userCode         The code of the user associated with this activity.
      * @return The newly inserted Burpee activity.
      */
-    public Activity insertActivityBurpee(String description, int timeSpentMinutes, int averageHeartRate, LocalDate date, int repetitions, User user) {
+    public Activity insertActivityBurpee(String description, int timeSpentMinutes, int averageHeartRate, LocalDate date, int repetitions, int userCode) {
         int code = this.activities.size();
-        Activity activity = new Burpee(code, description, timeSpentMinutes, averageHeartRate, date, repetitions, user);
+        Activity activity = new Burpee(code, description, timeSpentMinutes, averageHeartRate, date, repetitions, userCode);
         this.activities.put(code, activity);
         return activity;
     }
@@ -77,12 +76,12 @@ public class ActivityController {
      * @param averageHeartRate The average heart rate during the activity.
      * @param date             The date of the activity.
      * @param repetitions      The number of repetitions for the activity.
-     * @param user             The user associated with this activity.
+     * @param userCode         The code of the user associated with this activity.
      * @return The newly inserted Jumping Jack activity.
      */
-    public Activity insertActivityJumpingJack(String description, int timeSpentMinutes, int averageHeartRate, LocalDate date, int repetitions, User user) {
+    public Activity insertActivityJumpingJack(String description, int timeSpentMinutes, int averageHeartRate, LocalDate date, int repetitions, int userCode) {
         int code = this.activities.size();
-        Activity activity = new JumpingJack(code, description, timeSpentMinutes, averageHeartRate, date, repetitions, user);
+        Activity activity = new JumpingJack(code, description, timeSpentMinutes, averageHeartRate, date, repetitions, userCode);
         this.activities.put(code, activity);
         return activity;
     }
@@ -95,12 +94,12 @@ public class ActivityController {
      * @param averageHeartRate The average heart rate during the activity.
      * @param date             The date of the activity.
      * @param repetitions      The number of repetitions for the activity.
-     * @param user             The user associated with this activity.
+     * @param userCode         The code of the user associated with this activity.
      * @return The newly inserted Push Up activity.
      */
-    public Activity insertActivityPushUp(String description, int timeSpentMinutes, int averageHeartRate, LocalDate date, int repetitions, User user) {
+    public Activity insertActivityPushUp(String description, int timeSpentMinutes, int averageHeartRate, LocalDate date, int repetitions, int userCode) {
         int code = this.activities.size();
-        Activity activity = new PushUp(code, description, timeSpentMinutes, averageHeartRate, date, repetitions, user);
+        Activity activity = new PushUp(code, description, timeSpentMinutes, averageHeartRate, date, repetitions, userCode);
         this.activities.put(code, activity);
         return activity;
     }
@@ -113,12 +112,12 @@ public class ActivityController {
      * @param averageHeartRate The average heart rate during the activity.
      * @param date             The date of the activity.
      * @param repetitions      The number of repetitions for the activity.
-     * @param user             The user associated with this activity.
+     * @param userCode         The code of the user associated with this activity.
      * @return The newly inserted Sit Up activity.
      */
-    public Activity insertActivitySitUp(String description, int timeSpentMinutes, int averageHeartRate, LocalDate date, int repetitions, User user) {
+    public Activity insertActivitySitUp(String description, int timeSpentMinutes, int averageHeartRate, LocalDate date, int repetitions, int userCode) {
         int code = this.activities.size();
-        Activity activity = new SitUp(code, description, timeSpentMinutes, averageHeartRate, date, repetitions, user);
+        Activity activity = new SitUp(code, description, timeSpentMinutes, averageHeartRate, date, repetitions, userCode);
         this.activities.put(code, activity);
         return activity;
     }
@@ -131,14 +130,28 @@ public class ActivityController {
      * @param averageHeartRate The average heart rate during the activity.
      * @param date             The date of the activity.
      * @param repetitions      The number of repetitions for the activity.
-     * @param user             The user associated with this activity.
+     * @param userCode         The code of the user associated with this activity.
      * @return The newly inserted Stretch activity.
      */
-    public Activity insertActivityStretch(String description, int timeSpentMinutes, int averageHeartRate, LocalDate date, int repetitions, User user) {
+    public Activity insertActivityStretch(String description, int timeSpentMinutes, int averageHeartRate, LocalDate date, int repetitions, int userCode) {
         int code = this.activities.size();
-        Activity activity = new Stretch(code, description, timeSpentMinutes, averageHeartRate, date, repetitions, user);
+        Activity activity = new Stretch(code, description, timeSpentMinutes, averageHeartRate, date, repetitions, userCode);
         this.activities.put(code, activity);
         return activity;
+    }
+
+    /**
+     * Gets all activities between two dates.
+     * 
+     * @param startDate
+     * @param endDate
+     * @return The list of activities between the specified dates.
+     */
+    public List<Activity> getActivitiesBetweenDates(LocalDate startDate, LocalDate endDate) {
+        return this.activities.values().stream()
+                .filter(activity -> activity.getDate().isAfter(startDate) && activity.getDate().isBefore(endDate))
+                .map(Activity::clone)
+                .toList();
     }
 
     // Colocar aqui as restantes atividades
@@ -172,33 +185,6 @@ public class ActivityController {
             return activity;
         } else {
             throw new ActivityDoesntExistException();
-        }
-    }
-
-    /**
-     * Updates the user associated with a specific activity.
-     *
-     * @param code The code of the activity to be updated.
-     * @param user The updated user to be associated with the activity.
-     */
-    public void updateUserForActivity(int code, User user){
-        Activity activity = activities.get(code);
-
-        activity.setUser(user);
-        activities.put(code, activity);
-    }
-
-    /**
-     * Updates the user along with all their activities.
-     *
-     * @param user The user whose activities need to be updated.
-     */
-    public void updateActivitiesOfUser(User user) {
-        Set<Integer> activityCodes = user.getActivities().keySet();
-
-        for (int activityCode : activityCodes) {
-            updateUserForActivity(activityCode, user);
-
         }
     }
 }

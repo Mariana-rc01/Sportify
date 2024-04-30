@@ -101,14 +101,28 @@ public class UserController {
 
     /**
      * Inserts a new activity for a user identified by the given code.
-     * @param code The code of the user to insert the activity for.
-     * @param activity The activity to insert already created on ActivityController.
+     * @param userCode The code of the user to insert the activity for.
+     * @param activityCode The activity to insert already created on ActivityController.
      * @throws UserDoesntExistException If the user with the specified code doesn't exist.
      */
-    public void insertActivity(int code, Activity activity) throws UserDoesntExistException {
-        if(this.users.containsKey(code)){
-            User user = this.users.get(code);
-            user.getActivities().put(activity.getCode(), activity.clone());
+    public void insertActivity(int userCode, int activityCode) throws UserDoesntExistException {
+        if(this.users.containsKey(userCode)){
+            User user = this.users.get(userCode);
+            user.addActivity(activityCode);
+        }
+        throw new UserDoesntExistException();
+    }
+
+    /**
+     * Inserts a new training plan for a user identified by the given code.
+     * @param userCode The code of the user to insert the activity for.
+     * @param planCode The plan to insert already created on ActivityPlanController.
+     * @throws UserDoesntExistException If the user with the specified code doesn't exist.
+     */
+    public void insertTrainingPlan(int userCode, int planCode) throws UserDoesntExistException {
+        if(this.users.containsKey(userCode)){
+            User user = this.users.get(userCode);
+            user.addTrainingPlan(planCode);
         }
         throw new UserDoesntExistException();
     }
@@ -136,34 +150,6 @@ public class UserController {
             if (newAverageHeartRate != 0) user.setAverageHeartRate(newAverageHeartRate);
             if (newWeight != 0) user.setWeight(newWeight);
             if (newHeight != 0) user.setHeight(newHeight);
-
-            users.put(code, user);
-
-            return user;
-        } else {
-            throw new UserDoesntExistException();
-        }
-    }
-
-    /**
-     * Updates a specific activity of a user with the provided activity information.
-     *
-     * @param code The unique code of the user to update.
-     * @param updatedActivity The updated activity to be associated with the user.
-     * @return The updated user.
-     * @throws UserDoesntExistException If no user with the provided code exists.
-     * @throws ActivityDoesntExistException If the provided activity doesn't exist in the user.
-     */
-    public User updateUserActivity(int code, Activity updatedActivity) throws UserDoesntExistException, ActivityDoesntExistException {
-        if (users.containsKey(code)) {
-            User user = users.get(code);
-
-            if (updatedActivity != null){
-                if (user.getActivities().containsKey(updatedActivity.getCode())) {
-                    user.getActivities().put(updatedActivity.getCode(), updatedActivity);
-                }
-                else throw new ActivityDoesntExistException();
-            }
 
             users.put(code, user);
 

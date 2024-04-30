@@ -26,10 +26,10 @@ public abstract class ActivityRepetitionsWeight extends ActivityRepetitions {
      * @param date The date of the activity.
      * @param repetitions The number of repetitions of the activity.
      * @param weight The weight used during the activity.
-     * @param user the user associated with this activity.
+     * @param userCode the code of the user associated with this activity.
      */
-    public ActivityRepetitionsWeight(int code, String description, int time, int averageHeartRate, LocalDate date, int repetitions, double weight, User user) {
-        super(code, description, time, averageHeartRate, date, repetitions, user);
+    public ActivityRepetitionsWeight(int code, String description, int time, int averageHeartRate, LocalDate date, int repetitions, double weight, int userCode) {
+        super(code, description, time, averageHeartRate, date, repetitions, userCode);
         this.weight = weight;
     }
 

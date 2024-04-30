@@ -24,10 +24,10 @@ public class TrailRunning extends ActivityDistanceAltitude{
     * @param date The date of the activity.
     * @param distance The distance covered during the activity.
     * @param altitude The altitude covered during the activity.
-    * @param user the user associated with this activity.
+    * @param userCode the code of the user associated with this activity.
     */
-    public TrailRunning(int code, String description, int time, int averageHeartRate, LocalDate date, double distance, double altitude, User user){
-        super(code, description, time, averageHeartRate, date, distance, altitude, user);
+    public TrailRunning(int code, String description, int time, int averageHeartRate, LocalDate date, double distance, double altitude, int userCode){
+        super(code, description, time, averageHeartRate, date, distance, altitude, userCode);
     }
 
     /**

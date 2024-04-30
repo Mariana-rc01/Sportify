@@ -22,10 +22,10 @@ public class TrackAndField extends ActivityDistance {
      * @param averageHeartRate The average heart rate during the activity.
      * @param date The date of the activity.
      * @param distance The distance covered during the activity.
-     * @param user the user associated with this activity.
+     * @param userCode the code of the user associated with this activity.
      */
-    public TrackAndField(int code, String description, int time, int averageHeartRate, LocalDate date, double distance, User user){
-        super(code, description, time, averageHeartRate, date, distance, user);
+    public TrackAndField(int code, String description, int time, int averageHeartRate, LocalDate date, double distance, int userCode){
+        super(code, description, time, averageHeartRate, date, distance, userCode);
     }
 
     /**

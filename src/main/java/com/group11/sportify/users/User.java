@@ -1,14 +1,10 @@
 package com.group11.sportify.users;
 
-import com.group11.sportify.activities.Activity;
-import com.group11.sportify.plans.TrainingPlan;
-
-import java.time.LocalDate;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
+import java.util.Set;
 
 /**
  * This abstract class represents a user of the Sportify application.
@@ -23,8 +19,8 @@ public abstract class User {
     private int averageHeartRate;
     private double weight; // in kg
     private double height; // in cm
-    private Map<Integer, Activity> activities;
-    private Map<Integer, TrainingPlan> trainingPlans;
+    private Set<Integer> activities;
+    private Set<Integer> trainingPlans;
 
     // Falta registar os planos de treino
 
@@ -39,8 +35,8 @@ public abstract class User {
         this.averageHeartRate = 0;
         this.weight = 0;
         this.height = 0;
-        this.activities = new HashMap<>();
-        this.trainingPlans = new HashMap<>();
+        this.activities = new HashSet<>();
+        this.trainingPlans = new HashSet<>();
     }
 
     /**
@@ -59,8 +55,8 @@ public abstract class User {
         this.averageHeartRate = averageHeartRate;
         this.weight = weight;
         this.height = height;
-        this.activities = new HashMap<>();
-        this.trainingPlans = new HashMap<>();
+        this.activities = new HashSet<>();
+        this.trainingPlans = new HashSet<>();
     }
 
     /**
@@ -70,9 +66,9 @@ public abstract class User {
      * @param address The address of the user.
      * @param email The email of the user.
      * @param averageHeartRate The average heart rate of the user.
-     * @param activities The activities of the user
+     * @param activitiesIds The activities IDs of the user
      */
-    public User(int code, String name, String address, String email, int averageHeartRate, double weight, double height, Map<Integer,Activity> activities) {
+    public User(int code, String name, String address, String email, int averageHeartRate, double weight, double height, Set<Integer> activitiesIds) {
         this.code = code;
         this.name = name;
         this.address = address;
@@ -80,7 +76,8 @@ public abstract class User {
         this.averageHeartRate = averageHeartRate;
         this.weight = weight;
         this.height = height;
-        this.activities = activities.values().stream().collect(Collectors.toMap(Activity::getCode, Activity::clone));
+        this.activities = new HashSet<>(activitiesIds);
+        this.trainingPlans = new HashSet<>();
     }
 
     /**
@@ -90,10 +87,10 @@ public abstract class User {
      * @param address The address of the user.
      * @param email The email of the user.
      * @param averageHeartRate The average heart rate of the user.
-     * @param activities The activities of the user
-     * @param plans The training plans of the user
+     * @param activityCodes The activity codes of the user
+     * @param planCodes The training plans codes of the user
      */
-    public User(int code, String name, String address, String email, int averageHeartRate, double weight, double height, Map<Integer,Activity> activities, Map<Integer,TrainingPlan> trainingPlans) {
+    public User(int code, String name, String address, String email, int averageHeartRate, double weight, double height, Set<Integer> activityCodes, Set<Integer> planCodes) {
         this.code = code;
         this.name = name;
         this.address = address;
@@ -101,8 +98,8 @@ public abstract class User {
         this.averageHeartRate = averageHeartRate;
         this.weight = weight;
         this.height = height;
-        this.activities = activities.values().stream().collect(Collectors.toMap(Activity::getCode, Activity::clone));
-        this.trainingPlans = trainingPlans.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue().clone()));
+        this.activities = new HashSet<>(activityCodes);
+        this.trainingPlans = new HashSet<>(planCodes);
     }
 
     /**
@@ -117,8 +114,8 @@ public abstract class User {
         this.averageHeartRate = u.getAverageHeartRate();
         this.weight = u.getWeight();
         this.height = u.getHeight();
-        this.activities = u.getActivities();
-        this.trainingPlans = u.getTrainingPlans();
+        this.activities = new HashSet<>(u.getActivities());
+        this.trainingPlans = new HashSet<>(u.getTrainingPlans());
     }
 
     public abstract User clone();
@@ -239,58 +236,32 @@ public abstract class User {
      * Get activities of the user.
      * @return activities of the user.
      */
-    public Map<Integer, Activity> getActivities() {
-        return this.activities.values().stream().collect(Collectors.toMap(Activity::getCode, Activity::clone));
+    public List<Integer> getActivities() {
+        return new ArrayList<>(this.activities);
     }
 
     /**
      * Get training plans of the user.
      * @return training plans of the user.
      */
-    public Map<Integer, TrainingPlan> getTrainingPlans() {
-        return trainingPlans.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue().clone()));
+    public List<Integer> getTrainingPlans() {
+        return new ArrayList<>(this.trainingPlans);
     }
 
     /**
-     * Set activities of the user.
-     * @param activities The activities to set.
+     * Add activity to the user.
+     * @param activityCode The activitiy to add.
      */
-    public void setActivities(Map<Integer, Activity> activities) {
-        this.activities = activities.values().stream().map(Activity::clone).collect(Collectors.toMap(Activity::getCode, Activity::clone));
+    public void addActivity(int activityCode) {
+        this.activities.add(activityCode);
     }
 
     /**
-     * Set training plans of the user.
-     * @param trainingPlans The training plans to set.
+     * Add training plan to the user.
+     * @param trainingPlanCode The training plan to add.
      */
-    public void setTrainingPlans(Map<Integer, TrainingPlan> trainingPlans) {
-        this.trainingPlans = trainingPlans.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue().clone()));
-    }
-
-    /**
-     * Add an activity to the user.
-     * @param activity The activity to add.
-     */
-    public void addActivity(Activity activity) {
-        this.activities.put(activity.getCode(), activity.clone());
-    }
-
-    /**
-     * Add a training plan to the user.
-     * @param trainingPlan The training plan to add.
-     */
-    public void addTrainingPlan(TrainingPlan trainingPlan) {
-        this.trainingPlans.put(this.trainingPlans.size(), trainingPlan.clone());
-    }
-
-    /**
-     * Get the activities of the user between two dates.
-     * @param startDate The start date of the period.
-     * @param endDate The end date of the period.
-     * @return The activities of the user between the two dates.
-     */
-    public List<Activity> getActivitiesBetweenDates(LocalDate startDate, LocalDate endDate) {
-        return this.activities.values().stream().filter(activity -> activity.getDate().isAfter(startDate) && activity.getDate().isBefore(endDate)).map(Activity::clone).collect(Collectors.toList()); 
+    public void addTrainingPlan(int trainingPlanCode) {
+        this.trainingPlans.add(trainingPlanCode);
     }
 
     /**
@@ -331,20 +302,6 @@ public abstract class User {
         sb.append(weight).append("\n");
         sb.append("Height= ");
         sb.append(height).append("\n");
-
-        if (activities != null) {
-            sb.append("Activities:\n");
-            for (Activity activity : activities.values()) {
-                sb.append(activity.toString()).append("\n");
-            }
-        }
-
-        if (trainingPlans != null) {
-            sb.append("Training Plans:\n");
-            for (TrainingPlan trainingPlan : trainingPlans.values()) {
-                sb.append(trainingPlan.toString()).append("\n");
-            }
-        }
 
         return sb.toString();
     }

@@ -22,10 +22,10 @@ public class Rowing extends ActivityDistance {
      * @param averageHeartRate The average heart rate during the activity.
      * @param date The date of the activity.
      * @param distance The distance covered during the activity.
-     * @param user the user associated with this activity.
+     * @param userCode the code of the user associated with this activity.
      */
-    public Rowing(int code, String description, int time, int averageHeartRate, LocalDate date, double distance, User user){
-        super(code, description, time, averageHeartRate, date, distance, user);
+    public Rowing(int code, String description, int time, int averageHeartRate, LocalDate date, double distance, int userCode){
+        super(code, description, time, averageHeartRate, date, distance, userCode);
     }
 
     /**

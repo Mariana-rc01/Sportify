@@ -98,14 +98,6 @@ public class TrainingPlan {
     }
 
     /**
-     * Get the total time spent on the training plan.
-     * @return The total time spent on the training plan.
-     */
-    public int getTotalTimeSpentMinutes(){
-        return this.plan.values().stream().mapToInt(pa -> pa.getActivity().getTimeSpentMinutes() * pa.getIterations()).sum();
-    }
-
-    /**
      * Returns a string representation of the TrainingPlan object.
      * @return A string representation of the TrainingPlan object.
      */
