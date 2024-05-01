@@ -25,6 +25,7 @@ public class SportifyController {
     private TrainingPlanController trainingPlanController;
 
     /**
+     * 2ª Statistic
      * Returns the user with the most activities in the sportiy application.
      *
      * @return The user with most activities or null if there is none.
@@ -34,6 +35,7 @@ public class SportifyController {
     }
 
     /*
+     * 3ª Statistic
      * Returns the user with the most activities between two dates.
      *
      * @param startDate The start date.
@@ -50,8 +52,8 @@ public class SportifyController {
         }
     }
 
-    /* 1ª Estatística */
     /**
+     * 1ª Statistic
      * Finds the user who burned the most calories within the specified time period.
      *
      * @param startDate The start date of the time period.
@@ -147,8 +149,8 @@ public class SportifyController {
         return totalCalories;
     }
 
-    /* 2ª estatística */
     /**
+     * 4ª Statistic
      * Calculates the total distance covered by a user within the specified time period.
      *
      * @param user       The user for whom to calculate the total distance.
