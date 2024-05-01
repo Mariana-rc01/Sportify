@@ -67,6 +67,9 @@ public class AdminView implements View {
         skipTimeView.show();
     }
 
+    /**
+     * Clears the data of the application.
+     */
     public void runClearData() {
         sportifyApplication.getController().clearData();
     }
