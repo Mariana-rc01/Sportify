@@ -2,6 +2,7 @@ package com.group11.sportify.activities;
 
 import com.group11.sportify.activities.exceptions.ActivityDoesntExistException;
 import com.group11.sportify.activities.repeating.*;
+import com.group11.sportify.activities.repeating.weight.ActivityRepetitionsWeight;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -50,91 +51,107 @@ public class ActivityController {
     }
 
     /**
-     * Inserts a new Burpee activity into the system.
+     * Inserts a new activity with repetitions into the system.
      *
+     * @param type             The class of the activity.
      * @param description      The description of the activity.
      * @param timeSpentMinutes The time spent on the activity in minutes.
      * @param averageHeartRate The average heart rate during the activity.
      * @param date             The date of the activity.
      * @param repetitions      The number of repetitions for the activity.
      * @param userCode         The code of the user associated with this activity.
-     * @return The newly inserted Burpee activity.
+     * @return The newly inserted activity.
      */
-    public Activity insertActivityBurpee(String description, int timeSpentMinutes, int averageHeartRate, LocalDateTime date, int repetitions, int userCode) {
+    public Activity insertActivity(Class<? extends Activity> type, String description, int timeSpentMinutes, int averageHeartRate, LocalDateTime date, int repetitions, int userCode) {
         int code = this.activities.size();
-        Activity activity = new Burpee(code, description, timeSpentMinutes, averageHeartRate, date, repetitions, userCode);
+        Activity activity = null;
+        try {
+            activity = type.getConstructor(int.class, String.class, int.class, int.class, LocalDateTime.class, int.class, int.class)
+                    .newInstance(code, description, timeSpentMinutes, averageHeartRate, date, repetitions, userCode);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         this.activities.put(code, activity);
         return activity;
     }
 
     /**
-     * Inserts a new Jumping Jack activity into the system.
+     * Inserts a new activity with repetitions and weights into the system.
      *
+     * @param type             The class of the activity.
      * @param description      The description of the activity.
      * @param timeSpentMinutes The time spent on the activity in minutes.
      * @param averageHeartRate The average heart rate during the activity.
      * @param date             The date of the activity.
      * @param repetitions      The number of repetitions for the activity.
+     * @param weight           The weight used during the activity.
      * @param userCode         The code of the user associated with this activity.
-     * @return The newly inserted Jumping Jack activity.
+     * @return The newly inserted activity.
      */
-    public Activity insertActivityJumpingJack(String description, int timeSpentMinutes, int averageHeartRate, LocalDateTime date, int repetitions, int userCode) {
+    public Activity insertActivity(Class<? extends Activity> type, String description, int timeSpentMinutes, int averageHeartRate, LocalDateTime date, int repetitions, double weight, int userCode) {
         int code = this.activities.size();
-        Activity activity = new JumpingJack(code, description, timeSpentMinutes, averageHeartRate, date, repetitions, userCode);
+        Activity activity = null;
+        try {
+            activity = type.getConstructor(int.class, String.class, int.class, int.class, LocalDateTime.class, int.class, int.class, int.class)
+                    .newInstance(code, description, timeSpentMinutes, averageHeartRate, date, repetitions, weight, userCode);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         this.activities.put(code, activity);
         return activity;
     }
 
     /**
-     * Inserts a new Push-Up activity into the system.
+     * Inserts a new activity with distance into the system.
      *
+     * @param type             The class of the activity.
      * @param description      The description of the activity.
      * @param timeSpentMinutes The time spent on the activity in minutes.
      * @param averageHeartRate The average heart rate during the activity.
      * @param date             The date of the activity.
-     * @param repetitions      The number of repetitions for the activity.
+     * @param distance         The distance covered in the activity.
      * @param userCode         The code of the user associated with this activity.
-     * @return The newly inserted Push Up activity.
+     * @return The newly inserted activity.
      */
-    public Activity insertActivityPushUp(String description, int timeSpentMinutes, int averageHeartRate, LocalDateTime date, int repetitions, int userCode) {
+    public Activity insertActivity(Class<? extends Activity> type, String description, int timeSpentMinutes, int averageHeartRate, LocalDateTime date, double distance, int userCode) {
         int code = this.activities.size();
-        Activity activity = new PushUp(code, description, timeSpentMinutes, averageHeartRate, date, repetitions, userCode);
+        Activity activity = null;
+        try {
+            activity = type.getConstructor(int.class, String.class, int.class, int.class, LocalDateTime.class, double.class, int.class)
+                    .newInstance(code, description, timeSpentMinutes, averageHeartRate, date, distance, userCode);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         this.activities.put(code, activity);
         return activity;
     }
 
     /**
-     * Inserts a new Sit-Up activity into the system.
+     * Inserts a new activity with distance and altitude into the system.
      *
+     * @param type             The class of the activity.
      * @param description      The description of the activity.
      * @param timeSpentMinutes The time spent on the activity in minutes.
      * @param averageHeartRate The average heart rate during the activity.
      * @param date             The date of the activity.
-     * @param repetitions      The number of repetitions for the activity.
+     * @param distance         The distance covered in the activity.
+     * @param altitude         The altitude covered in the activity.
      * @param userCode         The code of the user associated with this activity.
-     * @return The newly inserted Sit Up activity.
+     * @return The newly inserted activity.
      */
-    public Activity insertActivitySitUp(String description, int timeSpentMinutes, int averageHeartRate, LocalDateTime date, int repetitions, int userCode) {
+    public Activity insertActivity(Class<? extends Activity> type, String description, int timeSpentMinutes, int averageHeartRate, LocalDateTime date, double distance, double altitude, int userCode) {
         int code = this.activities.size();
-        Activity activity = new SitUp(code, description, timeSpentMinutes, averageHeartRate, date, repetitions, userCode);
-        this.activities.put(code, activity);
-        return activity;
-    }
+        Activity activity = null;
+        try {
+            activity = type.getConstructor(int.class, String.class, int.class, int.class, LocalDateTime.class, double.class, double.class, int.class)
+                    .newInstance(code, description, timeSpentMinutes, averageHeartRate, date, distance, altitude, userCode);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-    /**
-     * Inserts a new Stretch activity into the system.
-     *
-     * @param description      The description of the activity.
-     * @param timeSpentMinutes The time spent on the activity in minutes.
-     * @param averageHeartRate The average heart rate during the activity.
-     * @param date             The date of the activity.
-     * @param repetitions      The number of repetitions for the activity.
-     * @param userCode         The code of the user associated with this activity.
-     * @return The newly inserted Stretch activity.
-     */
-    public Activity insertActivityStretch(String description, int timeSpentMinutes, int averageHeartRate, LocalDateTime date, int repetitions, int userCode) {
-        int code = this.activities.size();
-        Activity activity = new Stretch(code, description, timeSpentMinutes, averageHeartRate, date, repetitions, userCode);
         this.activities.put(code, activity);
         return activity;
     }
@@ -149,6 +166,19 @@ public class ActivityController {
     public List<Activity> getActivitiesBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
         return this.activities.values().stream()
                 .filter(activity -> activity.getDate().isAfter(startDate) && activity.getDate().isBefore(endDate))
+                .map(Activity::clone)
+                .toList();
+    }
+
+    /**
+     * Gets all activities belonging to a user.
+     * 
+     * @param userCode The code of the user to get the activities from.
+     * @return The list of activities belonging to the specified user.
+     */
+    public List<Activity> getUserActivities(int userCode) {
+        return this.activities.values().stream()
+                .filter(activity -> activity.getUserCode() == userCode)
                 .map(Activity::clone)
                 .toList();
     }

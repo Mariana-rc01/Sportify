@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import com.group11.sportify.activities.Activity;
 import com.group11.sportify.activities.ActivityController;
+import com.group11.sportify.time.TimeController;
 import com.group11.sportify.users.User;
 import com.group11.sportify.users.UserController;
 
@@ -14,6 +15,16 @@ import com.group11.sportify.users.UserController;
 public class SportifyController {
     private UserController userController;
     private ActivityController activitiesController;
+    private TimeController timeController;
+
+    /**
+     * Default constructor for the SportifyController class.
+     */
+    public SportifyController(){
+        userController = new UserController();
+        activitiesController = new ActivityController();
+        timeController = new TimeController();
+    }
 
     /**
      * Returns the user with the most activities in the sportiy application.
@@ -39,5 +50,33 @@ public class SportifyController {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    /*
+     * Returns the user controller
+     * 
+     * @return The user controller.
+     */
+    public UserController getUserController() {
+        return userController;
+    }
+
+    /*
+     * Returns the activities controller
+     * 
+     * @return The activities controller.
+     */
+    public ActivityController getActivitiesController() {
+        return activitiesController;
+    }
+
+
+    /*
+     * Returns the time controller
+     * 
+     * @return The time controller.
+     */
+    public TimeController getTimeController() {
+        return timeController;
     }
 }

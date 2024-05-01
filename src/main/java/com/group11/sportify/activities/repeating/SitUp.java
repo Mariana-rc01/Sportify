@@ -67,7 +67,7 @@ public class SitUp extends ActivityRepetitions implements Hard {
         StringBuilder sb = new StringBuilder();
 
         sb.append(super.toString());
-        sb.append("Sit Up\n");
+        sb.insert(0, "Sit Up\n");
 
         return sb.toString();
     }

@@ -65,7 +65,7 @@ public class JumpingJack extends ActivityRepetitions {
         StringBuilder sb = new StringBuilder();
 
         sb.append(super.toString());
-        sb.append("Jumping Jack\n");
+        sb.insert(0, "Jumping Jack\n");
 
         return sb.toString();
     }

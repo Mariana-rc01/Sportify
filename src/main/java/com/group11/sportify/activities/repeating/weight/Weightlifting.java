@@ -74,7 +74,7 @@ public class Weightlifting extends ActivityRepetitionsWeight implements Hard {
         StringBuilder sb = new StringBuilder();
 
         sb.append(super.toString());
-        sb.append("Weightlifting\n");
+        sb.insert(0, "Weightlifting\n");
 
         return sb.toString();
     }

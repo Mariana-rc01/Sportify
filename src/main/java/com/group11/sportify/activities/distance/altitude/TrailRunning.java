@@ -73,7 +73,7 @@ public class TrailRunning extends ActivityDistanceAltitude{
         StringBuilder sb = new StringBuilder();
 
         sb.append(super.toString());
-        sb.append("Trail Running\n");
+        sb.insert(0, "Trail Running\n");
 
         return sb.toString();
     }

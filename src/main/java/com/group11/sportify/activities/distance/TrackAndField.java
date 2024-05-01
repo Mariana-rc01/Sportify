@@ -61,7 +61,7 @@ public class TrackAndField extends ActivityDistance {
         StringBuilder sb = new StringBuilder();
 
         sb.append(super.toString());
-        sb.append("Track and Field\n");
+        sb.insert(0, "Track and Field\n");
 
         return sb.toString();
     }

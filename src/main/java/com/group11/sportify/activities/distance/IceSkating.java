@@ -62,7 +62,7 @@ public class IceSkating extends ActivityDistance implements Hard {
         StringBuilder sb = new StringBuilder();
 
         sb.append(super.toString());
-        sb.append("Ice Skating\n");
+        sb.insert(0, "Ice Skating\n");
 
         return sb.toString();
     }
