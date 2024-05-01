@@ -311,7 +311,7 @@ public abstract class User {
      * @return The calculated BMI.
      */
     public double calculateBMI(){
-        return this.getWeight() / (this.getHeight() * this.getHeight());
+        return this.getWeight() / (this.getHeight() * this.getHeight() * 1e-4);
     }
 
     /**
