@@ -45,7 +45,7 @@ public class ProfessionalUserTest {
         user1 = new Professional(1, "Liliana","Rua 123", "Liliana23@gmail.com",80,56,160);
         assertTrue(user1 != null);
         User user2 = new Professional(user1);
-        assertFalse(user1.equals(user2));
+        assertTrue(user1.equals(user2));
     }
 
     @Test
