@@ -10,7 +10,7 @@ import com.group11.sportify.plans.exceptions.TrainingPlanDoesntExistException;
  * Controller class for training plans.
  */
 public class TrainingPlanController {
-    
+
     /**
      * Map to store activities with their unique codes as keys.
      */
@@ -26,6 +26,7 @@ public class TrainingPlanController {
 
     /**
      * Retrieves a list of all training plans.
+     * 
      * @return A list containing all training plans.
      */
     public List<TrainingPlan> getAllTrainingPlans() {
@@ -37,7 +38,8 @@ public class TrainingPlanController {
      *
      * @param code The unique code of the plan to retrieve.
      * @return The training plan corresponding to the given code.
-     * @throws TrainingPlanDoesntExistException If no activity with the given code exists.
+     * @throws TrainingPlanDoesntExistException If no activity with the given code
+     *                                          exists.
      */
     public TrainingPlan getActivity(int code) throws TrainingPlanDoesntExistException {
         if (this.trainingPlans.containsKey(code)) {
@@ -46,4 +48,10 @@ public class TrainingPlanController {
         throw new TrainingPlanDoesntExistException();
     }
 
+    /**
+     * Clears all training plans data from the TrainingPlanController.
+     */
+    public void clearTrainingPlans() {
+        trainingPlans.clear();
+    }
 }
