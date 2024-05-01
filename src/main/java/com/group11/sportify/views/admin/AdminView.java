@@ -7,6 +7,7 @@ import com.group11.sportify.Sportify;
 import com.group11.sportify.views.View;
 import com.group11.sportify.views.components.Menu;
 import com.group11.sportify.views.statistics.StatisticsView;
+import com.group11.sportify.views.time.SkipTimeView;
 
 public class AdminView implements View {
 
@@ -59,7 +60,7 @@ public class AdminView implements View {
     }
 
     /**
-     * Runs the statistics view.
+     * Runs the time view.
      */
     public void runSkipTimeView() {
         SkipTimeView skipTimeView = new SkipTimeView(sportifyApplication);

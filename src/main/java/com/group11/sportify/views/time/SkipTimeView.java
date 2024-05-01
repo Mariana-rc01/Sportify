@@ -1,4 +1,4 @@
-package com.group11.sportify.views.admin;
+package com.group11.sportify.views.time;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -13,7 +13,7 @@ public class SkipTimeView implements View {
     private Sportify sportifyApplication;
 
     /**
-     * Default constructor for the AdminView class.
+     * Default constructor for the TimeView class.
      *
      * @param sportifyApplication The Sportify application.
      */
@@ -27,7 +27,7 @@ public class SkipTimeView implements View {
     }
 
     /**
-     * Shows the admin menu of the application.
+     * Shows the time menu of the application.
      */
     public void skipTimeMenu() {
         boolean shouldExit = false;
@@ -39,7 +39,7 @@ public class SkipTimeView implements View {
             LocalDateTime currentTime = sportifyApplication.getController().getTimeController().getCurrentDateTime();
             System.out.println("It's " + currentTime.format(dtf) + ".\n");
 
-            Menu menu = new Menu(new String[] { "📅 Skip to a date", "🗓️ Skip months, days and hours",
+            Menu menu = new Menu(new String[] { "📅 Skip to a date", "🗓️  Skip months, days and hours",
                     "🌅 Skip days and hours", "🕝 Skip hours", "🚪 Return" });
             Input codeInput = new Input();
             menu.setHandler(0, () -> {
