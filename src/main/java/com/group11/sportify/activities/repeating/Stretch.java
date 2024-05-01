@@ -65,7 +65,7 @@ public class Stretch extends ActivityRepetitions {
         StringBuilder sb = new StringBuilder();
 
         sb.append(super.toString());
-        sb.append("Stretch\n");
+        sb.insert(0, "Stretch\n");
 
         return sb.toString();
     }

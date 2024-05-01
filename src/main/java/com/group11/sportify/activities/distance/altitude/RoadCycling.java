@@ -73,7 +73,7 @@ public class RoadCycling extends ActivityDistanceAltitude{
         StringBuilder sb = new StringBuilder();
 
         sb.append(super.toString());
-        sb.append("Road Cycling\n");
+        sb.insert(0, "Road Cycling\n");
 
         return sb.toString();
     }

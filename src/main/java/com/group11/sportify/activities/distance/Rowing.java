@@ -61,7 +61,7 @@ public class Rowing extends ActivityDistance {
         StringBuilder sb = new StringBuilder();
 
         sb.append(super.toString());
-        sb.append("Rowing\n");
+        sb.insert(0, "Rowing\n");
 
         return sb.toString();
     }

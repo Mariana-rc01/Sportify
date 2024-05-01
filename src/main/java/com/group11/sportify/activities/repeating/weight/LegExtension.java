@@ -73,7 +73,7 @@ public class LegExtension extends ActivityRepetitionsWeight{
         StringBuilder sb = new StringBuilder();
 
         sb.append(super.toString());
-        sb.append("Leg Extension\n");
+        sb.insert(0, "Leg Extension\n");
 
         return sb.toString();
     }

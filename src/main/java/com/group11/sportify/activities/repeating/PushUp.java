@@ -66,7 +66,7 @@ public class PushUp extends ActivityRepetitions implements Hard {
         StringBuilder sb = new StringBuilder();
 
         sb.append(super.toString());
-        sb.append("Push Up\n");
+        sb.insert(0, "Push Up\n");
 
         return sb.toString();
     }

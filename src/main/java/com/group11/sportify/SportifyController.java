@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import com.group11.sportify.activities.Activity;
 import com.group11.sportify.activities.ActivityController;
+import com.group11.sportify.time.TimeController;
 import com.group11.sportify.activities.distance.ActivityDistance;
 import com.group11.sportify.activities.exceptions.ActivityDoesntExistException;
 import com.group11.sportify.plans.PlanActivity;
@@ -22,36 +23,55 @@ import com.group11.sportify.users.UserController;
 public class SportifyController {
     private UserController userController;
     private ActivityController activitiesController;
+    private TimeController timeController;
     private TrainingPlanController trainingPlanController;
 
     /**
-     * 2ª Statistic
-     * Returns the user with the most activities in the sportiy application.
-     *
-     * @return The user with most activities or null if there is none.
+     * Default constructor for the SportifyController class.
      */
-    public User getUserWithMostActivities(){
-        return userController.getAllUsers().stream().max((u1, u2) -> u1.getActivities().size() - u2.getActivities().size()).orElse(null);
+    public SportifyController(){
+        userController = new UserController();
+        activitiesController = new ActivityController();
+        timeController = new TimeController();
+        trainingPlanController = new TrainingPlanController();
+    }
+  
+    /*
+     * Returns the user controller
+     * 
+     * @return The user controller.
+     */
+    public UserController getUserController() {
+        return userController;
     }
 
     /*
-     * 3ª Statistic
-     * Returns the user with the most activities between two dates.
-     *
-     * @param startDate The start date.
-     * @param endDate The end date.
-     *
-     * @return The user with most activities between the two dates or null if there is none.
+     * Returns the activities controller
+     * 
+     * @return The activities controller.
      */
-    public User getUserWithMostActivitiesBetweenDates(LocalDateTime startDate, LocalDateTime endDate){
-        int topUserCode = activitiesController.getActivitiesBetweenDates(startDate, endDate).stream().collect(Collectors.groupingBy(Activity::getUserCode)).entrySet().stream().max((e1, e2) -> e1.getValue().size() - e2.getValue().size()).get().getKey();
-        try {
-            return userController.getUser(topUserCode);
-        } catch (Exception e) {
-            return null;
-        }
+    public ActivityController getActivitiesController() {
+        return activitiesController;
     }
 
+    /*
+     * Returns the time controller
+     * 
+     * @return The time controller.
+     */
+    public TimeController getTimeController() {
+        return timeController;
+    }
+  
+    /*
+     * Returns the training plan controller
+     * 
+     * @return The training plan controller.
+     */
+    public TrainingPlanController getTrainingPlanController() {
+        return trainingPlanController;
+    }
+  
     /**
      * 1ª Statistic
      * Finds the user who burned the most calories within the specified time period.
@@ -148,6 +168,35 @@ public class SportifyController {
 
         return totalCalories;
     }
+  
+    /**
+     * 2ª Statistic
+     * Returns the user with the most activities in the sportiy application.
+     *
+     * @return The user with most activities or null if there is none.
+     */
+    public User getUserWithMostActivities(){
+        return userController.getAllUsers().stream().max((u1, u2) -> u1.getActivities().size() - u2.getActivities().size()).orElse(null);
+    }
+
+    /*
+     * 3ª Statistic
+     * Returns the user with the most activities between two dates.
+     *
+     * @param startDate The start date.
+     * @param endDate The end date.
+     *
+     * @return The user with most activities between the two dates or null if there is none.
+     */
+    public User getUserWithMostActivitiesBetweenDates(LocalDateTime startDate, LocalDateTime endDate){
+        int topUserCode = activitiesController.getActivitiesBetweenDates(startDate, endDate).stream().collect(Collectors.groupingBy(Activity::getUserCode)).entrySet().stream().max((e1, e2) -> e1.getValue().size() - e2.getValue().size()).get().getKey();
+        try {
+            return userController.getUser(topUserCode);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 
     /**
      * 4ª Statistic

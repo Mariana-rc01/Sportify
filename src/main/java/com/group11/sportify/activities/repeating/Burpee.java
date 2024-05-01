@@ -66,7 +66,7 @@ public class Burpee extends ActivityRepetitions implements Hard{
         StringBuilder sb = new StringBuilder();
 
         sb.append(super.toString());
-        sb.append("Burpee\n");
+        sb.insert(0, "Burpee\n");
 
         return sb.toString();
     }

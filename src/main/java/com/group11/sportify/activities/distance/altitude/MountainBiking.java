@@ -73,7 +73,7 @@ public class MountainBiking extends ActivityDistanceAltitude{
         StringBuilder sb = new StringBuilder();
 
         sb.append(super.toString());
-        sb.append("Mountain Biking\n");
+        sb.insert(0, "Mountain Biking\n");
 
         return sb.toString();
     }
