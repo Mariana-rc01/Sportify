@@ -3,6 +3,7 @@ package com.group11.sportify.activities;
 import com.group11.sportify.users.User;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 /**
@@ -55,6 +56,7 @@ public abstract class Activity {
         this.description = a.getDescription();
         this.timeSpentMinutes = a.getTimeSpentMinutes();
         this.averageHeartRateDuringActivity = a.getAverageHeartRateDuringActivity();
+        this.date = a.getDate();
         this.userCode = a.getUserCode();
     }
 
@@ -180,7 +182,7 @@ public abstract class Activity {
         sb.append("Average Heart Rate = ");
         sb.append(averageHeartRateDuringActivity).append("\n");
         sb.append("Date = ");
-        sb.append(date).append("\n");
+        sb.append(date.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"))).append("\n");
         return sb.toString();
     }
 

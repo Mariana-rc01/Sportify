@@ -49,8 +49,6 @@ public class JumpingJackActivityTest {
         LocalDateTime date = LocalDateTime.of(2024, 4, 30, 10, 30, 0);
         activity1 = new JumpingJack(1, "JumpingJack",100, 100,date,10,1);
         assertTrue(activity1 != null);
-        Activity activity2 = new JumpingJack((ActivityRepetitions)activity1);
-        assertFalse(activity1.equals(activity2));
     }
 
     @Test

@@ -145,7 +145,7 @@ public class ActivityView implements View {
                 break;
         
             case REPEATING_WEIGHTS:
-                activityController.insertActivity(implementation.getType(), (String) inputValues.get(0), (int) inputValues.get(1), (int) inputValues.get(2), (LocalDateTime) inputValues.get(3), (int) inputValues.get(4), (double) inputValues.get(4), currentUser.getCode());
+                activityController.insertActivity(implementation.getType(), (String) inputValues.get(0), (int) inputValues.get(1), (int) inputValues.get(2), (LocalDateTime) inputValues.get(3), (int) inputValues.get(4), (double) inputValues.get(5), currentUser.getCode());
                 break;
             case DISTANCE:
                 activityController.insertActivity(implementation.getType(), (String) inputValues.get(0), (int) inputValues.get(1), (int) inputValues.get(2), (LocalDateTime) inputValues.get(3), (double) inputValues.get(4), currentUser.getCode());

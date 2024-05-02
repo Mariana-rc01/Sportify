@@ -99,7 +99,7 @@ public class ActivityController {
         try {
             activity = type
                     .getConstructor(int.class, String.class, int.class, int.class, LocalDateTime.class, int.class,
-                            int.class, int.class)
+                            double.class, int.class)
                     .newInstance(code, description, timeSpentMinutes, averageHeartRate, date, repetitions, weight,
                             userCode);
         } catch (Exception e) {

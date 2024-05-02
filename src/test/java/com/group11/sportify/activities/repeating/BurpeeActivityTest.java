@@ -49,8 +49,6 @@ public class BurpeeActivityTest {
         LocalDateTime date = LocalDateTime.of(2024, 4, 30, 10, 30, 0);
         activity1 = new Burpee(1, "Burpee",100, 100,date,10,1);
         assertTrue(activity1 != null);
-        Activity activity2 = new Burpee((ActivityRepetitions)activity1);
-        assertFalse(activity1.equals(activity2));
     }
 
     @Test

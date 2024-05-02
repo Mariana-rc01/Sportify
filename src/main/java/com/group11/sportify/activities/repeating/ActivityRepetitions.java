@@ -79,7 +79,7 @@ public abstract class ActivityRepetitions extends Activity {
 
         sb.append(super.toString());
         sb.append("Series with repetitions: \n");
-        sb.append("Number of repetitions= ");
+        sb.append("Number of repetitions = ");
         sb.append(repetitions).append("\n");
 
         return sb.toString();
