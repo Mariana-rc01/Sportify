@@ -359,8 +359,9 @@ public class SportifyController {
         }
 
         return trainingPlanController.getTrainingPlan(result);
-     }
+    }
 
+    /**
      * 7ª Statistic
      * Gets all activities belonging to a user.
      *
@@ -377,7 +378,7 @@ public class SportifyController {
         List<Integer> trainingPlansCode = user.getTrainingPlans();
         for (int trainingCode : trainingPlansCode) {
 
-            TrainingPlan trainingPlan = trainingPlanController.getActivity(trainingCode);
+            TrainingPlan trainingPlan = trainingPlanController.getTrainingPlan(trainingCode);
             List<PlanActivity> plans = trainingPlan.getPlanActivities();
 
             for (PlanActivity plan : plans) {
