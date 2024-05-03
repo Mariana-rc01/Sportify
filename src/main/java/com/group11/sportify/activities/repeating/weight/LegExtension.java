@@ -24,7 +24,7 @@ public class LegExtension extends ActivityRepetitionsWeight{
      * @param date The date of the activity.
      * @param repetitions The number of repetitions of the activity.
      * @param weight The weight used during the activity.
-     * @param ususerCode the user code associated with this activity.
+     * @param userCode the user code associated with this activity.
      */
     public LegExtension(int code, String description, int time, int averageHeartRate, LocalDateTime date, int repetitions, double weight, int userCode){
         super(code, description, time, averageHeartRate, date, repetitions, weight, userCode);

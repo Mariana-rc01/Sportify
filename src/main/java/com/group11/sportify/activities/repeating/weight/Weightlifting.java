@@ -25,7 +25,7 @@ public class Weightlifting extends ActivityRepetitionsWeight implements Hard {
      * @param date The date of the activity.
      * @param repetitions The number of repetitions of the activity.
      * @param weight The weight used during the activity.
-     * @param user the code of the user associated with this activity.
+     * @param userCode the code of the user associated with this activity.
      */
     public Weightlifting(int code, String description, int time, int averageHeartRate, LocalDateTime date, int repetitions, double weight, int userCode){
         super(code, description, time, averageHeartRate, date, repetitions, weight, userCode);
