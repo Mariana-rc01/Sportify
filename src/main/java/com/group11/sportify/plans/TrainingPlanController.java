@@ -41,7 +41,7 @@ public class TrainingPlanController {
      * @throws TrainingPlanDoesntExistException If no activity with the given code
      *                                          exists.
      */
-    public TrainingPlan getActivity(int code) throws TrainingPlanDoesntExistException {
+    public TrainingPlan getTrainingPlan(int code) throws TrainingPlanDoesntExistException {
         if (this.trainingPlans.containsKey(code)) {
             return this.trainingPlans.get(code).clone();
         }

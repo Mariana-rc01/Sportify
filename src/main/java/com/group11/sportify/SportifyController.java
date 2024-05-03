@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 
 import com.group11.sportify.activities.Activity;
 import com.group11.sportify.activities.ActivityController;
+import com.group11.sportify.activities.distance.altitude.ActivityDistanceAltitude;
+import com.group11.sportify.time.TimeController;
 import com.group11.sportify.activities.distance.ActivityDistance;
 import com.group11.sportify.activities.exceptions.ActivityDoesntExistException;
 import com.group11.sportify.plans.PlanActivity;
@@ -158,7 +160,7 @@ public class SportifyController {
 
         for (int trainingCode : trainingPlansCode) {
 
-            TrainingPlan trainingPlan = trainingPlanController.getActivity(trainingCode);
+            TrainingPlan trainingPlan = trainingPlanController.getTrainingPlan(trainingCode);
             List<PlanActivity> plans = trainingPlan.getPlanActivities();
 
             for (PlanActivity plan : plans) {
@@ -245,7 +247,7 @@ public class SportifyController {
 
         for (int trainingCode : trainingPlansCode) {
 
-            TrainingPlan trainingPlan = trainingPlanController.getActivity(trainingCode);
+            TrainingPlan trainingPlan = trainingPlanController.getTrainingPlan(trainingCode);
             List<PlanActivity> plans = trainingPlan.getPlanActivities();
 
             for (PlanActivity plan : plans) {
@@ -266,6 +268,100 @@ public class SportifyController {
     }
 
     /**
+     * 5ª Statistic
+     * Calculates the total altitude covered by a user within the specified time period.
+     *
+     * @param user       The user for whom to calculate the total altitude.
+     * @param startDate  The start date of the time period.
+     * @param endDate    The end date of the time period.
+     * @return The total altitude covered by the user.
+     * @throws ActivityDoesntExistException    If an activity doesn't exist.
+     * @throws TrainingPlanDoesntExistException If a training plan doesn't exist.
+     */
+    public double getTotalAltitudeUser(User user, LocalDateTime startDate, LocalDateTime endDate) throws ActivityDoesntExistException, TrainingPlanDoesntExistException{
+        double totalAltitude = 0;
+
+        totalAltitude += user.getActivities().stream().mapToDouble(activityCode -> {
+            try {
+                Activity activity = activitiesController.getActivity(activityCode);
+                if (activity instanceof ActivityDistanceAltitude) {
+                    LocalDateTime activityDate = activity.getDate();
+                    if (activityDate.isAfter(startDate) && activityDate.isBefore(endDate)) {
+                        return ((ActivityDistanceAltitude) activity).getAltitude();
+                    }
+                }
+            } catch (ActivityDoesntExistException e) {
+                return 0;
+            }
+            return 0;
+        }).sum();
+
+        List<Integer> trainingPlansCode = user.getTrainingPlans();
+
+        for (int trainingCode : trainingPlansCode){
+
+            TrainingPlan trainingPlan = trainingPlanController.getTrainingPlan(trainingCode);
+            List<PlanActivity> plans = trainingPlan.getPlanActivities();
+
+            for (PlanActivity plan : plans){
+
+                int activityCode = plan.getActivityCode();
+                Activity activity = activitiesController.getActivity(activityCode);
+                LocalDateTime activityDate = activity.getDate();
+
+                if (activity instanceof ActivityDistanceAltitude && activityDate.isAfter(startDate) && activityDate.isBefore(endDate)) {
+                    int iterations = plan.getIterations();
+                    totalAltitude += ((ActivityDistanceAltitude) activity).getAltitude() * iterations;
+                }
+            }
+        }
+
+        return totalAltitude * 1000;
+    }
+
+    /**
+     * 6ª Statistic
+     * Returns the training plan which is the most effective one burning calories.
+     *
+     * @param user       The user for whom to calculate the total altitude.
+     * @return The training plan which is the most effective one burning calories.
+     * @throws ActivityDoesntExistException    If an activity doesn't exist.
+     * @throws TrainingPlanDoesntExistException If a training plan doesn't exist.
+     */
+    public TrainingPlan getMostEffectiveTrainingPlanBurningCalories(User user) throws ActivityDoesntExistException, TrainingPlanDoesntExistException{
+        List<Integer> trainingPlansCode = user.getTrainingPlans();
+        int result = -1;
+        double maxCalories = 0;
+
+        for (int trainingCode : trainingPlansCode){
+
+            TrainingPlan trainingPlan = trainingPlanController.getTrainingPlan(trainingCode);
+
+            if(trainingPlan != null) {
+                List<PlanActivity> plans = trainingPlan.getPlanActivities();
+                double planCalories = 0;
+
+                for (PlanActivity plan : plans) {
+
+                    int activityCode = plan.getActivityCode();
+                    Activity activity = activitiesController.getActivity(activityCode);
+                    if (activity != null) {
+                        int iterations = plan.getIterations();
+                        planCalories += ((Activity) activity).calculateCaloriesConsume(user) * iterations;
+                    }
+                }
+
+                if (planCalories > maxCalories || result == -1) {
+                    maxCalories = planCalories;
+                    result = trainingCode;
+                }
+            }
+        }
+
+        return trainingPlanController.getTrainingPlan(result);
+    }
+
+    /**
      * 7ª Statistic
      * Gets all activities belonging to a user.
      *
@@ -282,7 +378,7 @@ public class SportifyController {
         List<Integer> trainingPlansCode = user.getTrainingPlans();
         for (int trainingCode : trainingPlansCode) {
 
-            TrainingPlan trainingPlan = trainingPlanController.getActivity(trainingCode);
+            TrainingPlan trainingPlan = trainingPlanController.getTrainingPlan(trainingCode);
             List<PlanActivity> plans = trainingPlan.getPlanActivities();
 
             for (PlanActivity plan : plans) {
