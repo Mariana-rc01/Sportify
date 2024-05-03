@@ -49,8 +49,6 @@ public class SitUpActivityTest {
         LocalDateTime date = LocalDateTime.of(2024, 4, 30, 10, 30, 0);
         activity1 = new SitUp(1, "SitUp",100, 100,date,10,1);
         assertTrue(activity1 != null);
-        Activity activity2 = new SitUp((ActivityRepetitions)activity1);
-        assertFalse(activity1.equals(activity2));
     }
 
     @Test

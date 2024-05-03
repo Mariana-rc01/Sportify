@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import com.group11.sportify.Sportify;
 import com.group11.sportify.users.User;
 import com.group11.sportify.views.View;
+import com.group11.sportify.views.admin.AdminView;
 import com.group11.sportify.views.components.Input;
 import com.group11.sportify.views.components.Menu;
 import com.group11.sportify.views.user.UserView;
@@ -46,6 +47,7 @@ public class MainView implements View {
 
             Menu menu = new Menu(new String[]{"👤 Load Account", "📝 Create Account", "👑 Admin", "🚪 Exit"});
             menu.setHandler(0, this::loadAccountMenu);
+            menu.setHandler(2,  this::runAdminView);
             shouldExit = !menu.run();
         }
     }
@@ -70,5 +72,13 @@ public class MainView implements View {
 
         UserView userView = new UserView(user, sportifyApplication);
         userView.show();
+    }
+
+    /**
+     * Runs the admin view.
+     */
+    public void runAdminView(){
+        AdminView adminView = new AdminView(sportifyApplication);
+        adminView.show();
     }
 }

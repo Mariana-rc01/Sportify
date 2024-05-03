@@ -13,6 +13,7 @@ public class Input {
 
     /**
      * Gets the input from the user.
+     * 
      * @param type The type of the input.
      * @return The input from the user.
      */
@@ -25,14 +26,14 @@ public class Input {
             return getDouble();
         } else if (type == LocalDateTime.class) {
             return getDateTime();
-        } 
-        else {
+        } else {
             throw new IllegalArgumentException("Unsupported type: " + type.getSimpleName());
         }
     }
 
     /**
      * Gets string input from the user.
+     * 
      * @return The input from the user.
      */
     public String getString() {
@@ -49,6 +50,7 @@ public class Input {
 
     /**
      * Gets integer input from the user.
+     * 
      * @return The input from the user.
      */
     public int getInt() {
@@ -66,6 +68,7 @@ public class Input {
 
     /**
      * Gets double input from the user.
+     * 
      * @return The input from the user.
      */
     public double getDouble() {
@@ -83,6 +86,7 @@ public class Input {
 
     /**
      * Gets date and time input from the user.
+     * 
      * @return The input from the user.
      */
     public LocalDateTime getDateTime() {
@@ -98,6 +102,23 @@ public class Input {
                     System.out.println("Invalid date format. Please use the following format: yyyy-MM-dd HH:mm");
                 }
             } else {
+                scanner.next();
+            }
+        }
+    }
+
+    public int getFutureTime() {
+        while (true) {
+            System.out.print("|> ");
+            if (scanner.hasNextInt()) {
+                int choice = scanner.nextInt();
+                if (choice >= 0) {
+                    return choice;
+                } else {
+                    System.out.println("Time can only move forward, not backward.");
+                }
+            } else {
+                System.out.println("Please enter a valid number.");
                 scanner.next();
             }
         }
