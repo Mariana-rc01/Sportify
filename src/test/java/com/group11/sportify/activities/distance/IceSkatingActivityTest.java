@@ -1,8 +1,6 @@
 package com.group11.sportify.activities.distance;
 
 import com.group11.sportify.activities.Activity;
-import com.group11.sportify.activities.distance.ActivityDistance;
-import com.group11.sportify.activities.distance.IceSkating;
 import com.group11.sportify.users.Amateur;
 import com.group11.sportify.users.Casual;
 import com.group11.sportify.users.Professional;
@@ -15,31 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class IceSkatingActivityTest {
-    @Test
-    void testName() {
-
-    }
-
-    @BeforeAll
-    static void beforeClass() {
-
-    }
-
-    @BeforeEach
-    void setUp() {
-
-    }
-
-    @AfterEach
-    void tearDown() {
-
-    }
-
-    @AfterAll
-    static void afterClass() {
-
-    }
-
     @Test
     public void testIceSkatingConstructor(){
         Activity activity1 = new IceSkating();
