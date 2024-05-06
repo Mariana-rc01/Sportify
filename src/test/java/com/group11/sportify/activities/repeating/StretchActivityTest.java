@@ -4,10 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDateTime;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.group11.sportify.activities.Activity;
@@ -17,31 +13,6 @@ import com.group11.sportify.users.Professional;
 import com.group11.sportify.users.User;
 
 public class StretchActivityTest {
-    @Test
-    void testName() {
-        
-    }
-
-    @BeforeAll
-    static void beforeClass() {
-        
-    }
-
-    @BeforeEach
-    void setUp() {
-        
-    }
-
-    @AfterEach
-    void tearDown() {
-        
-    }
-
-    @AfterAll
-    static void afterClass() {
-        
-    }
-
     @Test
     public void testStretchConstructor(){
         Activity activity1 = new Stretch();

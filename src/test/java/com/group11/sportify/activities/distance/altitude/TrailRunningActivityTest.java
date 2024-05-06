@@ -1,8 +1,6 @@
 package com.group11.sportify.activities.distance.altitude;
 
 import com.group11.sportify.activities.Activity;
-import com.group11.sportify.activities.distance.altitude.ActivityDistanceAltitude;
-import com.group11.sportify.activities.distance.altitude.TrailRunning;
 import com.group11.sportify.users.Amateur;
 import com.group11.sportify.users.Casual;
 import com.group11.sportify.users.Professional;
@@ -15,31 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TrailRunningActivityTest {
-    @Test
-    void testName() {
-
-    }
-
-    @BeforeAll
-    static void beforeClass() {
-
-    }
-
-    @BeforeEach
-    void setUp() {
-
-    }
-
-    @AfterEach
-    void tearDown() {
-
-    }
-
-    @AfterAll
-    static void afterClass() {
-
-    }
-
     @Test
     public void testTrailRunningConstructor(){
         Activity activity1 = new TrailRunning();

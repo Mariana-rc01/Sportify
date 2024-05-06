@@ -4,12 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDateTime;
 
-import com.group11.sportify.activities.repeating.weight.ActivityRepetitionsWeight;
 import com.group11.sportify.activities.repeating.weight.LegExtensionActivityTest;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.group11.sportify.activities.Activity;
@@ -19,31 +14,6 @@ import com.group11.sportify.users.Professional;
 import com.group11.sportify.users.User;
 
 public class LegExtensionActivityTest {
-    @Test
-    void testName() {
-
-    }
-
-    @BeforeAll
-    static void beforeClass() {
-
-    }
-
-    @BeforeEach
-    void setUp() {
-
-    }
-
-    @AfterEach
-    void tearDown() {
-
-    }
-
-    @AfterAll
-    static void afterClass() {
-
-    }
-
     @Test
     public void testLegExtensionConstructor(){
         Activity activity1 = new LegExtension();

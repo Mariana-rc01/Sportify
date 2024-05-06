@@ -14,31 +14,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RoadCyclingActivityTest {
     @Test
-    void testName() {
-
-    }
-
-    @BeforeAll
-    static void beforeClass() {
-
-    }
-
-    @BeforeEach
-    void setUp() {
-
-    }
-
-    @AfterEach
-    void tearDown() {
-
-    }
-
-    @AfterAll
-    static void afterClass() {
-
-    }
-
-    @Test
     public void testRoadCyclingConstructor(){
         Activity activity1 = new RoadCycling();
         assertTrue(activity1 != null);
