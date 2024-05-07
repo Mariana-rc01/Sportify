@@ -1,5 +1,6 @@
 package com.group11.sportify.activities;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +12,7 @@ import com.group11.sportify.activities.repeating.ActivityRepetitions;
 /**
  * Controller class for managing activities.
  */
-public class ActivityController {
+public class ActivityController implements Serializable {
 
     /**
      * Map to store activities with their unique codes as keys.

@@ -1,11 +1,12 @@
 package com.group11.sportify.plans;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TrainingPlan {
+public class TrainingPlan implements Serializable {
     private LocalDateTime startDate;
     private Map<Integer, PlanActivity> plan;
 

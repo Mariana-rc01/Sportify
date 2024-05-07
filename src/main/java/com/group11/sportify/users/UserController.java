@@ -1,5 +1,6 @@
 package com.group11.sportify.users;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +10,7 @@ import com.group11.sportify.users.exceptions.UserDoesntExistException;
 /**
  * Controller class for managing users.
  */
-public class UserController {
+public class UserController implements Serializable {
 
     /**
      * Map to store users with their unique codes as keys.

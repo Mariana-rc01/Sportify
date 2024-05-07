@@ -1,8 +1,6 @@
 package com.group11.sportify.activities;
 
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.group11.sportify.activities.distance.TypesDistance;
 import com.group11.sportify.activities.distance.altitude.TypesDistanceAltitude;
@@ -76,6 +74,22 @@ public enum ActivityType {
      */
     public ActivityTypeImplentation[] getImplementations() {
         return implementations;
+    }
+
+    /**
+     * Gets the implementation of the activity type.
+     * @param type The type of the activity.
+     * @return The implementation of the activity type.
+     */
+    public static ActivityTypeImplentation getImplementation(Class<? extends Activity> type) {
+        for(ActivityType activityType : ActivityType.values()) {
+            for(ActivityTypeImplentation implementation : activityType.getImplementations()) {
+                if(implementation.getType().equals(type)) {
+                    return implementation;
+                }
+            }
+        }
+        throw new IllegalArgumentException("Invalid activity type");
     }
 
     /*

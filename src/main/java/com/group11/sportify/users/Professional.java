@@ -6,7 +6,7 @@ import java.util.Set;
  * This class represents a professional user.
  * Professional users are characterized by their high level of fitness and expertise in sports.
  */
-public class Professional extends User{
+public class Professional extends User {
 
     /**
      * Default constructor for the Professional class.

@@ -2,6 +2,7 @@ package com.group11.sportify.activities;
 
 import com.group11.sportify.users.User;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -9,7 +10,7 @@ import java.util.Objects;
 /**
  * Abstract class representing a generic activity.
  */
-public abstract class Activity {
+public abstract class Activity implements Serializable {
 
     private int code;
     private String description;

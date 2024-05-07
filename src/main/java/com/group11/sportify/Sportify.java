@@ -1,9 +1,11 @@
 package com.group11.sportify;
 
+import java.io.Serializable;
+
 /**
  * The Sportify class represents the application itself.
  */
-public class Sportify {
+public class Sportify implements Serializable {
     private SportifyController controller;
 
     /**
