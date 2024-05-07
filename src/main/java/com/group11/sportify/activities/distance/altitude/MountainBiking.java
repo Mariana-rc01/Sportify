@@ -3,10 +3,11 @@ package com.group11.sportify.activities.distance.altitude;
 import java.time.LocalDateTime;
 
 import com.group11.sportify.activities.Activity;
+import com.group11.sportify.activities.Hard;
 import com.group11.sportify.activities.distance.ActivityDistance;
 import com.group11.sportify.users.User;
 
-public class MountainBiking extends ActivityDistanceAltitude{
+public class MountainBiking extends ActivityDistanceAltitude implements Hard{
 
     /*
      * Default constructor for the MountainBiking class.
@@ -94,5 +95,10 @@ public class MountainBiking extends ActivityDistanceAltitude{
         this.setAverageHeartRateDuringActivity(heartRate);
         double caloriesBurned = (distance * energyExpenditurePerKm) + (altitude * energyExpenditureForAltitude);
         return caloriesBurned * userFactor;
+    }
+
+    @Override
+    public boolean isHard() {
+        return true;
     }
 }

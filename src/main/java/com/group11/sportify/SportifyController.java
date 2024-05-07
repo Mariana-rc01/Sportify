@@ -1,5 +1,6 @@
 package com.group11.sportify;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
@@ -7,6 +8,8 @@ import java.util.stream.Collectors;
 
 import com.group11.sportify.activities.Activity;
 import com.group11.sportify.activities.ActivityController;
+import com.group11.sportify.activities.ActivityType;
+import com.group11.sportify.activities.ActivityType.ActivityTypeImplentation;
 import com.group11.sportify.activities.distance.altitude.ActivityDistanceAltitude;
 import com.group11.sportify.time.TimeController;
 import com.group11.sportify.activities.distance.ActivityDistance;
@@ -15,7 +18,6 @@ import com.group11.sportify.plans.PlanActivity;
 import com.group11.sportify.plans.TrainingPlan;
 import com.group11.sportify.plans.TrainingPlanController;
 import com.group11.sportify.plans.exceptions.TrainingPlanDoesntExistException;
-import com.group11.sportify.time.TimeController;
 import com.group11.sportify.users.User;
 import com.group11.sportify.users.UserController;
 import com.group11.sportify.users.exceptions.UserDoesntExistException;
@@ -23,7 +25,7 @@ import com.group11.sportify.users.exceptions.UserDoesntExistException;
 /*
  * Controller class for the Sportify application data.
  */
-public class SportifyController {
+public class SportifyController implements Serializable {
     private UserController userController;
     private ActivityController activitiesController;
     private TimeController timeController;
@@ -210,6 +212,17 @@ public class SportifyController {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    /**
+     * 3ª Statistic
+     * Returns the most practiced activity in the application.
+     *
+     * @return The most practiced activity in the application.
+     */
+    public ActivityTypeImplentation getMostPracticedActivity(){
+        Class<? extends Activity> mostPracticedActivityClass = activitiesController.getAllActivities().stream().collect(Collectors.groupingBy(Activity::getClass)).entrySet().stream().max((e1, e2) -> e1.getValue().size() - e2.getValue().size()).get().getKey();
+        return ActivityType.getImplementation(mostPracticedActivityClass);
     }
 
     /**

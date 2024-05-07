@@ -1,5 +1,6 @@
 package com.group11.sportify.users;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.Set;
  * Users can be of different types such as professionals, amateurs, or casual users.
  * Each user has a unique code, name, address, email, and average heart rate.
  */
-public abstract class User {
+public abstract class User implements Serializable {
     private int code;
     private String name;
     private String address;

@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.group11.sportify.Sportify;
 import com.group11.sportify.activities.Activity;
+import com.group11.sportify.activities.ActivityType.ActivityTypeImplentation;
 import com.group11.sportify.activities.exceptions.ActivityDoesntExistException;
 import com.group11.sportify.plans.exceptions.TrainingPlanDoesntExistException;
 import com.group11.sportify.users.User;
@@ -286,7 +287,8 @@ public class StatisticsView implements View {
             System.out.println("It's " + currentTime.format(dtf) + ".\n");
 
             if (index == 2) {
-                System.out.println("Not implemented");
+                ActivityTypeImplentation activityType = sportifyApplication.getController().getMostPracticedActivity();
+                System.out.println("The most practiced activity in the application is " + activityType.getName() + " " + activityType.getIcon());
             }
             if (index == 5) {
                 System.out.println("Not implemented");

@@ -1,5 +1,6 @@
 package com.group11.sportify.plans;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +10,7 @@ import com.group11.sportify.plans.exceptions.TrainingPlanDoesntExistException;
 /**
  * Controller class for training plans.
  */
-public class TrainingPlanController {
+public class TrainingPlanController implements Serializable {
 
     /**
      * Map to store activities with their unique codes as keys.

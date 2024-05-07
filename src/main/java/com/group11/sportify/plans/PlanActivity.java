@@ -1,6 +1,8 @@
 package com.group11.sportify.plans;
 
-public class PlanActivity {
+import java.io.Serializable;
+
+public class PlanActivity implements Serializable {
     private int iterations;
     private int activityCode;
 

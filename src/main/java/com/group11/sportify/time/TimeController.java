@@ -1,11 +1,12 @@
 package com.group11.sportify.time;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * Class that controls the time of the application.
  */
-public class TimeController {
+public class TimeController implements Serializable {
     private LocalDateTime currentDateTime;
     private LocalDateTime applicationStartDateTime;
 
