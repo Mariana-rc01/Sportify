@@ -5,6 +5,7 @@ import com.group11.sportify.users.User;
 import com.group11.sportify.views.View;
 import com.group11.sportify.views.activities.ActivityView;
 import com.group11.sportify.views.components.Menu;
+import com.group11.sportify.views.plans.TrainingPlanView;
 
 /**
  * The UserView class represents the view of the user.
@@ -43,6 +44,7 @@ public class UserView implements View {
 
             Menu menu = new Menu(new String[]{"🤾‍ Activities", "🍎 Training Plans", "🚪 Sign Out"});
             menu.setHandler(0, this::runUserActivityView);
+            menu.setHandler(1, this::runTrainingPlanView);
             shouldExit = !menu.run();
         }
     }
@@ -53,5 +55,13 @@ public class UserView implements View {
     public void runUserActivityView(){
         ActivityView activityView = new ActivityView(currentUser, sportifyApplication);
         activityView.show();
+    }
+
+    /**
+     * Runs the user training plan view.
+     */
+    public void runTrainingPlanView(){
+        TrainingPlanView planView = new TrainingPlanView(currentUser, sportifyApplication);
+        planView.show();
     }
 }

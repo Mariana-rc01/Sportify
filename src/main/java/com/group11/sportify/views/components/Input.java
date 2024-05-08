@@ -1,5 +1,6 @@
 package com.group11.sportify.views.components;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -107,6 +108,35 @@ public class Input {
         }
     }
 
+
+    /**
+     * Gets date input from the user.
+     * 
+     * @return The input from the user.
+     */
+    public LocalDate getDate(){
+        System.out.println("Please enter the date in the following format: yyyy-MM-dd");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        while (true) {
+            System.out.print("|> ");
+            if (scanner.hasNextLine()) {
+                String choice = scanner.nextLine();
+                try {
+                    return LocalDate.parse(choice, formatter);
+                } catch (DateTimeParseException e) {
+                    System.out.println("Invalid date format. Please use the following format: yyyy-MM-dd");
+                }
+            } else {
+                scanner.next();
+            }
+        }
+    }
+
+    /**
+     * Gets the future time input from the user.
+     * 
+     * @return The input from the user.
+     */
     public int getFutureTime() {
         while (true) {
             System.out.print("|> ");
