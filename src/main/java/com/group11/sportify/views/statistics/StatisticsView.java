@@ -9,6 +9,7 @@ import com.group11.sportify.Sportify;
 import com.group11.sportify.activities.Activity;
 import com.group11.sportify.activities.ActivityType.ActivityTypeImplentation;
 import com.group11.sportify.activities.exceptions.ActivityDoesntExistException;
+import com.group11.sportify.plans.TrainingPlan;
 import com.group11.sportify.plans.exceptions.TrainingPlanDoesntExistException;
 import com.group11.sportify.users.User;
 import com.group11.sportify.users.exceptions.UserDoesntExistException;
@@ -157,8 +158,20 @@ public class StatisticsView implements View {
             Menu menu = new Menu(new String[] { "🕖 At the moment", "📆 Between Dates", "🚪 Return" });
             LocalDateTime start = sportifyApplication.getController().getTimeController().getApllicationStartDateTime();
             LocalDateTime end = sportifyApplication.getController().getTimeController().getCurrentDateTime();
-            menu.setHandler(0, () -> runStatisticsDatesAnswer(index, userCode, start, end));
-            menu.setHandler(1, () -> runStatisticsBetweenDates(index, userCode));
+            menu.setHandler(0, () -> {
+                try {
+                    runStatisticsDatesAnswer(index, userCode, start, end);
+                } catch (UserDoesntExistException | ActivityDoesntExistException e) {
+                    System.out.println("An error ocurred");
+                }
+            });
+            menu.setHandler(1, () -> {
+                try {
+                    runStatisticsBetweenDates(index, userCode);
+                } catch (UserDoesntExistException | ActivityDoesntExistException e) {
+                    System.out.println("An error ocurred");
+                }
+            });
             shouldExit = !menu.run();
         }
     }
@@ -169,8 +182,10 @@ public class StatisticsView implements View {
      *
      * @param index    The index of the selected statistic.
      * @param userCode The code of the user.
+     * @throws ActivityDoesntExistException 
+     * @throws UserDoesntExistException 
      */
-    private void runStatisticsBetweenDates(int index, int userCode) {
+    private void runStatisticsBetweenDates(int index, int userCode) throws UserDoesntExistException, ActivityDoesntExistException {
         System.out.println("\n=====================================");
         System.out.println(statistics.get(index));
         System.out.println("=====================================");
@@ -187,7 +202,6 @@ public class StatisticsView implements View {
         runStatisticsDatesAnswer(index, userCode, startDate, endDate);
     }
 
-    // Falta aqui o 4
     /**
      * Displays the statistics answer for the given index, user code, start date,
      * and end date.
@@ -196,8 +210,10 @@ public class StatisticsView implements View {
      * @param userCode The code of the user.
      * @param start    The start date and time.
      * @param end      The end date and time.
+     * @throws ActivityDoesntExistException
+     * @throws UserDoesntExistException
      */
-    private void runStatisticsDatesAnswer(int index, int userCode, LocalDateTime start, LocalDateTime end) {
+    private void runStatisticsDatesAnswer(int index, int userCode, LocalDateTime start, LocalDateTime end) throws UserDoesntExistException, ActivityDoesntExistException {
         boolean shouldExit = false;
         while (!shouldExit) {
             System.out.println("\n=====================================");
@@ -214,9 +230,6 @@ public class StatisticsView implements View {
                     user = sportifyApplication.getController().getUserWithMostCalories(start, end);
                 } catch (ActivityDoesntExistException e) {
                     System.out.println("An error occurred: Activity doesn't exist.");
-                    return;
-                } catch (TrainingPlanDoesntExistException e) {
-                    System.out.println("An error occurred: Training Plan doesn't exist.");
                     return;
                 }
                 System.out.println(user);
@@ -242,9 +255,6 @@ public class StatisticsView implements View {
                 } catch (ActivityDoesntExistException e) {
                     System.out.println("An error occurred: Activity doesn't exist.");
                     return;
-                } catch (TrainingPlanDoesntExistException e) {
-                    System.out.println("An error occurred: Training Plan doesn't exist.");
-                    return;
                 }
 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -257,7 +267,26 @@ public class StatisticsView implements View {
             }
 
             if (index == 4) {
-                System.out.println("Not implemented");
+                double distance = 0;
+                try {
+                    user = sportifyApplication.getController().getUserController().getUser(userCode);
+                } catch (UserDoesntExistException e) {
+                    System.out.println("An error occurred: User not found.");
+                    return;
+                }
+                try {
+                    distance = sportifyApplication.getController().getTotalAltitudeUser(user, start, end);
+                } catch (ActivityDoesntExistException e) {
+                    System.out.println("An error occurred: Activity doesn't exist.");
+                    return;
+                }
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                String formattedStart = start.format(formatter);
+                String formattedEnd = end.format(formatter);
+
+                System.out.println(
+                        "The user " + userCode + " covered " + distance + " meters in altitude during this time period, from "
+                                + formattedStart + " to " + formattedEnd + ".");
             }
 
             Menu menu = new Menu(new String[] { "🚪 Return" });
@@ -265,7 +294,6 @@ public class StatisticsView implements View {
         }
     }
 
-    // Falta aqui o 2 e o 5
     /**
      * Displays the statistics answer for the given index and user.
      *
@@ -291,23 +319,28 @@ public class StatisticsView implements View {
                 System.out.println("The most practiced activity in the application is " + activityType.getName() + " " + activityType.getIcon());
             }
             if (index == 5) {
-                System.out.println("Not implemented");
-            }
-
-            if (index == 6) {
-                List<Activity> activities;
+                User userU;
                 try {
-                    activities = sportifyApplication.getController().getUserActivities(user);
-                } catch (ActivityDoesntExistException e) {
-                    System.out.println("An error occurred: Activity doesn't exist.");
-                    return;
-                } catch (TrainingPlanDoesntExistException e) {
-                    System.out.println("An error occurred: Training Plan doesn't exist.");
-                    return;
+                    userU = sportifyApplication.getController().getUserController().getUser(user);
                 } catch (UserDoesntExistException e) {
                     System.out.println("An error occurred: User not found.");
                     return;
                 }
+                TrainingPlan tp = null;
+                try {
+                    tp = sportifyApplication.getController().getMostEffectiveTrainingPlanBurningCalories(userU);
+                } catch (ActivityDoesntExistException e) {
+                    System.out.println("An error occurred: Activity not found.");
+                    return;
+                } catch (TrainingPlanDoesntExistException e){
+                    System.out.println("An error ocurred: TrainingPlan not found");
+                }
+                System.out.println("The most effective training plan is: " + tp.toString());
+            }
+
+            if (index == 6) {
+                List<Activity> activities;
+                activities = sportifyApplication.getController().getUserActivities(user);
 
                 if (activities.isEmpty()) {
                     System.out.println("No activities found for this user.");

@@ -187,7 +187,7 @@ public class ActivityController implements Serializable {
 
     /**
      * Gets all activities belonging to a user.
-     * 
+     *
      * @param userCode The code of the user to get the activities from.
      * @return The list of activities belonging to the specified user.
      */
