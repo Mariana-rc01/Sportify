@@ -27,11 +27,19 @@ public class TrainingPlanController implements Serializable {
 
     /**
      * Retrieves a list of all training plans.
-     * 
+     *
      * @return A list containing all training plans.
      */
     public List<TrainingPlan> getAllTrainingPlans() {
         return this.trainingPlans.values().stream().map(TrainingPlan::clone).toList();
+    }
+
+    public int getNumberTrainingPlans(){
+        return this.trainingPlans.size();
+    }
+
+    public void addTrainingPlan(int code, TrainingPlan tp){
+        this.trainingPlans.put(code, tp);
     }
 
     /**

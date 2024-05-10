@@ -1,7 +1,6 @@
 package com.group11.sportify.views.plans;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +23,8 @@ public class TrainingPlanView implements View {
 
     /**
      * Default constructor for the TrainingPlanView class.
-     * @param currentUser The current user.
+     * 
+     * @param currentUser         The current user.
      * @param sportifyApplication The Sportify application.
      */
     public TrainingPlanView(User currentUser, Sportify sportifyApplication) {
@@ -40,20 +40,21 @@ public class TrainingPlanView implements View {
     /**
      * Shows the plan menu.
      */
-    public void planMenu(){
+    public void planMenu() {
         boolean shouldExit = false;
-        while(!shouldExit){
+        while (!shouldExit) {
             System.out.println("\n====================");
             System.out.println("  Training Plan 🍎  ");
             System.out.println("====================");
-    
-            Menu menu = new Menu(new String[]{"🆕 Create new training plan", "🪄 Generate training plan", "👀 View all training plans", "🚪 Return"});
+
+            Menu menu = new Menu(new String[] { "🆕 Create new training plan", "🪄 Generate training plan",
+                    "👀 View all training plans", "🚪 Return" });
             menu.setHandler(1, this::generatePlanView);
             shouldExit = !menu.run();
         }
     }
 
-    private void generatePlanView(){
+    private void generatePlanView() {
         System.out.println("\n===========================");
         System.out.println(" Generate Training Plan 🪄");
         System.out.println("===========================");
@@ -64,31 +65,34 @@ public class TrainingPlanView implements View {
         System.out.println("When do you plan on executing this plan?");
         LocalDate startDate = input.getDate();
         int uniqueActivitiesCount = -1;
-        
-        while(uniqueActivitiesCount <= 0 || uniqueActivitiesCount > 15){
+
+        System.out.println("How many calories do you want to burn? (minimum)");
+        int minimumCaloriesBurned = input.getInt();
+
+        while (uniqueActivitiesCount <= 0 || uniqueActivitiesCount > 15) {
             System.out.println("How many unique activities should the plan contain?");
             uniqueActivitiesCount = input.getInt();
-            if(uniqueActivitiesCount <= 0 || uniqueActivitiesCount > 15){
+            if (uniqueActivitiesCount <= 0 || uniqueActivitiesCount > 15) {
                 System.out.println("Please enter a number between 1 and 15.");
             }
         }
 
         int occupiedSlots = 0;
         Map<Class<? extends Activity>, Integer> activities = new HashMap<>();
-        for(int i = 0; i < uniqueActivitiesCount && occupiedSlots < 21; i++){
+        for (int i = 0; i < uniqueActivitiesCount && occupiedSlots < 21; i++) {
             Class<? extends Activity> pickedActivity = null;
-            while(pickedActivity == null || activities.containsKey(pickedActivity)){
+            while (pickedActivity == null || activities.containsKey(pickedActivity)) {
                 pickedActivity = activityPicker();
-                if(activities.containsValue(pickedActivity)){
+                if (activities.containsValue(pickedActivity)) {
                     System.out.println("This activity is already in the plan.");
                 }
             }
 
             System.out.println("How many times should this activity be repeated?");
             int repeatCount = -1;
-            while(repeatCount <= 0 || occupiedSlots + repeatCount > 21){
+            while (repeatCount <= 0 || occupiedSlots + repeatCount > 21) {
                 repeatCount = input.getInt();
-                if(repeatCount <= 0 || occupiedSlots + repeatCount > 21){
+                if (repeatCount <= 0 || occupiedSlots + repeatCount > 21) {
                     System.out.println("Please enter a number between 1 and " + (21 - occupiedSlots));
                 }
             }
@@ -96,48 +100,69 @@ public class TrainingPlanView implements View {
             occupiedSlots += repeatCount;
         }
 
-        int spacing = 21 / occupiedSlots;
+        // int spacing = 21 / occupiedSlots;
         TrainingPlan plan = new TrainingPlan(startDate.atTime(9, 0));
-        int index = 0;
-        while(occupiedSlots > 0){
-            int randomIndex = (int)(Math.random() * activities.size());
+        /*
+         * int index = 0;
+         * while (occupiedSlots > 0) {
+         * int randomIndex = (int) (Math.random() * activities.size());
+         * 
+         * Class<? extends Activity> activity = activities.keySet().toArray(new
+         * Class[0])[randomIndex];
+         * int repeatCount = activities.get(activity);
+         * if (repeatCount == 1) {
+         * activities.remove(activity);
+         * } else {
+         * activities.put(activity, repeatCount - 1);
+         * }
+         * 
+         * int hour = index % 3 == 0 ? 9 : ((index % 3) == 1 ? 17 : 19);
+         * LocalDateTime time = startDate.plusDays(index / 3).atTime(hour, 0);
+         * System.out.println("Adding " + activity.getSimpleName() + " at " + time);
+         * index += spacing;
+         * occupiedSlots--;
+         * }
+         */
 
-            Class<? extends Activity> activity = activities.keySet().toArray(new Class[0])[randomIndex];
-            int repeatCount = activities.get(activity);
-            if(repeatCount == 1){
-                activities.remove(activity);
-            } else {
-                activities.put(activity, repeatCount - 1);
+        // Create a list to save the activities based on the number of repetitions
+        List<Class<? extends Activity>> activityList = new ArrayList<>();
+
+        // Iterate over the map
+        for (Map.Entry<Class<? extends Activity>, Integer> entry : activities.entrySet()) {
+            Class<? extends Activity> activity = entry.getKey();
+            int repeatCount = entry.getValue();
+            for (int i = 0; i < repeatCount; i++) {
+                activityList.add(activity);
             }
-
-            int hour = index % 3 == 0 ? 9 : ((index % 3) == 1 ? 17 : 19);
-            LocalDateTime time = startDate.plusDays(index / 3).atTime(hour, 0);
-            System.out.println("Adding " + activity.getSimpleName() + " at " + time);
-            index += spacing;
-            occupiedSlots--;
         }
+
+        double caloriesConsume = sportifyApplication.getController().generateTrainingPlan(startDate, plan, currentUser,
+                activityList, minimumCaloriesBurned);
+        System.out.println("\nAdded training plan with " + caloriesConsume + " calories consume.");
     }
 
-    private Class<? extends Activity> activityPicker(){
+    private Class<? extends Activity> activityPicker() {
         System.out.println("Please select an activity:");
-        
+
         List<ActivityType> options = new ArrayList<>();
-        for(ActivityType type : ActivityType.values()){
+        for (ActivityType type : ActivityType.values()) {
             options.add(type);
         }
-        
-        Menu menu = new Menu(options.stream().map(type -> type.getIcon() + " " + type.getName()).toArray(String[]::new));
+
+        Menu menu = new Menu(
+                options.stream().map(type -> type.getIcon() + " " + type.getName()).toArray(String[]::new));
         int chosenIndex = menu.runSimple();
 
         List<ActivityTypeImplentation> activities = new ArrayList<>();
-        for(ActivityTypeImplentation activity : options.get(chosenIndex).getImplementations()){
+        for (ActivityTypeImplentation activity : options.get(chosenIndex).getImplementations()) {
             activities.add(activity);
         }
 
-        Menu activityMenu = new Menu(activities.stream().map(activity -> activity.getIcon() + " " + activity.getName()).toArray(String[]::new));
-        
+        Menu activityMenu = new Menu(activities.stream().map(activity -> activity.getIcon() + " " + activity.getName())
+                .toArray(String[]::new));
+
         System.out.println("Please select an activity:");
-        
+
         int chosenActivityIndex = activityMenu.runSimple();
 
         return activities.get(chosenActivityIndex).getType();
