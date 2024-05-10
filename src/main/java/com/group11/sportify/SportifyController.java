@@ -7,6 +7,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -125,7 +127,7 @@ public class SportifyController implements Serializable {
                 return 0;
             }
             return 0;
-        }).sum();
+        }).filter(calories -> calories > 0).sum();
     }
 
     /*
@@ -133,17 +135,20 @@ public class SportifyController implements Serializable {
      * Returns the user with the most activities between two dates.
      *
      * @param startDate The start date.
-     * 
+     *
      * @param endDate The end date.
      *
      * @return The user with most activities between the two dates or null if there
      * is none.
      */
     public User getUserWithMostActivitiesBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
-        int topUserCode = activitiesController.getActivitiesBetweenDates(startDate, endDate).stream()
-                .collect(Collectors.groupingBy(Activity::getUserCode)).entrySet().stream()
-                .max((e1, e2) -> e1.getValue().size() - e2.getValue().size()).get().getKey();
         try {
+            int topUserCode = activitiesController.getActivitiesBetweenDates(startDate, endDate).stream()
+                    .collect(Collectors.groupingBy(Activity::getUserCode))
+                    .entrySet().stream()
+                    .max(Comparator.comparingInt(e -> e.getValue().size()))
+                    .map(Map.Entry::getKey)
+                    .orElseThrow(NoSuchElementException::new);
             return userController.getUser(topUserCode);
         } catch (Exception e) {
             return null;
@@ -174,26 +179,20 @@ public class SportifyController implements Serializable {
      * @return The total distance covered by the user.
      * @throws ActivityDoesntExistException If an activity doesn't exist.
      */
-    public double getTotalDistanceUser(User user, LocalDateTime startDate, LocalDateTime endDate)
+    public double getTotalDistanceUser(int user, LocalDateTime startDate, LocalDateTime endDate)
             throws ActivityDoesntExistException {
         double totalDistance = 0;
-
-        totalDistance += user.getActivities().stream().mapToDouble(activityCode -> {
-            try {
-                Activity activity = activitiesController.getActivity(activityCode);
-                if (activity instanceof ActivityDistance) {
-                    LocalDateTime activityDate = activity.getDate();
-                    if (activityDate.isAfter(startDate) && activityDate.isBefore(endDate)) {
-                        return ((ActivityDistance) activity).getDistance();
-                    }
+        totalDistance += activitiesController.getUserActivities(user).stream().mapToDouble(activity -> {
+            if (activity instanceof ActivityDistance) {
+                LocalDateTime activityDate = activity.getDate();
+                if (activityDate.isAfter(startDate) && activityDate.isBefore(endDate)) {
+                    return ((ActivityDistance) activity).getDistance();
                 }
-            } catch (ActivityDoesntExistException e) {
-                return 0;
             }
             return 0;
         }).sum();
 
-        return totalDistance;
+        return totalDistance / 1000;
     }
 
     /**
@@ -207,26 +206,21 @@ public class SportifyController implements Serializable {
      * @return The total altitude covered by the user.
      * @throws ActivityDoesntExistException If an activity doesn't exist.
      */
-    public double getTotalAltitudeUser(User user, LocalDateTime startDate, LocalDateTime endDate)
+    public double getTotalAltitudeUser(int user, LocalDateTime startDate, LocalDateTime endDate)
             throws ActivityDoesntExistException {
         double totalAltitude = 0;
 
-        totalAltitude += user.getActivities().stream().mapToDouble(activityCode -> {
-            try {
-                Activity activity = activitiesController.getActivity(activityCode);
-                if (activity instanceof ActivityDistanceAltitude) {
-                    LocalDateTime activityDate = activity.getDate();
-                    if (activityDate.isAfter(startDate) && activityDate.isBefore(endDate)) {
-                        return ((ActivityDistanceAltitude) activity).getAltitude();
-                    }
+        totalAltitude += activitiesController.getUserActivities(user).stream().mapToDouble(activity -> {
+            if (activity instanceof ActivityDistanceAltitude) {
+                LocalDateTime activityDate = activity.getDate();
+                if (activityDate.isAfter(startDate) && activityDate.isBefore(endDate)) {
+                    return ((ActivityDistanceAltitude) activity).getAltitude();
                 }
-            } catch (ActivityDoesntExistException e) {
-                return 0;
             }
             return 0;
         }).sum();
 
-        return totalAltitude * 1000;
+        return totalAltitude;
     }
 
     /**
@@ -268,6 +262,27 @@ public class SportifyController implements Serializable {
         }
 
         return trainingPlanController.getTrainingPlan(result);
+    }
+
+    /**
+     * Retrieves a list of activities associated with a given training plan.
+     *
+     * @param tp The training plan for which to retrieve the activities.
+     * @return A list of activities associated with the provided training plan.
+     */
+    public List<Activity> showActivitiesFromTrainingPlan(TrainingPlan tp) {
+        List<Integer> activitiesCodes = tp.getPlanActivities();
+
+        List<Activity> activities = activitiesCodes.stream()
+                .map(code -> {
+                    try {
+                        return activitiesController.getActivity(code);
+                    } catch (ActivityDoesntExistException e) {
+                        return null;
+                    }
+                }).collect(Collectors.toList());
+
+        return activities;
     }
 
     /**
@@ -330,10 +345,10 @@ public class SportifyController implements Serializable {
 
             // Calculate activity parameters
             int repetitions = (int) Math.ceil(targetCaloriesPerActivity);
-            double distance = targetCaloriesPerActivity;
-            int time = (int) targetCaloriesPerActivity * 10;
+            double distance = targetCaloriesPerActivity * 10;
+            int time = (int) (Math.random() * targetCaloriesPerActivity);
             double weight = Math.random() % 70;
-            double altitude = Math.random() % 100;
+            double altitude = Math.random() % 500;
 
             ActivityType.ActivityTypeImplentation implementation = ActivityType.getImplementation(activityClass);
             ActivityType type = null;
