@@ -91,10 +91,10 @@ public class TrainingPlan implements Serializable {
 
     /**
      * Remove a plan activity from the training plan.
-     * @param index The index of the plan activity to remove.
+     * @param code The code of the plan activity to remove.
      */
-    public void removePlanActivity(int index){
-        this.activities.remove(index);
+    public void removePlanActivity(int code){
+        this.activities.remove(code);
     }
 
     /**

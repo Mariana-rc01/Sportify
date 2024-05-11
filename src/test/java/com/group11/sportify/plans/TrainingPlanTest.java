@@ -67,7 +67,7 @@ public class TrainingPlanTest {
         plan.addPlanActivity(2);
         plan.addPlanActivity(3);
         assertEquals(plan.getPlanActivities(), new ArrayList<Integer>(){{add(1); add(2); add(3);}});
-        plan.removePlanActivity(0);
+        plan.removePlanActivity(1);
         assertEquals(plan.getPlanActivities(), new ArrayList<Integer>(){{add(2); add(3);}});
     }
 }
