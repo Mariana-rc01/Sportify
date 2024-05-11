@@ -179,8 +179,7 @@ public class SportifyController implements Serializable {
      * @return The total distance covered by the user.
      * @throws ActivityDoesntExistException If an activity doesn't exist.
      */
-    public double getTotalDistanceUser(int user, LocalDateTime startDate, LocalDateTime endDate)
-            throws ActivityDoesntExistException {
+    public double getTotalDistanceUser(int user, LocalDateTime startDate, LocalDateTime endDate) {
         double totalDistance = 0;
         totalDistance += activitiesController.getUserActivities(user).stream().mapToDouble(activity -> {
             if (activity instanceof ActivityDistance) {
@@ -206,8 +205,7 @@ public class SportifyController implements Serializable {
      * @return The total altitude covered by the user.
      * @throws ActivityDoesntExistException If an activity doesn't exist.
      */
-    public double getTotalAltitudeUser(int user, LocalDateTime startDate, LocalDateTime endDate)
-            throws ActivityDoesntExistException {
+    public double getTotalAltitudeUser(int user, LocalDateTime startDate, LocalDateTime endDate) {
         double totalAltitude = 0;
 
         totalAltitude += activitiesController.getUserActivities(user).stream().mapToDouble(activity -> {

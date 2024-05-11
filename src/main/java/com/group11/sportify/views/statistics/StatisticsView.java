@@ -252,12 +252,7 @@ public class StatisticsView implements View {
                     System.out.println("An error occurred: User not found.");
                     return;
                 }
-                try {
-                    distance = sportifyApplication.getController().getTotalDistanceUser(userCode, start, end);
-                } catch (ActivityDoesntExistException e) {
-                    System.out.println("An error occurred: Activity doesn't exist.");
-                    return;
-                }
+                distance = sportifyApplication.getController().getTotalDistanceUser(userCode, start, end);
 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                 String formattedStart = start.format(formatter);
@@ -276,12 +271,7 @@ public class StatisticsView implements View {
                     System.out.println("An error occurred: User not found.");
                     return;
                 }
-                try {
-                    distance = sportifyApplication.getController().getTotalAltitudeUser(userCode, start, end);
-                } catch (ActivityDoesntExistException e) {
-                    System.out.println("An error occurred: Activity doesn't exist.");
-                    return;
-                }
+                distance = sportifyApplication.getController().getTotalAltitudeUser(userCode, start, end);
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                 String formattedStart = start.format(formatter);
                 String formattedEnd = end.format(formatter);

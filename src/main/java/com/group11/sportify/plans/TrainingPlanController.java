@@ -34,10 +34,21 @@ public class TrainingPlanController implements Serializable {
         return this.trainingPlans.values().stream().map(TrainingPlan::clone).toList();
     }
 
+    /**
+     * Gets the number of training plans stored in the Sportify application.
+     *
+     * @return The number of training plans.
+     */
     public int getNumberTrainingPlans(){
         return this.trainingPlans.size();
     }
 
+    /**
+     * Adds a new training plan to the Sportify application.
+     *
+     * @param code The code of the training plan.
+     * @param tp   The training plan object to add.
+     */
     public void addTrainingPlan(int code, TrainingPlan tp){
         this.trainingPlans.put(code, tp);
     }
