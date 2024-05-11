@@ -43,6 +43,15 @@ public class TrainingPlanController implements Serializable {
     }
 
     /**
+     * Retrieves a list of a user's training plans.
+     *
+     * @return A list containing a user's training plans.
+     */
+    public List<TrainingPlan> getUserTrainingPlans(int userCode){
+        return this.trainingPlans.values().stream().filter(tp -> tp.getUserCode() == userCode).map(TrainingPlan::clone).toList();
+    }
+
+    /**
      * Retrieves a training plan by its unique code.
      *
      * @param code The unique code of the plan to retrieve.

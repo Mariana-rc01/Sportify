@@ -10,6 +10,7 @@ import java.util.Set;
 public class TrainingPlan implements Serializable {
     private LocalDateTime startDate;
     private Set<Integer> activities;
+    private int userCode;
 
     /**
      * Default constructor for the TrainingPlan class.
@@ -22,10 +23,12 @@ public class TrainingPlan implements Serializable {
     /**
      * Constructor for the TrainingPlan class.
      * @param startDate The start date of the training plan.
+     * @param userCode The user code of the training plan.
      */
-    public TrainingPlan(LocalDateTime startDate){
+    public TrainingPlan(LocalDateTime startDate, int userCode){
         this.startDate = startDate;
         this.activities = new HashSet<>();
+        this.userCode = userCode;
     }
 
     /**
@@ -35,6 +38,7 @@ public class TrainingPlan implements Serializable {
     public TrainingPlan(TrainingPlan tp){
         this.startDate = tp.startDate;
         this.activities = new HashSet<>(tp.getPlanActivities());
+        this.userCode = tp.userCode;
     }
 
     /**
@@ -51,6 +55,14 @@ public class TrainingPlan implements Serializable {
      */
     public List<Integer> getPlanActivities(){
         return new ArrayList<>(this.activities);
+    }
+
+    /**
+     * Getter for the userCode attribute.
+     * @return The user code of the training plan.
+     */
+    public int getUserCode(){
+        return this.userCode;
     }
 
     /**
@@ -112,6 +124,7 @@ public class TrainingPlan implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof TrainingPlan plan)) return false;
-        return getStartDate().equals(plan.getStartDate()) && getPlanActivities().equals(plan.getPlanActivities());
+        return getStartDate().equals(plan.getStartDate()) && getPlanActivities().equals(plan.getPlanActivities()) 
+        && getUserCode() == plan.getUserCode();
     }
 }

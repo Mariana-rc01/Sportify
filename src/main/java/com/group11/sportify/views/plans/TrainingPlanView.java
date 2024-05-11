@@ -1,6 +1,7 @@
 package com.group11.sportify.views.plans;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,9 +9,12 @@ import java.util.Map;
 
 import com.group11.sportify.Sportify;
 import com.group11.sportify.activities.Activity;
+import com.group11.sportify.activities.ActivityController;
+import com.group11.sportify.activities.ActivityProperty;
 import com.group11.sportify.activities.ActivityType;
 import com.group11.sportify.activities.ActivityType.ActivityTypeImplentation;
 import com.group11.sportify.plans.TrainingPlan;
+import com.group11.sportify.plans.TrainingPlanController;
 import com.group11.sportify.users.User;
 import com.group11.sportify.views.View;
 import com.group11.sportify.views.components.Input;
@@ -40,7 +44,7 @@ public class TrainingPlanView implements View {
     /**
      * Shows the plan menu.
      */
-    public void planMenu() {
+    private void planMenu() {
         boolean shouldExit = false;
         while (!shouldExit) {
             System.out.println("\n====================");
@@ -49,11 +53,118 @@ public class TrainingPlanView implements View {
 
             Menu menu = new Menu(new String[] { "🆕 Create new training plan", "🪄 Generate training plan",
                     "👀 View all training plans", "🚪 Return" });
+            menu.setHandler(0, this::newTrainingPlan);
             menu.setHandler(1, this::generatePlanView);
+            menu.setHandler(2, this::viewTrainingPlans);
             shouldExit = !menu.run();
         }
     }
 
+    /**
+     * Create a new training plan.
+     */
+    private void newTrainingPlan() {
+        System.out.println("\n====================");
+        System.out.println("  New Training Plan 🍎  ");
+        System.out.println("====================");
+
+        System.out.println("Please enter the following details to create a new training plan:");
+
+        Input input = new Input();
+        System.out.println("When do you plan on executing this plan?");
+        LocalDate startDate = input.getDate();
+        TrainingPlan plan = new TrainingPlan(startDate.atTime(0, 0), this.currentUser.getCode());
+        ActivityController activityController = sportifyApplication.getController().getActivitiesController();
+
+        Boolean shouldExit = false;
+
+        while(!shouldExit){
+            List<String> options = new ArrayList<>();
+            for(ActivityType type : ActivityType.values()){
+                options.add(type.getIcon() + " " + type.getName());
+            }
+            int chosenIndex = new Menu(options.toArray(new String[0])).runSimple();
+            ActivityType chosenType = ActivityType.values()[chosenIndex];
+    
+            List<String> activityOptions = new ArrayList<>();
+            for(ActivityTypeImplentation activity : chosenType.getImplementations()){
+                activityOptions.add(activity.getIcon() + " " + activity.getName());
+            }
+    
+            int chosenActivityIndex = new Menu(activityOptions.toArray(new String[0])).runSimple();
+            ActivityTypeImplentation chosenActivity = chosenType.getImplementations()[chosenActivityIndex];
+    
+            List<Object> inputValues = new ArrayList<>();
+            for(ActivityProperty property : chosenType.getProperties()){
+                System.out.println("\n" + property.getDescription() + ": ");
+                Object value = input.getInput(property.getType());
+                inputValues.add(value);
+            }
+    
+            int addedActivityCode = -1;
+            switch (chosenType) {
+                case REPEATING:
+                    addedActivityCode = activityController.insertActivity(chosenActivity.getType(), (String) inputValues.get(0), (int) inputValues.get(1), (int) inputValues.get(2), (LocalDateTime) inputValues.get(3), (int) inputValues.get(4), currentUser.getCode()).getCode();
+                    break;
+                case REPEATING_WEIGHTS:
+                    addedActivityCode = activityController.insertActivity(chosenActivity.getType(), (String) inputValues.get(0), (int) inputValues.get(1), (int) inputValues.get(2), (LocalDateTime) inputValues.get(3), (int) inputValues.get(4), (double) inputValues.get(5), currentUser.getCode()).getCode();
+                    break;
+                case DISTANCE:
+                    addedActivityCode = activityController.insertActivity(chosenActivity.getType(), (String) inputValues.get(0), (int) inputValues.get(1), (int) inputValues.get(2), (LocalDateTime) inputValues.get(3), (double) inputValues.get(4), currentUser.getCode()).getCode();
+                    break;
+                case DISTANCE_ALTITUDE:
+                    addedActivityCode = activityController.insertActivity(chosenActivity.getType(), (String) inputValues.get(0), (int) inputValues.get(1), (int) inputValues.get(2), (LocalDateTime) inputValues.get(3), (double) inputValues.get(4), (double) inputValues.get(5), currentUser.getCode()).getCode();
+                    break;
+            }
+    
+            plan.addPlanActivity(addedActivityCode);
+    
+            Menu menu = new Menu(new String[] { "🆕 Add another activity", "🚪 Finish" });
+            int choice = menu.runSimple();
+            if(choice != 0){
+                shouldExit = true;
+            }
+        }
+
+        TrainingPlanController trainingPlanController = sportifyApplication.getController().getTrainingPlanController();
+        trainingPlanController.addTrainingPlan(trainingPlanController.getNumberTrainingPlans(), plan);
+        System.out.println("Training plan created successfully.");
+    }
+
+    /**
+     * View all training plans.
+     */
+    private void viewTrainingPlans(){
+        System.out.println("\n====================");
+        System.out.println("  View Training Plans 🍎  ");
+        System.out.println("====================");
+
+        List<TrainingPlan> plans = sportifyApplication.getController().getTrainingPlanController().getUserTrainingPlans(currentUser.getCode());
+        if (plans.isEmpty()) {
+            System.out.println("You have no training plans.");
+            return;
+        }
+
+        System.out.println("Here are your training plans:");
+        for (int i = 0; i < plans.size(); i++) {
+            TrainingPlan plan = plans.get(i);
+            System.out.println((i + 1) + ". " + plan.getStartDate().toLocalDate());
+            System.out.println("   " + plan.getPlanActivities().size() + " activities");
+            ActivityController activityController = sportifyApplication.getController().getActivitiesController();
+            for (int activityCode : plan.getPlanActivities()) {
+                try {
+                    Activity activity = activityController.getActivity(activityCode);
+                    System.out.println(activity.toString());
+                } catch (Exception e) {
+                    System.out.println("Activity not found."); 
+                }
+            }
+        }
+    } 
+
+    /**
+     * Generate a training plan.
+     */
     private void generatePlanView() {
         System.out.println("\n===========================");
         System.out.println(" Generate Training Plan 🪄");
@@ -100,29 +211,7 @@ public class TrainingPlanView implements View {
             occupiedSlots += repeatCount;
         }
 
-        // int spacing = 21 / occupiedSlots;
-        TrainingPlan plan = new TrainingPlan(startDate.atTime(9, 0));
-        /*
-         * int index = 0;
-         * while (occupiedSlots > 0) {
-         * int randomIndex = (int) (Math.random() * activities.size());
-         * 
-         * Class<? extends Activity> activity = activities.keySet().toArray(new
-         * Class[0])[randomIndex];
-         * int repeatCount = activities.get(activity);
-         * if (repeatCount == 1) {
-         * activities.remove(activity);
-         * } else {
-         * activities.put(activity, repeatCount - 1);
-         * }
-         * 
-         * int hour = index % 3 == 0 ? 9 : ((index % 3) == 1 ? 17 : 19);
-         * LocalDateTime time = startDate.plusDays(index / 3).atTime(hour, 0);
-         * System.out.println("Adding " + activity.getSimpleName() + " at " + time);
-         * index += spacing;
-         * occupiedSlots--;
-         * }
-         */
+        TrainingPlan plan = new TrainingPlan(startDate.atTime(9, 0), this.currentUser.getCode());
 
         // Create a list to save the activities based on the number of repetitions
         List<Class<? extends Activity>> activityList = new ArrayList<>();
@@ -141,6 +230,11 @@ public class TrainingPlanView implements View {
         System.out.println("\nAdded training plan with " + caloriesConsume + " calories consume.");
     }
 
+    /*
+     * Prompt the user to pick an activity.
+     * 
+     * @return The selected activity.
+     */
     private Class<? extends Activity> activityPicker() {
         System.out.println("Please select an activity:");
 
