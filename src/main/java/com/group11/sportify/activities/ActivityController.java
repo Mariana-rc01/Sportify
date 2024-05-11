@@ -51,6 +51,14 @@ public class ActivityController implements Serializable {
         throw new ActivityDoesntExistException();
     }
 
+    public int getNumberActivities(){
+        return this.activities.size();
+    }
+
+    public void insertActivity(int code, Activity activity) {
+        this.activities.put(code, activity);
+    }
+
     /**
      * Inserts a new activity with repetitions into the system.
      *
@@ -187,7 +195,7 @@ public class ActivityController implements Serializable {
 
     /**
      * Gets all activities belonging to a user.
-     * 
+     *
      * @param userCode The code of the user to get the activities from.
      * @return The list of activities belonging to the specified user.
      */

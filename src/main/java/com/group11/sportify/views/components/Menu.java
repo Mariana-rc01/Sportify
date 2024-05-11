@@ -68,4 +68,27 @@ public class Menu {
             }
         }
     }
+
+    /**
+     * Display the menu and wait for the user to choose an option.
+     * 
+     * @return The index of the chosen option.
+     */
+    public int runSimple() {
+        for(int i = 0; i < options.size(); i++){
+            System.out.println("["+ i + "] " + options.get(i));
+        }
+
+        while(true){
+            System.out.print("|> ");
+            if (scanner.hasNextInt()) {
+                int choice = scanner.nextInt();
+                if (choice >= 0 && choice < options.size()) {
+                    return choice;              
+                }
+            } else {
+                scanner.next();
+            }
+        }
+    }
 }

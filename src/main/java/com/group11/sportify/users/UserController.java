@@ -44,8 +44,8 @@ public class UserController implements Serializable {
     public User getUser(int code) throws UserDoesntExistException {
         if (this.users.containsKey(code)) {
             return this.users.get(code).clone();
-        }
-        throw new UserDoesntExistException();
+        } else
+            throw new UserDoesntExistException();
     }
 
     /**
@@ -134,8 +134,8 @@ public class UserController implements Serializable {
         if (this.users.containsKey(userCode)) {
             User user = this.users.get(userCode);
             user.addTrainingPlan(planCode);
-        }
-        throw new UserDoesntExistException();
+        } else
+            throw new UserDoesntExistException();
     }
 
     /**

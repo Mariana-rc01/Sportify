@@ -41,7 +41,7 @@ public class ActivityView implements View {
     /**
      * Shows the activity menu.
      */
-    public void activityMenu(){
+    private void activityMenu(){
         boolean shouldExit = false;
         while(!shouldExit){
             System.out.println("\n====================");
@@ -58,7 +58,7 @@ public class ActivityView implements View {
     /**
      *  New activity menu.
      */
-    public void newActivity() {
+    private void newActivity() {
         boolean shouldExit = false;
         while(!shouldExit){
             System.out.println("\n==========================");
@@ -85,7 +85,7 @@ public class ActivityView implements View {
     /**
      * View all activities.
      */
-    public void viewActivities(){
+    private void viewActivities(){
         ActivityController activityController = sportifyApplication.getController().getActivitiesController();
         List<Activity> activities = activityController.getUserActivities(currentUser.getCode());
         System.out.println("\n==========================");
@@ -100,7 +100,7 @@ public class ActivityView implements View {
      * New activity type.
      * @param type The type of the activity.
      */
-    public void newActivityType(ActivityType type) {
+    private void newActivityType(ActivityType type) {
         System.out.println("\n==========================");
         System.out.println(type.getName() + " " + type.getIcon());
         System.out.println("==========================");
@@ -126,7 +126,7 @@ public class ActivityView implements View {
      * @param type The type of the activity.
      * @param implementation The implementation of the activity.
      */
-    public void createActivity(ActivityType type, ActivityTypeImplentation implementation) {
+    private void createActivity(ActivityType type, ActivityTypeImplentation implementation) {
         System.out.println("\n==========================\n");
         System.out.println("Creating new activity of type " + implementation.getName() + ".");
         List<Object> inputValues = new ArrayList<>();
@@ -143,7 +143,6 @@ public class ActivityView implements View {
             case REPEATING:
                 activityController.insertActivity(implementation.getType(), (String) inputValues.get(0), (int) inputValues.get(1), (int) inputValues.get(2), (LocalDateTime) inputValues.get(3), (int) inputValues.get(4), currentUser.getCode());
                 break;
-        
             case REPEATING_WEIGHTS:
                 activityController.insertActivity(implementation.getType(), (String) inputValues.get(0), (int) inputValues.get(1), (int) inputValues.get(2), (LocalDateTime) inputValues.get(3), (int) inputValues.get(4), (double) inputValues.get(5), currentUser.getCode());
                 break;

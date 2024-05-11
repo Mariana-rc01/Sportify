@@ -2,29 +2,33 @@ package com.group11.sportify.plans;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 public class TrainingPlan implements Serializable {
     private LocalDateTime startDate;
-    private Map<Integer, PlanActivity> plan;
+    private Set<Integer> activities;
+    private int userCode;
 
     /**
      * Default constructor for the TrainingPlan class.
      */
     public TrainingPlan(){
         this.startDate = LocalDateTime.now();
-        this.plan = new HashMap<>();
+        this.activities = new HashSet<>();
     }
 
     /**
      * Constructor for the TrainingPlan class.
      * @param startDate The start date of the training plan.
+     * @param userCode The user code of the training plan.
      */
-    public TrainingPlan(LocalDateTime startDate){
+    public TrainingPlan(LocalDateTime startDate, int userCode){
         this.startDate = startDate;
-        this.plan = new HashMap<>();
+        this.activities = new HashSet<>();
+        this.userCode = userCode;
     }
 
     /**
@@ -33,10 +37,8 @@ public class TrainingPlan implements Serializable {
      */
     public TrainingPlan(TrainingPlan tp){
         this.startDate = tp.startDate;
-        this.plan = new HashMap<>();
-        for (Map.Entry<Integer, PlanActivity> entry : tp.plan.entrySet()) {
-            this.plan.put(entry.getKey(), entry.getValue().clone());
-        }
+        this.activities = new HashSet<>(tp.getPlanActivities());
+        this.userCode = tp.userCode;
     }
 
     /**
@@ -51,8 +53,16 @@ public class TrainingPlan implements Serializable {
      * Getter for the plan attribute.
      * @return The plan of the training plan.
      */
-    public List<PlanActivity> getPlanActivities(){
-        return this.plan.values().stream().map(PlanActivity::clone).toList();
+    public List<Integer> getPlanActivities(){
+        return new ArrayList<>(this.activities);
+    }
+
+    /**
+     * Getter for the userCode attribute.
+     * @return The user code of the training plan.
+     */
+    public int getUserCode(){
+        return this.userCode;
     }
 
     /**
@@ -67,27 +77,24 @@ public class TrainingPlan implements Serializable {
      * Setter for the plan attribute.
      * @param plan The plan of the training plan.
      */
-    public void setPlanActivities(Map<Integer, PlanActivity> plan){
-        this.plan = new HashMap<>();
-        for (Map.Entry<Integer, PlanActivity> entry : plan.entrySet()) {
-            this.plan.put(entry.getKey(), entry.getValue().clone());
-        }
+    public void setPlanActivities(HashSet<Integer> plan){
+        this.activities = new HashSet<>(plan);
     }
 
     /**
      * Add a plan activity to the training plan.
      * @param planActivity The plan activity to add.
      */
-    public void addPlanActivity(PlanActivity planActivity){
-        this.plan.put(this.plan.size(), planActivity.clone());
+    public void addPlanActivity(int activity){
+        this.activities.add(activity);
     }
 
     /**
      * Remove a plan activity from the training plan.
-     * @param index The index of the plan activity to remove.
+     * @param code The code of the plan activity to remove.
      */
-    public void removePlanActivity(int index){
-        this.plan.remove(index);
+    public void removePlanActivity(int code){
+        this.activities.remove(code);
     }
 
     /**
@@ -106,9 +113,6 @@ public class TrainingPlan implements Serializable {
         StringBuilder sb = new StringBuilder();
         sb.append("Training Plan\n");
         sb.append("Start Date: ").append(this.startDate).append("\n");
-        for (Map.Entry<Integer, PlanActivity> entry : this.plan.entrySet()) {
-            sb.append(entry.getValue().toString());
-        }
         return sb.toString();
     }
 
@@ -120,6 +124,7 @@ public class TrainingPlan implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof TrainingPlan plan)) return false;
-        return getStartDate().equals(plan.getStartDate()) && getPlanActivities().equals(plan.getPlanActivities());
+        return getStartDate().equals(plan.getStartDate()) && getPlanActivities().equals(plan.getPlanActivities()) 
+        && getUserCode() == plan.getUserCode();
     }
 }
