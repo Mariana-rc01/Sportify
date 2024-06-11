@@ -1,5 +1,7 @@
 # Sportify 🏅
 
+## Grade: 19/20 :star:
+
 Object Oriented Programming project.
 
 ## Installation 🔨
